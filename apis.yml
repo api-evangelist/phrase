@@ -2,30 +2,57 @@ aid: phrase
 name: Phrase
 description: >-
   Phrase automates, manages, and translates content for deeper customer
-  connections and faster business growth. 
+  connections and faster business growth. Their API provides access to
+  translation management, localization, and language automation.
 type: Index
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
+  - Translation
+  - Localization
+  - Content Management
   - API
 created: '2025-02-08'
-modified: '2025-02-08'
+modified: '2026-03-16'
 url: >-
   https://raw.githubusercontent.com/api-evangelist/phrase/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-  - aid: phrase:phrase
-    name: Phrase
+  - aid: phrase:phrase-strings-api
+    name: Phrase Strings API
     description: >-
-      Phrase automates, manages, and translates content for deeper customer
-      connections and faster business growth. 
-    humanURL: ' https://phrase.com/'
+      Phrase Strings API for managing translation projects, keys, and
+      translations for software localization.
+    humanURL: https://developers.phrase.com/api/
+    baseURL: https://api.phrase.com/v2
     tags:
-      - API
+      - Translation
+      - Localization
     properties:
       - type: Documentation
-        url: ' https://phrase.com/'
+        url: https://developers.phrase.com/api/
+      - type: Authentication
+        url: https://developers.phrase.com/api/#section/Authentication
+      - type: Getting Started
+        url: https://help.phrase.com/help/phrase-in-your-coding-workflow
+common:
+  - type: Portal
+    url: https://developers.phrase.com/
+  - type: Documentation
+    url: https://developers.phrase.com/api/
+  - type: Website
+    url: https://phrase.com/
+  - type: Sign Up
+    url: https://app.phrase.com/signup
+  - type: Login
+    url: https://app.phrase.com/login
+  - type: Pricing
+    url: https://phrase.com/pricing/
+  - type: Terms of Service
+    url: https://phrase.com/terms-of-service/
+  - type: Privacy Policy
+    url: https://phrase.com/privacy-policy/
 maintainers:
   - FN: Kin Lane
-    email: info@apievangelist.com
+    email: kin@apievangelist.com

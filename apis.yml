@@ -2,8 +2,10 @@ aid: phrase
 name: Phrase
 description: >-
   Phrase automates, manages, and translates content for deeper customer
-  connections and faster business growth. Their API provides access to
-  translation management, localization, and language automation.
+  connections and faster business growth. The Phrase Strings API provides
+  programmatic access to translation management, localization workflows, and
+  language automation, including projects, keys, locales, jobs, glossaries, and
+  webhooks.
 type: Index
 position: Consumer
 access: 3rd-Party
@@ -12,8 +14,10 @@ tags:
   - Content Management
   - Localization
   - Translation
+  - Strings
+  - Internationalization
 created: '2025-02-08'
-modified: '2026-03-16'
+modified: '2026-04-28'
 url: >-
   https://raw.githubusercontent.com/api-evangelist/phrase/refs/heads/main/apis.yml
 specificationVersion: '0.19'
@@ -21,13 +25,16 @@ apis:
   - aid: phrase:phrase-strings-api
     name: Phrase Strings API
     description: >-
-      Phrase Strings API for managing translation projects, keys, and
-      translations for software localization.
+      Phrase Strings API for managing software localization at scale, including
+      projects, keys, translations, locales, branches, jobs, glossaries,
+      members, comments, distributions, screenshots, and webhooks.
     humanURL: https://developers.phrase.com/api/
     baseURL: https://api.phrase.com/v2
     tags:
       - Localization
       - Translation
+      - Strings
+      - Internationalization
     properties:
       - type: Documentation
         url: https://developers.phrase.com/api/
@@ -35,6 +42,9 @@ apis:
         url: https://developers.phrase.com/api/#section/Authentication
       - type: Getting Started
         url: https://help.phrase.com/help/phrase-in-your-coding-workflow
+      - type: OpenAPI
+        url: >-
+          https://raw.githubusercontent.com/api-evangelist/phrase/refs/heads/main/openapi/phrase-strings-openapi-original.yaml
 common:
   - type: Portal
     url: https://developers.phrase.com/

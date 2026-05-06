@@ -1,0 +1,2235 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference
+  description: Phrase Strings is a translation management platform for software projects. You can collaborate on language
+    file translation with your team or order translations through our platform. The API allows you to import locale files,
+    download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your
+    account.
+  tags:
+  - Phrase
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: phrase
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference HTTP API.
+    authentication:
+      type: apikey
+      in: header
+      name: Authorization
+      value: '{{PHRASE_TOKEN}}'
+    resources:
+    - name: icu-skeleton
+      path: /icu/skeleton
+      operations:
+      - name: icu-skeleton
+        method: POST
+        description: Build ICU skeletons
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: formats
+      path: /formats
+      operations:
+      - name: formats-list
+        method: GET
+        description: List formats
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-documents
+      path: /projects/{project_id}/documents
+      operations:
+      - name: documents-list
+        method: GET
+        description: List documents
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-documents-id
+      path: /projects/{project_id}/documents/{id}
+      operations:
+      - name: document-delete
+        method: DELETE
+        description: Delete document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-report
+      path: /projects/{project_id}/report
+      operations:
+      - name: report-show
+        method: GET
+        description: Get Project Report
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-report-locales
+      path: /projects/{project_id}/report/locales
+      operations:
+      - name: report-locales-list
+        method: GET
+        description: List Locale Reports
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-figma-attachments
+      path: /projects/{project_id}/figma_attachments
+      operations:
+      - name: figma-attachments-list
+        method: GET
+        description: List Figma attachments
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: figma-attachment-create
+        method: POST
+        description: Create a Figma attachment
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-figma-attachments-id
+      path: /projects/{project_id}/figma_attachments/{id}
+      operations:
+      - name: figma-attachment-show
+        method: GET
+        description: Get a single Figma attachment
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: figma-attachment-update
+        method: PATCH
+        description: Update a Figma attachment
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: figma-attachment-delete
+        method: DELETE
+        description: Delete a Figma attachment
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-figma-attachments-figma-atta
+      path: /projects/{project_id}/figma_attachments/{figma_attachment_id}/keys
+      operations:
+      - name: figma-attachment-attach-to-key
+        method: POST
+        description: Attach the Figma attachment to a key
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-figma-attachments-figma-atta
+      path: /projects/{project_id}/figma_attachments/{figma_attachment_id}/keys/{id}
+      operations:
+      - name: figma-attachment-detach-from-key
+        method: DELETE
+        description: Detach the Figma attachment from a key
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-styleguides
+      path: /projects/{project_id}/styleguides
+      operations:
+      - name: styleguides-list
+        method: GET
+        description: List style guides
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: styleguide-create
+        method: POST
+        description: Create a style guide
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-styleguides-id
+      path: /projects/{project_id}/styleguides/{id}
+      operations:
+      - name: styleguide-show
+        method: GET
+        description: Get a single style guide
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: styleguide-update
+        method: PATCH
+        description: Update a style guide
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: styleguide-delete
+        method: DELETE
+        description: Delete a style guide
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-account-id-custom-metadata-properties
+      path: /accounts/{account_id}/custom_metadata/properties
+      operations:
+      - name: custom-metadata-properties-list
+        method: GET
+        description: List properties
+        inputParameters:
+        - name: project_id
+          in: query
+          type: string
+          description: id of project that the properties belong to
+        - name: q
+          in: query
+          type: string
+          description: query to find a property by name
+        - name: sort
+          in: query
+          type: string
+          description: 'Sort criteria. Can be one of: name, data_type, created_at.'
+        - name: order
+          in: query
+          type: string
+          description: 'Order direction. Can be one of: asc, desc.'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: custom-metadata-property-create
+        method: POST
+        description: Create a property
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-account-id-custom-metadata-properties-i
+      path: /accounts/{account_id}/custom_metadata/properties/{id}
+      operations:
+      - name: custom-metadata-property-show
+        method: GET
+        description: Get a single property
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: custom-metadata-property-update
+        method: PATCH
+        description: Update a property
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: custom-metadata-properties-delete
+        method: DELETE
+        description: Destroy property
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-account-id-invitations
+      path: /accounts/{account_id}/invitations
+      operations:
+      - name: invitations-list
+        method: GET
+        description: List invitations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: invitation-create
+        method: POST
+        description: Create a new invitation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-account-id-invitations-id
+      path: /accounts/{account_id}/invitations/{id}
+      operations:
+      - name: invitation-show
+        method: GET
+        description: Get a single invitation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: invitation-update
+        method: PATCH
+        description: Update an invitation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: invitation-delete
+        method: DELETE
+        description: Delete an invitation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-account-id-invitations-id-resend
+      path: /accounts/{account_id}/invitations/{id}/resend
+      operations:
+      - name: invitation-resend
+        method: POST
+        description: Resend an invitation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-invitations-id
+      path: /projects/{project_id}/invitations/{id}
+      operations:
+      - name: invitation-update-settings
+        method: PATCH
+        description: Update a member's invitation access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-screenshots-id-markers
+      path: /projects/{project_id}/screenshots/{id}/markers
+      operations:
+      - name: screenshot-markers-list
+        method: GET
+        description: List screenshot markers
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-screenshots-screenshot-id-ma
+      path: /projects/{project_id}/screenshots/{screenshot_id}/markers/{id}
+      operations:
+      - name: screenshot-marker-show
+        method: GET
+        description: Get a single screenshot marker
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-screenshots-screenshot-id-ma
+      path: /projects/{project_id}/screenshots/{screenshot_id}/markers
+      operations:
+      - name: screenshot-marker-create
+        method: POST
+        description: Create a screenshot marker
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: screenshot-marker-update
+        method: PATCH
+        description: Update a screenshot marker
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: screenshot-marker-delete
+        method: DELETE
+        description: Delete a screenshot marker
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-id-locales
+      path: /accounts/{id}/locales
+      operations:
+      - name: account-locales
+        method: GET
+        description: List locales used in account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-locales
+      path: /projects/{project_id}/locales
+      operations:
+      - name: locales-list
+        method: GET
+        description: List locales
+        inputParameters:
+        - name: sort_by
+          in: query
+          type: string
+          description: Sort locales. Valid options are "name_asc", "name_desc", "default_asc", "default_desc".
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: locale-create
+        method: POST
+        description: Create a locale
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-locales-id
+      path: /projects/{project_id}/locales/{id}
+      operations:
+      - name: locale-show
+        method: GET
+        description: Get a single locale
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: locale-update
+        method: PATCH
+        description: Update a locale
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: locale-delete
+        method: DELETE
+        description: Delete a locale
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-locales-id-download
+      path: /projects/{project_id}/locales/{id}/download
+      operations:
+      - name: locale-download
+        method: GET
+        description: Download a locale
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        - name: file_format
+          in: query
+          type: string
+          description: File format name. See the [format guide](https://support.phrase.com/hc/en-us/sections/6111343326364)
+            for all supported file formats.
+        - name: tags
+          in: query
+          type: string
+          description: Limit results to keys tagged with a list of comma separated tag names.
+        - name: tag
+          in: query
+          type: string
+          description: Limit download to tagged keys. This parameter is deprecated. Please use the "tags" parameter instead
+        - name: include_empty_translations
+          in: query
+          type: boolean
+          description: Indicates whether keys without translations should be included in the output as well.
+        - name: exclude_empty_zero_forms
+          in: query
+          type: boolean
+          description: Indicates whether zero forms should be included when empty in pluralized keys.
+        - name: include_translated_keys
+          in: query
+          type: boolean
+          description: Include translated keys in the locale file. Use in combination with include_empty_translations to obtain
+            only untranslated keys.
+        - name: keep_notranslate_tags
+          in: query
+          type: boolean
+          description: Indicates whether [NOTRANSLATE] tags should be kept.
+        - name: convert_emoji
+          in: query
+          type: boolean
+          description: 'This option is obsolete. Projects that were created on or after Nov 29th 2019 or that did not contain
+            emoji by then will not require this flag any longer since '
+        - name: format_options
+          in: query
+          type: object
+          description: Additional formatting and render options. See the [format guide](https://support.phrase.com/hc/en-us/sections/6111343326364)
+            for a list of options available for
+        - name: encoding
+          in: query
+          type: string
+          description: Enforces a specific encoding on the file contents. Valid options are "UTF-8", "UTF-16" and "ISO-8859-1".
+        - name: skip_unverified_translations
+          in: query
+          type: boolean
+          description: Indicates whether the locale file should skip all unverified translations. This parameter is deprecated
+            and should be replaced with `include_unverified_translat
+        - name: include_unverified_translations
+          in: query
+          type: boolean
+          description: if set to false unverified translations are excluded
+        - name: use_last_reviewed_version
+          in: query
+          type: boolean
+          description: If set to true the last reviewed version of a translation is used. This is only available if the review
+            workflow is enabled for the project.
+        - name: fallback_locale_id
+          in: query
+          type: string
+          description: If a key has no translation in the locale being downloaded, the translation in the fallback locale
+            will be used. Provide the ID of the locale that should be use
+        - name: use_locale_fallback
+          in: query
+          type: boolean
+          description: If a key has no translation in the locale being downloaded, the translation in the fallback locale
+            will be used. Fallback locale is defined in [locale's setting
+        - name: source_locale_id
+          in: query
+          type: string
+          description: Provides the source language of a corresponding job as the source language of the generated locale
+            file. This parameter will be ignored unless used in combinati
+        - name: translation_key_prefix
+          in: query
+          type: string
+          description: 'Download all translation keys, and remove the specified prefix where possible. Warning: this may create
+            duplicate key names if other keys share the same name af'
+        - name: filter_by_prefix
+          in: query
+          type: boolean
+          description: Only download translation keys containing the specified prefix, and remove the prefix from the generated
+            file.
+        - name: custom_metadata_filters
+          in: query
+          type: object
+          description: Custom metadata filters. Provide the name of the metadata field and the value to filter by. Only keys
+            with matching metadata will be included in the download.
+        - name: locale_ids
+          in: query
+          type: array
+          description: Locale IDs or locale names
+        - name: updated_since
+          in: query
+          type: string
+          description: Only include translations and keys that have been updated since the given date. The date must be in
+            ISO 8601 format (e.g., `2023-01-01T00:00:00Z`).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-locales-locale-id-downloads
+      path: /projects/{project_id}/locales/{locale_id}/downloads
+      operations:
+      - name: locale-download-create
+        method: POST
+        description: Initiate async download of a locale
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project-id-locales-locale-id-downloads-
+      path: /projects/{project_id}/locales/{locale_id}/downloads/{id}
+      operations:
+      - name: locale-download-show
+        method: GET
+        description: Show status of an async locale download
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-account-id-distributions
+      path: /accounts/{account_id}/distributions
+      operations:
+      - name: distributions-list
+        method: GET
+        description: List distributions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: distribution-create
+        method: POST
+        description: Create a distribution
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-account-id-distributions-id
+      path: /accounts/{account_id}/distributions/{id}
+      operations:
+      - name: distribution-show
+        method: GET
+        description: Get a single distribution
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: distribution-update
+        method: PATCH
+        description: Update a distribution
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: distribution-delete
+        method: DELETE
+        description: Delete a distribution
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-account-id-distributions-distribution-i
+      path: /accounts/{account_id}/distributions/{distribution_id}/releases
+      operations:
+      - name: releases-list
+        method: GET
+        description: List releases
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: release-create
+        method: POST
+        description: Create a release
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-account-id-distributions-distribution-i
+      path: /accounts/{account_id}/distributions/{distribution_id}/releases/{id}
+      operations:
+      - name: release-show
+        method: GET
+        description: Get a single release
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: release-update
+        method: PATCH
+        description: Update a release
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: release-delete
+        method: DELETE
+        description: Delete a release
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-account-id-distributions-distribution-i
+      path: /accounts/{account_id}/distributions/{distribution_id}/releases/{id}/publish
+      operations:
+      - name: release-publish
+        method: POST
+        description: Publish a release
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-account-id-distributions-distribution-i
+      path: /accounts/{account_id}/distributions/{distribution_id}/release_triggers
+      operations:
+      - name: release-triggers-list
+        method: GET
+        description: List release triggers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: release-triggers-create
+        method: POST
+        description: Create a release trigger
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-account-id-distributions-distribution-i
+      path: /accounts/{account_id}/distributions/{distribution_id}/release_triggers/{id}
+      operations:
+      - name: release-triggers-show
+        method: GET
+        description: Get a single release trigger
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: release-triggers-update
+        method: PATCH
+        description: Update a release trigger
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: release-triggers-destroy
+        method: DELETE
+        description: Delete a single release trigger
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: phrase-rest
+    description: REST adapter for Phrase Strings API Reference.
+    resources:
+    - path: /icu/skeleton
+      name: icu-skeleton
+      operations:
+      - method: POST
+        name: icu-skeleton
+        description: Build ICU skeletons
+        call: phrase.icu-skeleton
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /formats
+      name: formats-list
+      operations:
+      - method: GET
+        name: formats-list
+        description: List formats
+        call: phrase.formats-list
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/documents
+      name: documents-list
+      operations:
+      - method: GET
+        name: documents-list
+        description: List documents
+        call: phrase.documents-list
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/documents/{id}
+      name: document-delete
+      operations:
+      - method: DELETE
+        name: document-delete
+        description: Delete document
+        call: phrase.document-delete
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/report
+      name: report-show
+      operations:
+      - method: GET
+        name: report-show
+        description: Get Project Report
+        call: phrase.report-show
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/report/locales
+      name: report-locales-list
+      operations:
+      - method: GET
+        name: report-locales-list
+        description: List Locale Reports
+        call: phrase.report-locales-list
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/figma_attachments
+      name: figma-attachments-list
+      operations:
+      - method: GET
+        name: figma-attachments-list
+        description: List Figma attachments
+        call: phrase.figma-attachments-list
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/figma_attachments
+      name: figma-attachment-create
+      operations:
+      - method: POST
+        name: figma-attachment-create
+        description: Create a Figma attachment
+        call: phrase.figma-attachment-create
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/figma_attachments/{id}
+      name: figma-attachment-show
+      operations:
+      - method: GET
+        name: figma-attachment-show
+        description: Get a single Figma attachment
+        call: phrase.figma-attachment-show
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/figma_attachments/{id}
+      name: figma-attachment-update
+      operations:
+      - method: PATCH
+        name: figma-attachment-update
+        description: Update a Figma attachment
+        call: phrase.figma-attachment-update
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/figma_attachments/{id}
+      name: figma-attachment-delete
+      operations:
+      - method: DELETE
+        name: figma-attachment-delete
+        description: Delete a Figma attachment
+        call: phrase.figma-attachment-delete
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/figma_attachments/{figma_attachment_id}/keys
+      name: figma-attachment-attach-to-key
+      operations:
+      - method: POST
+        name: figma-attachment-attach-to-key
+        description: Attach the Figma attachment to a key
+        call: phrase.figma-attachment-attach-to-key
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/figma_attachments/{figma_attachment_id}/keys/{id}
+      name: figma-attachment-detach-from-key
+      operations:
+      - method: DELETE
+        name: figma-attachment-detach-from-key
+        description: Detach the Figma attachment from a key
+        call: phrase.figma-attachment-detach-from-key
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/styleguides
+      name: styleguides-list
+      operations:
+      - method: GET
+        name: styleguides-list
+        description: List style guides
+        call: phrase.styleguides-list
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/styleguides
+      name: styleguide-create
+      operations:
+      - method: POST
+        name: styleguide-create
+        description: Create a style guide
+        call: phrase.styleguide-create
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/styleguides/{id}
+      name: styleguide-show
+      operations:
+      - method: GET
+        name: styleguide-show
+        description: Get a single style guide
+        call: phrase.styleguide-show
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/styleguides/{id}
+      name: styleguide-update
+      operations:
+      - method: PATCH
+        name: styleguide-update
+        description: Update a style guide
+        call: phrase.styleguide-update
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/styleguides/{id}
+      name: styleguide-delete
+      operations:
+      - method: DELETE
+        name: styleguide-delete
+        description: Delete a style guide
+        call: phrase.styleguide-delete
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/custom_metadata/properties
+      name: custom-metadata-properties-list
+      operations:
+      - method: GET
+        name: custom-metadata-properties-list
+        description: List properties
+        call: phrase.custom-metadata-properties-list
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/custom_metadata/properties
+      name: custom-metadata-property-create
+      operations:
+      - method: POST
+        name: custom-metadata-property-create
+        description: Create a property
+        call: phrase.custom-metadata-property-create
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/custom_metadata/properties/{id}
+      name: custom-metadata-property-show
+      operations:
+      - method: GET
+        name: custom-metadata-property-show
+        description: Get a single property
+        call: phrase.custom-metadata-property-show
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/custom_metadata/properties/{id}
+      name: custom-metadata-property-update
+      operations:
+      - method: PATCH
+        name: custom-metadata-property-update
+        description: Update a property
+        call: phrase.custom-metadata-property-update
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/custom_metadata/properties/{id}
+      name: custom-metadata-properties-delete
+      operations:
+      - method: DELETE
+        name: custom-metadata-properties-delete
+        description: Destroy property
+        call: phrase.custom-metadata-properties-delete
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/invitations
+      name: invitations-list
+      operations:
+      - method: GET
+        name: invitations-list
+        description: List invitations
+        call: phrase.invitations-list
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/invitations
+      name: invitation-create
+      operations:
+      - method: POST
+        name: invitation-create
+        description: Create a new invitation
+        call: phrase.invitation-create
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/invitations/{id}
+      name: invitation-show
+      operations:
+      - method: GET
+        name: invitation-show
+        description: Get a single invitation
+        call: phrase.invitation-show
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/invitations/{id}
+      name: invitation-update
+      operations:
+      - method: PATCH
+        name: invitation-update
+        description: Update an invitation
+        call: phrase.invitation-update
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/invitations/{id}
+      name: invitation-delete
+      operations:
+      - method: DELETE
+        name: invitation-delete
+        description: Delete an invitation
+        call: phrase.invitation-delete
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/invitations/{id}/resend
+      name: invitation-resend
+      operations:
+      - method: POST
+        name: invitation-resend
+        description: Resend an invitation
+        call: phrase.invitation-resend
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/invitations/{id}
+      name: invitation-update-settings
+      operations:
+      - method: PATCH
+        name: invitation-update-settings
+        description: Update a member's invitation access
+        call: phrase.invitation-update-settings
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/screenshots/{id}/markers
+      name: screenshot-markers-list
+      operations:
+      - method: GET
+        name: screenshot-markers-list
+        description: List screenshot markers
+        call: phrase.screenshot-markers-list
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/screenshots/{screenshot_id}/markers/{id}
+      name: screenshot-marker-show
+      operations:
+      - method: GET
+        name: screenshot-marker-show
+        description: Get a single screenshot marker
+        call: phrase.screenshot-marker-show
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/screenshots/{screenshot_id}/markers
+      name: screenshot-marker-create
+      operations:
+      - method: POST
+        name: screenshot-marker-create
+        description: Create a screenshot marker
+        call: phrase.screenshot-marker-create
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/screenshots/{screenshot_id}/markers
+      name: screenshot-marker-update
+      operations:
+      - method: PATCH
+        name: screenshot-marker-update
+        description: Update a screenshot marker
+        call: phrase.screenshot-marker-update
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/screenshots/{screenshot_id}/markers
+      name: screenshot-marker-delete
+      operations:
+      - method: DELETE
+        name: screenshot-marker-delete
+        description: Delete a screenshot marker
+        call: phrase.screenshot-marker-delete
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{id}/locales
+      name: account-locales
+      operations:
+      - method: GET
+        name: account-locales
+        description: List locales used in account
+        call: phrase.account-locales
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/locales
+      name: locales-list
+      operations:
+      - method: GET
+        name: locales-list
+        description: List locales
+        call: phrase.locales-list
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/locales
+      name: locale-create
+      operations:
+      - method: POST
+        name: locale-create
+        description: Create a locale
+        call: phrase.locale-create
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/locales/{id}
+      name: locale-show
+      operations:
+      - method: GET
+        name: locale-show
+        description: Get a single locale
+        call: phrase.locale-show
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/locales/{id}
+      name: locale-update
+      operations:
+      - method: PATCH
+        name: locale-update
+        description: Update a locale
+        call: phrase.locale-update
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/locales/{id}
+      name: locale-delete
+      operations:
+      - method: DELETE
+        name: locale-delete
+        description: Delete a locale
+        call: phrase.locale-delete
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/locales/{id}/download
+      name: locale-download
+      operations:
+      - method: GET
+        name: locale-download
+        description: Download a locale
+        call: phrase.locale-download
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/locales/{locale_id}/downloads
+      name: locale-download-create
+      operations:
+      - method: POST
+        name: locale-download-create
+        description: Initiate async download of a locale
+        call: phrase.locale-download-create
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{project_id}/locales/{locale_id}/downloads/{id}
+      name: locale-download-show
+      operations:
+      - method: GET
+        name: locale-download-show
+        description: Show status of an async locale download
+        call: phrase.locale-download-show
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/distributions
+      name: distributions-list
+      operations:
+      - method: GET
+        name: distributions-list
+        description: List distributions
+        call: phrase.distributions-list
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/distributions
+      name: distribution-create
+      operations:
+      - method: POST
+        name: distribution-create
+        description: Create a distribution
+        call: phrase.distribution-create
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/distributions/{id}
+      name: distribution-show
+      operations:
+      - method: GET
+        name: distribution-show
+        description: Get a single distribution
+        call: phrase.distribution-show
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/distributions/{id}
+      name: distribution-update
+      operations:
+      - method: PATCH
+        name: distribution-update
+        description: Update a distribution
+        call: phrase.distribution-update
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/distributions/{id}
+      name: distribution-delete
+      operations:
+      - method: DELETE
+        name: distribution-delete
+        description: Delete a distribution
+        call: phrase.distribution-delete
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/distributions/{distribution_id}/releases
+      name: releases-list
+      operations:
+      - method: GET
+        name: releases-list
+        description: List releases
+        call: phrase.releases-list
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/distributions/{distribution_id}/releases
+      name: release-create
+      operations:
+      - method: POST
+        name: release-create
+        description: Create a release
+        call: phrase.release-create
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/distributions/{distribution_id}/releases/{id}
+      name: release-show
+      operations:
+      - method: GET
+        name: release-show
+        description: Get a single release
+        call: phrase.release-show
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/distributions/{distribution_id}/releases/{id}
+      name: release-update
+      operations:
+      - method: PATCH
+        name: release-update
+        description: Update a release
+        call: phrase.release-update
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/distributions/{distribution_id}/releases/{id}
+      name: release-delete
+      operations:
+      - method: DELETE
+        name: release-delete
+        description: Delete a release
+        call: phrase.release-delete
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/distributions/{distribution_id}/releases/{id}/publish
+      name: release-publish
+      operations:
+      - method: POST
+        name: release-publish
+        description: Publish a release
+        call: phrase.release-publish
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/distributions/{distribution_id}/release_triggers
+      name: release-triggers-list
+      operations:
+      - method: GET
+        name: release-triggers-list
+        description: List release triggers
+        call: phrase.release-triggers-list
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/distributions/{distribution_id}/release_triggers
+      name: release-triggers-create
+      operations:
+      - method: POST
+        name: release-triggers-create
+        description: Create a release trigger
+        call: phrase.release-triggers-create
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/distributions/{distribution_id}/release_triggers/{id}
+      name: release-triggers-show
+      operations:
+      - method: GET
+        name: release-triggers-show
+        description: Get a single release trigger
+        call: phrase.release-triggers-show
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/distributions/{distribution_id}/release_triggers/{id}
+      name: release-triggers-update
+      operations:
+      - method: PATCH
+        name: release-triggers-update
+        description: Update a release trigger
+        call: phrase.release-triggers-update
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{account_id}/distributions/{distribution_id}/release_triggers/{id}
+      name: release-triggers-destroy
+      operations:
+      - method: DELETE
+        name: release-triggers-destroy
+        description: Delete a single release trigger
+        call: phrase.release-triggers-destroy
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: phrase-mcp
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference for AI agent use.
+    tools:
+    - name: icu-skeleton
+      description: Build ICU skeletons
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.icu-skeleton
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: formats-list
+      description: List formats
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.formats-list
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: documents-list
+      description: List documents
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.documents-list
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: document-delete
+      description: Delete document
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: phrase.document-delete
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: report-show
+      description: Get Project Report
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.report-show
+      with:
+        branch: tools.branch
+      inputParameters:
+      - name: branch
+        type: string
+        description: specify the branch to use
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: report-locales-list
+      description: List Locale Reports
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.report-locales-list
+      with:
+        branch: tools.branch
+      inputParameters:
+      - name: branch
+        type: string
+        description: specify the branch to use
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: figma-attachments-list
+      description: List Figma attachments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.figma-attachments-list
+      with:
+        branch: tools.branch
+      inputParameters:
+      - name: branch
+        type: string
+        description: specify the branch to use
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: figma-attachment-create
+      description: Create a Figma attachment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.figma-attachment-create
+      with:
+        branch: tools.branch
+      inputParameters:
+      - name: branch
+        type: string
+        description: specify the branch to use
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: figma-attachment-show
+      description: Get a single Figma attachment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.figma-attachment-show
+      with:
+        branch: tools.branch
+      inputParameters:
+      - name: branch
+        type: string
+        description: specify the branch to use
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: figma-attachment-update
+      description: Update a Figma attachment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.figma-attachment-update
+      with:
+        branch: tools.branch
+      inputParameters:
+      - name: branch
+        type: string
+        description: specify the branch to use
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: figma-attachment-delete
+      description: Delete a Figma attachment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: phrase.figma-attachment-delete
+      with:
+        branch: tools.branch
+      inputParameters:
+      - name: branch
+        type: string
+        description: specify the branch to use
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: figma-attachment-attach-to-key
+      description: Attach the Figma attachment to a key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.figma-attachment-attach-to-key
+      with:
+        branch: tools.branch
+      inputParameters:
+      - name: branch
+        type: string
+        description: specify the branch to use
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: figma-attachment-detach-from-key
+      description: Detach the Figma attachment from a key
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: phrase.figma-attachment-detach-from-key
+      with:
+        branch: tools.branch
+      inputParameters:
+      - name: branch
+        type: string
+        description: specify the branch to use
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: styleguides-list
+      description: List style guides
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.styleguides-list
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: styleguide-create
+      description: Create a style guide
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.styleguide-create
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: styleguide-show
+      description: Get a single style guide
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.styleguide-show
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: styleguide-update
+      description: Update a style guide
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.styleguide-update
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: styleguide-delete
+      description: Delete a style guide
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: phrase.styleguide-delete
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: custom-metadata-properties-list
+      description: List properties
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.custom-metadata-properties-list
+      with:
+        project_id: tools.project_id
+        q: tools.q
+        sort: tools.sort
+        order: tools.order
+      inputParameters:
+      - name: project_id
+        type: string
+        description: id of project that the properties belong to
+      - name: q
+        type: string
+        description: query to find a property by name
+      - name: sort
+        type: string
+        description: 'Sort criteria. Can be one of: name, data_type, created_at.'
+      - name: order
+        type: string
+        description: 'Order direction. Can be one of: asc, desc.'
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: custom-metadata-property-create
+      description: Create a property
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.custom-metadata-property-create
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: custom-metadata-property-show
+      description: Get a single property
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.custom-metadata-property-show
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: custom-metadata-property-update
+      description: Update a property
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.custom-metadata-property-update
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: custom-metadata-properties-delete
+      description: Destroy property
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: phrase.custom-metadata-properties-delete
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: invitations-list
+      description: List invitations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.invitations-list
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: invitation-create
+      description: Create a new invitation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.invitation-create
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: invitation-show
+      description: Get a single invitation
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.invitation-show
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: invitation-update
+      description: Update an invitation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.invitation-update
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: invitation-delete
+      description: Delete an invitation
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: phrase.invitation-delete
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: invitation-resend
+      description: Resend an invitation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.invitation-resend
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: invitation-update-settings
+      description: Update a member's invitation access
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.invitation-update-settings
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: screenshot-markers-list
+      description: List screenshot markers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.screenshot-markers-list
+      with:
+        branch: tools.branch
+      inputParameters:
+      - name: branch
+        type: string
+        description: specify the branch to use
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: screenshot-marker-show
+      description: Get a single screenshot marker
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.screenshot-marker-show
+      with:
+        branch: tools.branch
+      inputParameters:
+      - name: branch
+        type: string
+        description: specify the branch to use
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: screenshot-marker-create
+      description: Create a screenshot marker
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.screenshot-marker-create
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: screenshot-marker-update
+      description: Update a screenshot marker
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.screenshot-marker-update
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: screenshot-marker-delete
+      description: Delete a screenshot marker
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: phrase.screenshot-marker-delete
+      with:
+        branch: tools.branch
+      inputParameters:
+      - name: branch
+        type: string
+        description: specify the branch to use
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: account-locales
+      description: List locales used in account
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.account-locales
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: locales-list
+      description: List locales
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.locales-list
+      with:
+        sort_by: tools.sort_by
+        branch: tools.branch
+      inputParameters:
+      - name: sort_by
+        type: string
+        description: Sort locales. Valid options are "name_asc", "name_desc", "default_asc", "default_desc".
+      - name: branch
+        type: string
+        description: specify the branch to use
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: locale-create
+      description: Create a locale
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.locale-create
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: locale-show
+      description: Get a single locale
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.locale-show
+      with:
+        branch: tools.branch
+      inputParameters:
+      - name: branch
+        type: string
+        description: specify the branch to use
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: locale-update
+      description: Update a locale
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.locale-update
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: locale-delete
+      description: Delete a locale
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: phrase.locale-delete
+      with:
+        branch: tools.branch
+      inputParameters:
+      - name: branch
+        type: string
+        description: specify the branch to use
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: locale-download
+      description: Download a locale
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.locale-download
+      with:
+        branch: tools.branch
+        file_format: tools.file_format
+        tags: tools.tags
+        tag: tools.tag
+        include_empty_translations: tools.include_empty_translations
+        exclude_empty_zero_forms: tools.exclude_empty_zero_forms
+        include_translated_keys: tools.include_translated_keys
+        keep_notranslate_tags: tools.keep_notranslate_tags
+        convert_emoji: tools.convert_emoji
+        format_options: tools.format_options
+        encoding: tools.encoding
+        skip_unverified_translations: tools.skip_unverified_translations
+        include_unverified_translations: tools.include_unverified_translations
+        use_last_reviewed_version: tools.use_last_reviewed_version
+        fallback_locale_id: tools.fallback_locale_id
+        use_locale_fallback: tools.use_locale_fallback
+        source_locale_id: tools.source_locale_id
+        translation_key_prefix: tools.translation_key_prefix
+        filter_by_prefix: tools.filter_by_prefix
+        custom_metadata_filters: tools.custom_metadata_filters
+        locale_ids: tools.locale_ids
+        updated_since: tools.updated_since
+      inputParameters:
+      - name: branch
+        type: string
+        description: specify the branch to use
+      - name: file_format
+        type: string
+        description: File format name. See the [format guide](https://support.phrase.com/hc/en-us/sections/6111343326364)
+          for all supported file formats.
+      - name: tags
+        type: string
+        description: Limit results to keys tagged with a list of comma separated tag names.
+      - name: tag
+        type: string
+        description: Limit download to tagged keys. This parameter is deprecated. Please use the "tags" parameter instead
+      - name: include_empty_translations
+        type: boolean
+        description: Indicates whether keys without translations should be included in the output as well.
+      - name: exclude_empty_zero_forms
+        type: boolean
+        description: Indicates whether zero forms should be included when empty in pluralized keys.
+      - name: include_translated_keys
+        type: boolean
+        description: Include translated keys in the locale file. Use in combination with include_empty_translations to obtain
+          only untranslated keys.
+      - name: keep_notranslate_tags
+        type: boolean
+        description: Indicates whether [NOTRANSLATE] tags should be kept.
+      - name: convert_emoji
+        type: boolean
+        description: 'This option is obsolete. Projects that were created on or after Nov 29th 2019 or that did not contain
+          emoji by then will not require this flag any longer since '
+      - name: format_options
+        type: object
+        description: Additional formatting and render options. See the [format guide](https://support.phrase.com/hc/en-us/sections/6111343326364)
+          for a list of options available for
+      - name: encoding
+        type: string
+        description: Enforces a specific encoding on the file contents. Valid options are "UTF-8", "UTF-16" and "ISO-8859-1".
+      - name: skip_unverified_translations
+        type: boolean
+        description: Indicates whether the locale file should skip all unverified translations. This parameter is deprecated
+          and should be replaced with `include_unverified_translat
+      - name: include_unverified_translations
+        type: boolean
+        description: if set to false unverified translations are excluded
+      - name: use_last_reviewed_version
+        type: boolean
+        description: If set to true the last reviewed version of a translation is used. This is only available if the review
+          workflow is enabled for the project.
+      - name: fallback_locale_id
+        type: string
+        description: If a key has no translation in the locale being downloaded, the translation in the fallback locale will
+          be used. Provide the ID of the locale that should be use
+      - name: use_locale_fallback
+        type: boolean
+        description: If a key has no translation in the locale being downloaded, the translation in the fallback locale will
+          be used. Fallback locale is defined in [locale's setting
+      - name: source_locale_id
+        type: string
+        description: Provides the source language of a corresponding job as the source language of the generated locale file.
+          This parameter will be ignored unless used in combinati
+      - name: translation_key_prefix
+        type: string
+        description: 'Download all translation keys, and remove the specified prefix where possible. Warning: this may create
+          duplicate key names if other keys share the same name af'
+      - name: filter_by_prefix
+        type: boolean
+        description: Only download translation keys containing the specified prefix, and remove the prefix from the generated
+          file.
+      - name: custom_metadata_filters
+        type: object
+        description: Custom metadata filters. Provide the name of the metadata field and the value to filter by. Only keys
+          with matching metadata will be included in the download.
+      - name: locale_ids
+        type: array
+        description: Locale IDs or locale names
+      - name: updated_since
+        type: string
+        description: Only include translations and keys that have been updated since the given date. The date must be in ISO
+          8601 format (e.g., `2023-01-01T00:00:00Z`).
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: locale-download-create
+      description: Initiate async download of a locale
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.locale-download-create
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: locale-download-show
+      description: Show status of an async locale download
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.locale-download-show
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: distributions-list
+      description: List distributions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.distributions-list
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: distribution-create
+      description: Create a distribution
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.distribution-create
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: distribution-show
+      description: Get a single distribution
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.distribution-show
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: distribution-update
+      description: Update a distribution
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.distribution-update
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: distribution-delete
+      description: Delete a distribution
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: phrase.distribution-delete
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: releases-list
+      description: List releases
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.releases-list
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: release-create
+      description: Create a release
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.release-create
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: release-show
+      description: Get a single release
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.release-show
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: release-update
+      description: Update a release
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.release-update
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: release-delete
+      description: Delete a release
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: phrase.release-delete
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: release-publish
+      description: Publish a release
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.release-publish
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: release-triggers-list
+      description: List release triggers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.release-triggers-list
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: release-triggers-create
+      description: Create a release trigger
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.release-triggers-create
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: release-triggers-show
+      description: Get a single release trigger
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: phrase.release-triggers-show
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: release-triggers-update
+      description: Update a release trigger
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: phrase.release-triggers-update
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: release-triggers-destroy
+      description: Delete a single release trigger
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: phrase.release-triggers-destroy
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    PHRASE_TOKEN: PHRASE_TOKEN

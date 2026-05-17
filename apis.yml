@@ -40,7 +40,7 @@ apis:
         url: https://developers.phrase.com/api/
       - type: Authentication
         url: https://developers.phrase.com/api/#section/Authentication
-      - type: Getting Started
+      - type: GettingStarted
         url: https://help.phrase.com/help/phrase-in-your-coding-workflow
       - type: OpenAPI
         url: >-
@@ -52,15 +52,15 @@ common:
     url: https://developers.phrase.com/api/
   - type: Website
     url: https://phrase.com/
-  - type: Sign Up
+  - type: SignUp
     url: https://app.phrase.com/signup
   - type: Login
     url: https://app.phrase.com/login
   - type: Pricing
     url: https://phrase.com/pricing/
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://phrase.com/terms-of-service/
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://phrase.com/privacy-policy/
 maintainers:
   - FN: Kin Lane

@@ -1,0 +1,232 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Screenshots
+  description: 'Phrase Strings API Reference — Screenshots. 5 operations. Lead operation: List screenshots. Self-contained
+    Naftiko capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Screenshots
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-screenshots
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Screenshots business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-project_id-screenshots
+      path: /projects/{project_id}/screenshots
+      operations:
+      - name: screenshotslist
+        method: GET
+        description: List screenshots
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        - name: key_id
+          in: query
+          type: string
+          description: filter by key
+      - name: screenshotcreate
+        method: POST
+        description: Create a screenshot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-project_id-screenshots-id
+      path: /projects/{project_id}/screenshots/{id}
+      operations:
+      - name: screenshotshow
+        method: GET
+        description: Get a single screenshot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+      - name: screenshotupdate
+        method: PATCH
+        description: Update a screenshot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: screenshotdelete
+        method: DELETE
+        description: Delete a screenshot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-screenshots-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Screenshots. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/projects/{project-id}/screenshots
+      name: projects-project-id-screenshots
+      description: REST surface for projects-project_id-screenshots.
+      operations:
+      - method: GET
+        name: screenshotslist
+        description: List screenshots
+        call: strings-screenshots.screenshotslist
+        with:
+          branch: rest.branch
+          key_id: rest.key_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: screenshotcreate
+        description: Create a screenshot
+        call: strings-screenshots.screenshotcreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/screenshots/{id}
+      name: projects-project-id-screenshots-id
+      description: REST surface for projects-project_id-screenshots-id.
+      operations:
+      - method: GET
+        name: screenshotshow
+        description: Get a single screenshot
+        call: strings-screenshots.screenshotshow
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: screenshotupdate
+        description: Update a screenshot
+        call: strings-screenshots.screenshotupdate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: screenshotdelete
+        description: Delete a screenshot
+        call: strings-screenshots.screenshotdelete
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-screenshots-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Screenshots. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-screenshots
+      description: List screenshots
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-screenshots.screenshotslist
+      with:
+        branch: tools.branch
+        key_id: tools.key_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-screenshot
+      description: Create a screenshot
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-screenshots.screenshotcreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-single-screenshot
+      description: Get a single screenshot
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-screenshots.screenshotshow
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-screenshot
+      description: Update a screenshot
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-screenshots.screenshotupdate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-screenshot
+      description: Delete a screenshot
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-screenshots.screenshotdelete
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.

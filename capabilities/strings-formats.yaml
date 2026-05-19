@@ -1,0 +1,72 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Formats
+  description: 'Phrase Strings API Reference — Formats. 1 operations. Lead operation: List formats. Self-contained Naftiko
+    capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Formats
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-formats
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Formats business capability. Self-contained, no shared references.
+    resources:
+    - name: formats
+      path: /formats
+      operations:
+      - name: formatslist
+        method: GET
+        description: List formats
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-formats-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Formats. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/formats
+      name: formats
+      description: REST surface for formats.
+      operations:
+      - method: GET
+        name: formatslist
+        description: List formats
+        call: strings-formats.formatslist
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-formats-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Formats. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-formats
+      description: List formats
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-formats.formatslist
+      outputParameters:
+      - type: object
+        mapping: $.

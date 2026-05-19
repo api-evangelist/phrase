@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Reports
+  description: 'Phrase Strings API Reference — Reports. 2 operations. Lead operation: Get Project Report. Self-contained Naftiko
+    capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Reports
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-reports
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Reports business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-project_id-report
+      path: /projects/{project_id}/report
+      operations:
+      - name: reportshow
+        method: GET
+        description: Get Project Report
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    - name: projects-project_id-report-locales
+      path: /projects/{project_id}/report/locales
+      operations:
+      - name: reportlocaleslist
+        method: GET
+        description: List Locale Reports
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-reports-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Reports. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/projects/{project-id}/report
+      name: projects-project-id-report
+      description: REST surface for projects-project_id-report.
+      operations:
+      - method: GET
+        name: reportshow
+        description: Get Project Report
+        call: strings-reports.reportshow
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/report/locales
+      name: projects-project-id-report-locales
+      description: REST surface for projects-project_id-report-locales.
+      operations:
+      - method: GET
+        name: reportlocaleslist
+        description: List Locale Reports
+        call: strings-reports.reportlocaleslist
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-reports-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Reports. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-project-report
+      description: Get Project Report
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-reports.reportshow
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-locale-reports
+      description: List Locale Reports
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-reports.reportlocaleslist
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.

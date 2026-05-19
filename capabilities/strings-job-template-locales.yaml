@@ -1,0 +1,226 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Job Template Locales
+  description: 'Phrase Strings API Reference — Job Template Locales. 5 operations. Lead operation: List job template locales.
+    Self-contained Naftiko capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Job Template Locales
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-job-template-locales
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Job Template Locales business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-project_id-job_templates-job_template_id-locales
+      path: /projects/{project_id}/job_templates/{job_template_id}/locales
+      operations:
+      - name: jobtemplatelocaleslist
+        method: GET
+        description: List job template locales
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+      - name: jobtemplatelocalescreate
+        method: POST
+        description: Create a job template locale
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-project_id-job_templates-job_template_id-locales-job_template_locale_id
+      path: /projects/{project_id}/job_templates/{job_template_id}/locales/{job_template_locale_id}
+      operations:
+      - name: jobtemplatelocaleshow
+        method: GET
+        description: Get a single job template locale
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+      - name: jobtemplatelocaleupdate
+        method: PATCH
+        description: Update a job template locale
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: jobtemplatelocaledelete
+        method: DELETE
+        description: Delete a job template locale
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-job-template-locales-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Job Template Locales. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/projects/{project-id}/job-templates/{job-template-id}/locales
+      name: projects-project-id-job-templates-job-template-id-locales
+      description: REST surface for projects-project_id-job_templates-job_template_id-locales.
+      operations:
+      - method: GET
+        name: jobtemplatelocaleslist
+        description: List job template locales
+        call: strings-job-template-locales.jobtemplatelocaleslist
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: jobtemplatelocalescreate
+        description: Create a job template locale
+        call: strings-job-template-locales.jobtemplatelocalescreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/job-templates/{job-template-id}/locales/{job-template-locale-id}
+      name: projects-project-id-job-templates-job-template-id-locales-job-template-locale-id
+      description: REST surface for projects-project_id-job_templates-job_template_id-locales-job_template_locale_id.
+      operations:
+      - method: GET
+        name: jobtemplatelocaleshow
+        description: Get a single job template locale
+        call: strings-job-template-locales.jobtemplatelocaleshow
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: jobtemplatelocaleupdate
+        description: Update a job template locale
+        call: strings-job-template-locales.jobtemplatelocaleupdate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: jobtemplatelocaledelete
+        description: Delete a job template locale
+        call: strings-job-template-locales.jobtemplatelocaledelete
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-job-template-locales-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Job Template Locales. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-job-template-locales
+      description: List job template locales
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-job-template-locales.jobtemplatelocaleslist
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-job-template-locale
+      description: Create a job template locale
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-job-template-locales.jobtemplatelocalescreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-single-job-template-locale
+      description: Get a single job template locale
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-job-template-locales.jobtemplatelocaleshow
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-job-template-locale
+      description: Update a job template locale
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-job-template-locales.jobtemplatelocaleupdate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-job-template-locale
+      description: Delete a job template locale
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-job-template-locales.jobtemplatelocaledelete
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.

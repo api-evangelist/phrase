@@ -1,0 +1,525 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Jobs
+  description: 'Phrase Strings API Reference — Jobs. 13 operations. Lead operation: List account jobs. Self-contained Naftiko
+    capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Jobs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-jobs
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Jobs business capability. Self-contained, no shared references.
+    resources:
+    - name: accounts-account_id-jobs
+      path: /accounts/{account_id}/jobs
+      operations:
+      - name: jobsbyaccount
+        method: GET
+        description: List account jobs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project_id-jobs
+      path: /projects/{project_id}/jobs
+      operations:
+      - name: jobslist
+        method: GET
+        description: List jobs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: jobcreate
+        method: POST
+        description: Create a job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-project_id-jobs-id
+      path: /projects/{project_id}/jobs/{id}
+      operations:
+      - name: jobshow
+        method: GET
+        description: Get a single job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: jobupdate
+        method: PATCH
+        description: Update a job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: jobdelete
+        method: DELETE
+        description: Delete a job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    - name: projects-project_id-jobs-id-complete
+      path: /projects/{project_id}/jobs/{id}/complete
+      operations:
+      - name: jobcomplete
+        method: POST
+        description: Complete a job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-project_id-jobs-id-keys
+      path: /projects/{project_id}/jobs/{id}/keys
+      operations:
+      - name: jobkeyscreate
+        method: POST
+        description: Add keys to job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: jobkeysdelete
+        method: DELETE
+        description: Remove keys from job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-project_id-jobs-id-lock
+      path: /projects/{project_id}/jobs/{id}/lock
+      operations:
+      - name: joblock
+        method: POST
+        description: Lock a job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    - name: projects-project_id-jobs-id-reopen
+      path: /projects/{project_id}/jobs/{id}/reopen
+      operations:
+      - name: jobreopen
+        method: POST
+        description: Reopen a job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-project_id-jobs-id-start
+      path: /projects/{project_id}/jobs/{id}/start
+      operations:
+      - name: jobstart
+        method: POST
+        description: Start a job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-project_id-jobs-id-unlock
+      path: /projects/{project_id}/jobs/{id}/unlock
+      operations:
+      - name: jobunlock
+        method: POST
+        description: Unlock a job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-jobs-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Jobs. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/accounts/{account-id}/jobs
+      name: accounts-account-id-jobs
+      description: REST surface for accounts-account_id-jobs.
+      operations:
+      - method: GET
+        name: jobsbyaccount
+        description: List account jobs
+        call: strings-jobs.jobsbyaccount
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/jobs
+      name: projects-project-id-jobs
+      description: REST surface for projects-project_id-jobs.
+      operations:
+      - method: GET
+        name: jobslist
+        description: List jobs
+        call: strings-jobs.jobslist
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: jobcreate
+        description: Create a job
+        call: strings-jobs.jobcreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/jobs/{id}
+      name: projects-project-id-jobs-id
+      description: REST surface for projects-project_id-jobs-id.
+      operations:
+      - method: GET
+        name: jobshow
+        description: Get a single job
+        call: strings-jobs.jobshow
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: jobupdate
+        description: Update a job
+        call: strings-jobs.jobupdate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: jobdelete
+        description: Delete a job
+        call: strings-jobs.jobdelete
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/jobs/{id}/complete
+      name: projects-project-id-jobs-id-complete
+      description: REST surface for projects-project_id-jobs-id-complete.
+      operations:
+      - method: POST
+        name: jobcomplete
+        description: Complete a job
+        call: strings-jobs.jobcomplete
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/jobs/{id}/keys
+      name: projects-project-id-jobs-id-keys
+      description: REST surface for projects-project_id-jobs-id-keys.
+      operations:
+      - method: POST
+        name: jobkeyscreate
+        description: Add keys to job
+        call: strings-jobs.jobkeyscreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: jobkeysdelete
+        description: Remove keys from job
+        call: strings-jobs.jobkeysdelete
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/jobs/{id}/lock
+      name: projects-project-id-jobs-id-lock
+      description: REST surface for projects-project_id-jobs-id-lock.
+      operations:
+      - method: POST
+        name: joblock
+        description: Lock a job
+        call: strings-jobs.joblock
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/jobs/{id}/reopen
+      name: projects-project-id-jobs-id-reopen
+      description: REST surface for projects-project_id-jobs-id-reopen.
+      operations:
+      - method: POST
+        name: jobreopen
+        description: Reopen a job
+        call: strings-jobs.jobreopen
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/jobs/{id}/start
+      name: projects-project-id-jobs-id-start
+      description: REST surface for projects-project_id-jobs-id-start.
+      operations:
+      - method: POST
+        name: jobstart
+        description: Start a job
+        call: strings-jobs.jobstart
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/jobs/{id}/unlock
+      name: projects-project-id-jobs-id-unlock
+      description: REST surface for projects-project_id-jobs-id-unlock.
+      operations:
+      - method: POST
+        name: jobunlock
+        description: Unlock a job
+        call: strings-jobs.jobunlock
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-jobs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Jobs. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-account-jobs
+      description: List account jobs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-jobs.jobsbyaccount
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-jobs
+      description: List jobs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-jobs.jobslist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-job
+      description: Create a job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-jobs.jobcreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-single-job
+      description: Get a single job
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-jobs.jobshow
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-job
+      description: Update a job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-jobs.jobupdate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-job
+      description: Delete a job
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-jobs.jobdelete
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: complete-job
+      description: Complete a job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-jobs.jobcomplete
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-keys-job
+      description: Add keys to job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-jobs.jobkeyscreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-keys-job
+      description: Remove keys from job
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-jobs.jobkeysdelete
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lock-job
+      description: Lock a job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-jobs.joblock
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: reopen-job
+      description: Reopen a job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-jobs.jobreopen
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: start-job
+      description: Start a job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-jobs.jobstart
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: unlock-job
+      description: Unlock a job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-jobs.jobunlock
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.

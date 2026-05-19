@@ -1,0 +1,233 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Screenshot Markers
+  description: 'Phrase Strings API Reference — Screenshot Markers. 5 operations. Lead operation: List screenshot markers.
+    Self-contained Naftiko capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Screenshot Markers
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-screenshot-markers
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Screenshot Markers business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-project_id-screenshots-id-markers
+      path: /projects/{project_id}/screenshots/{id}/markers
+      operations:
+      - name: screenshotmarkerslist
+        method: GET
+        description: List screenshot markers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    - name: projects-project_id-screenshots-screenshot_id-markers
+      path: /projects/{project_id}/screenshots/{screenshot_id}/markers
+      operations:
+      - name: screenshotmarkercreate
+        method: POST
+        description: Create a screenshot marker
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: screenshotmarkerupdate
+        method: PATCH
+        description: Update a screenshot marker
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: screenshotmarkerdelete
+        method: DELETE
+        description: Delete a screenshot marker
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    - name: projects-project_id-screenshots-screenshot_id-markers-id
+      path: /projects/{project_id}/screenshots/{screenshot_id}/markers/{id}
+      operations:
+      - name: screenshotmarkershow
+        method: GET
+        description: Get a single screenshot marker
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-screenshot-markers-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Screenshot Markers. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/projects/{project-id}/screenshots/{id}/markers
+      name: projects-project-id-screenshots-id-markers
+      description: REST surface for projects-project_id-screenshots-id-markers.
+      operations:
+      - method: GET
+        name: screenshotmarkerslist
+        description: List screenshot markers
+        call: strings-screenshot-markers.screenshotmarkerslist
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/screenshots/{screenshot-id}/markers
+      name: projects-project-id-screenshots-screenshot-id-markers
+      description: REST surface for projects-project_id-screenshots-screenshot_id-markers.
+      operations:
+      - method: POST
+        name: screenshotmarkercreate
+        description: Create a screenshot marker
+        call: strings-screenshot-markers.screenshotmarkercreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: screenshotmarkerupdate
+        description: Update a screenshot marker
+        call: strings-screenshot-markers.screenshotmarkerupdate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: screenshotmarkerdelete
+        description: Delete a screenshot marker
+        call: strings-screenshot-markers.screenshotmarkerdelete
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/screenshots/{screenshot-id}/markers/{id}
+      name: projects-project-id-screenshots-screenshot-id-markers-id
+      description: REST surface for projects-project_id-screenshots-screenshot_id-markers-id.
+      operations:
+      - method: GET
+        name: screenshotmarkershow
+        description: Get a single screenshot marker
+        call: strings-screenshot-markers.screenshotmarkershow
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-screenshot-markers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Screenshot Markers. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-screenshot-markers
+      description: List screenshot markers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-screenshot-markers.screenshotmarkerslist
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-screenshot-marker
+      description: Create a screenshot marker
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-screenshot-markers.screenshotmarkercreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-screenshot-marker
+      description: Update a screenshot marker
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-screenshot-markers.screenshotmarkerupdate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-screenshot-marker
+      description: Delete a screenshot marker
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-screenshot-markers.screenshotmarkerdelete
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-single-screenshot-marker
+      description: Get a single screenshot marker
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-screenshot-markers.screenshotmarkershow
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.

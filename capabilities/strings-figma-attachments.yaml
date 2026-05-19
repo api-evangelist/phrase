@@ -1,0 +1,238 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Figma attachments
+  description: 'Phrase Strings API Reference — Figma attachments. 5 operations. Lead operation: List Figma attachments. Self-contained
+    Naftiko capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Figma attachments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-figma-attachments
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Figma attachments business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-project_id-figma_attachments
+      path: /projects/{project_id}/figma_attachments
+      operations:
+      - name: figmaattachmentslist
+        method: GET
+        description: List Figma attachments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+      - name: figmaattachmentcreate
+        method: POST
+        description: Create a Figma attachment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-project_id-figma_attachments-id
+      path: /projects/{project_id}/figma_attachments/{id}
+      operations:
+      - name: figmaattachmentshow
+        method: GET
+        description: Get a single Figma attachment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+      - name: figmaattachmentupdate
+        method: PATCH
+        description: Update a Figma attachment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: figmaattachmentdelete
+        method: DELETE
+        description: Delete a Figma attachment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-figma-attachments-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Figma attachments. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/projects/{project-id}/figma-attachments
+      name: projects-project-id-figma-attachments
+      description: REST surface for projects-project_id-figma_attachments.
+      operations:
+      - method: GET
+        name: figmaattachmentslist
+        description: List Figma attachments
+        call: strings-figma-attachments.figmaattachmentslist
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: figmaattachmentcreate
+        description: Create a Figma attachment
+        call: strings-figma-attachments.figmaattachmentcreate
+        with:
+          branch: rest.branch
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/figma-attachments/{id}
+      name: projects-project-id-figma-attachments-id
+      description: REST surface for projects-project_id-figma_attachments-id.
+      operations:
+      - method: GET
+        name: figmaattachmentshow
+        description: Get a single Figma attachment
+        call: strings-figma-attachments.figmaattachmentshow
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: figmaattachmentupdate
+        description: Update a Figma attachment
+        call: strings-figma-attachments.figmaattachmentupdate
+        with:
+          branch: rest.branch
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: figmaattachmentdelete
+        description: Delete a Figma attachment
+        call: strings-figma-attachments.figmaattachmentdelete
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-figma-attachments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Figma attachments. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-figma-attachments
+      description: List Figma attachments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-figma-attachments.figmaattachmentslist
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-figma-attachment
+      description: Create a Figma attachment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-figma-attachments.figmaattachmentcreate
+      with:
+        branch: tools.branch
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-single-figma-attachment
+      description: Get a single Figma attachment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-figma-attachments.figmaattachmentshow
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-figma-attachment
+      description: Update a Figma attachment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-figma-attachments.figmaattachmentupdate
+      with:
+        branch: tools.branch
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-figma-attachment
+      description: Delete a Figma attachment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-figma-attachments.figmaattachmentdelete
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.

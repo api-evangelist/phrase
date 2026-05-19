@@ -1,0 +1,272 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Job Annotations
+  description: 'Phrase Strings API Reference — Job Annotations. 6 operations. Lead operation: List job annotations. Self-contained
+    Naftiko capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Job Annotations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-job-annotations
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Job Annotations business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-project_id-jobs-job_id-annotations
+      path: /projects/{project_id}/jobs/{job_id}/annotations
+      operations:
+      - name: jobannotationslist
+        method: GET
+        description: List job annotations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project_id-jobs-job_id-annotations-id
+      path: /projects/{project_id}/jobs/{job_id}/annotations/{id}
+      operations:
+      - name: jobannotationupdate
+        method: PATCH
+        description: Create/Update a job annotation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Name of the annotation to set or update.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: jobannotationdelete
+        method: DELETE
+        description: Delete a job annotation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Name of the annotation to delete.
+          required: true
+    - name: projects-project_id-jobs-job_id-locales-job_locale_id-annotations
+      path: /projects/{project_id}/jobs/{job_id}/locales/{job_locale_id}/annotations
+      operations:
+      - name: joblocaleannotationslist
+        method: GET
+        description: List job locale annotations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project_id-jobs-job_id-locales-job_locale_id-annotations-id
+      path: /projects/{project_id}/jobs/{job_id}/locales/{job_locale_id}/annotations/{id}
+      operations:
+      - name: joblocaleannotationupdate
+        method: PATCH
+        description: Create/Update a job locale annotation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Name of the annotation to set or update.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: joblocaleannotationdelete
+        method: DELETE
+        description: Delete a job locale annotation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Name of the annotation to delete.
+          required: true
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-job-annotations-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Job Annotations. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/projects/{project-id}/jobs/{job-id}/annotations
+      name: projects-project-id-jobs-job-id-annotations
+      description: REST surface for projects-project_id-jobs-job_id-annotations.
+      operations:
+      - method: GET
+        name: jobannotationslist
+        description: List job annotations
+        call: strings-job-annotations.jobannotationslist
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/jobs/{job-id}/annotations/{id}
+      name: projects-project-id-jobs-job-id-annotations-id
+      description: REST surface for projects-project_id-jobs-job_id-annotations-id.
+      operations:
+      - method: PATCH
+        name: jobannotationupdate
+        description: Create/Update a job annotation
+        call: strings-job-annotations.jobannotationupdate
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: jobannotationdelete
+        description: Delete a job annotation
+        call: strings-job-annotations.jobannotationdelete
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/jobs/{job-id}/locales/{job-locale-id}/annotations
+      name: projects-project-id-jobs-job-id-locales-job-locale-id-annotations
+      description: REST surface for projects-project_id-jobs-job_id-locales-job_locale_id-annotations.
+      operations:
+      - method: GET
+        name: joblocaleannotationslist
+        description: List job locale annotations
+        call: strings-job-annotations.joblocaleannotationslist
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/jobs/{job-id}/locales/{job-locale-id}/annotations/{id}
+      name: projects-project-id-jobs-job-id-locales-job-locale-id-annotations-id
+      description: REST surface for projects-project_id-jobs-job_id-locales-job_locale_id-annotations-id.
+      operations:
+      - method: PATCH
+        name: joblocaleannotationupdate
+        description: Create/Update a job locale annotation
+        call: strings-job-annotations.joblocaleannotationupdate
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: joblocaleannotationdelete
+        description: Delete a job locale annotation
+        call: strings-job-annotations.joblocaleannotationdelete
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-job-annotations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Job Annotations. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-job-annotations
+      description: List job annotations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-job-annotations.jobannotationslist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-update-job-annotation
+      description: Create/Update a job annotation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-job-annotations.jobannotationupdate
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-job-annotation
+      description: Delete a job annotation
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-job-annotations.jobannotationdelete
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-job-locale-annotations
+      description: List job locale annotations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-job-annotations.joblocaleannotationslist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-update-job-locale-annotation
+      description: Create/Update a job locale annotation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-job-annotations.joblocaleannotationupdate
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-job-locale-annotation
+      description: Delete a job locale annotation
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-job-annotations.joblocaleannotationdelete
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

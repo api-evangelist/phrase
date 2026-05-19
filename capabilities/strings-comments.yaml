@@ -1,0 +1,360 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Comments
+  description: 'Phrase Strings API Reference — Comments. 8 operations. Lead operation: List comments. Self-contained Naftiko
+    capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Comments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-comments
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Comments business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-project_id-keys-key_id-comments
+      path: /projects/{project_id}/keys/{key_id}/comments
+      operations:
+      - name: commentslist
+        method: GET
+        description: List comments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+        - name: query
+          in: query
+          type: string
+          description: Search query for comment messages
+        - name: locale_ids
+          in: query
+          type: array
+          description: Search comments by their assigned locales
+        - name: filters
+          in: query
+          type: array
+          description: Specify the filter for the comments
+        - name: order
+          in: query
+          type: string
+          description: 'Order direction. Can be one of: asc, desc.'
+      - name: commentcreate
+        method: POST
+        description: Create a comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-project_id-keys-key_id-comments-id
+      path: /projects/{project_id}/keys/{key_id}/comments/{id}
+      operations:
+      - name: commentshow
+        method: GET
+        description: Get a single comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+      - name: commentupdate
+        method: PATCH
+        description: Update a comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: commentdelete
+        method: DELETE
+        description: Delete a comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    - name: projects-project_id-keys-key_id-comments-id-read
+      path: /projects/{project_id}/keys/{key_id}/comments/{id}/read
+      operations:
+      - name: commentmarkread
+        method: PATCH
+        description: Mark a comment as read
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: commentmarkunread
+        method: DELETE
+        description: Mark a comment as unread
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+      - name: commentmarkcheck
+        method: GET
+        description: Check if comment is read
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-comments-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Comments. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/projects/{project-id}/keys/{key-id}/comments
+      name: projects-project-id-keys-key-id-comments
+      description: REST surface for projects-project_id-keys-key_id-comments.
+      operations:
+      - method: GET
+        name: commentslist
+        description: List comments
+        call: strings-comments.commentslist
+        with:
+          branch: rest.branch
+          query: rest.query
+          locale_ids: rest.locale_ids
+          filters: rest.filters
+          order: rest.order
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: commentcreate
+        description: Create a comment
+        call: strings-comments.commentcreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/keys/{key-id}/comments/{id}
+      name: projects-project-id-keys-key-id-comments-id
+      description: REST surface for projects-project_id-keys-key_id-comments-id.
+      operations:
+      - method: GET
+        name: commentshow
+        description: Get a single comment
+        call: strings-comments.commentshow
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: commentupdate
+        description: Update a comment
+        call: strings-comments.commentupdate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: commentdelete
+        description: Delete a comment
+        call: strings-comments.commentdelete
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/keys/{key-id}/comments/{id}/read
+      name: projects-project-id-keys-key-id-comments-id-read
+      description: REST surface for projects-project_id-keys-key_id-comments-id-read.
+      operations:
+      - method: PATCH
+        name: commentmarkread
+        description: Mark a comment as read
+        call: strings-comments.commentmarkread
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: commentmarkunread
+        description: Mark a comment as unread
+        call: strings-comments.commentmarkunread
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: commentmarkcheck
+        description: Check if comment is read
+        call: strings-comments.commentmarkcheck
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-comments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Comments. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-comments
+      description: List comments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-comments.commentslist
+      with:
+        branch: tools.branch
+        query: tools.query
+        locale_ids: tools.locale_ids
+        filters: tools.filters
+        order: tools.order
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-comment
+      description: Create a comment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-comments.commentcreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-single-comment
+      description: Get a single comment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-comments.commentshow
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-comment
+      description: Update a comment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-comments.commentupdate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-comment
+      description: Delete a comment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-comments.commentdelete
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mark-comment-read
+      description: Mark a comment as read
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-comments.commentmarkread
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mark-comment-unread
+      description: Mark a comment as unread
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-comments.commentmarkunread
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: check-if-comment-is-read
+      description: Check if comment is read
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-comments.commentmarkcheck
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.

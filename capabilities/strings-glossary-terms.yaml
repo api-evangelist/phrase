@@ -1,0 +1,199 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Glossary Terms
+  description: 'Phrase Strings API Reference — Glossary Terms. 5 operations. Lead operation: List terms. Self-contained Naftiko
+    capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Glossary Terms
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-glossary-terms
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Glossary Terms business capability. Self-contained, no shared references.
+    resources:
+    - name: accounts-account_id-glossaries-glossary_id-terms
+      path: /accounts/{account_id}/glossaries/{glossary_id}/terms
+      operations:
+      - name: glossarytermslist
+        method: GET
+        description: List terms
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: glossarytermcreate
+        method: POST
+        description: Create a term
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: accounts-account_id-glossaries-glossary_id-terms-id
+      path: /accounts/{account_id}/glossaries/{glossary_id}/terms/{id}
+      operations:
+      - name: glossarytermshow
+        method: GET
+        description: Get a single term
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: glossarytermupdate
+        method: PATCH
+        description: Update a term
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: glossarytermdelete
+        method: DELETE
+        description: Delete a term
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-glossary-terms-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Glossary Terms. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/accounts/{account-id}/glossaries/{glossary-id}/terms
+      name: accounts-account-id-glossaries-glossary-id-terms
+      description: REST surface for accounts-account_id-glossaries-glossary_id-terms.
+      operations:
+      - method: GET
+        name: glossarytermslist
+        description: List terms
+        call: strings-glossary-terms.glossarytermslist
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: glossarytermcreate
+        description: Create a term
+        call: strings-glossary-terms.glossarytermcreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/{account-id}/glossaries/{glossary-id}/terms/{id}
+      name: accounts-account-id-glossaries-glossary-id-terms-id
+      description: REST surface for accounts-account_id-glossaries-glossary_id-terms-id.
+      operations:
+      - method: GET
+        name: glossarytermshow
+        description: Get a single term
+        call: strings-glossary-terms.glossarytermshow
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: glossarytermupdate
+        description: Update a term
+        call: strings-glossary-terms.glossarytermupdate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: glossarytermdelete
+        description: Delete a term
+        call: strings-glossary-terms.glossarytermdelete
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-glossary-terms-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Glossary Terms. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-terms
+      description: List terms
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-glossary-terms.glossarytermslist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-term
+      description: Create a term
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-glossary-terms.glossarytermcreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-single-term
+      description: Get a single term
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-glossary-terms.glossarytermshow
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-term
+      description: Update a term
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-glossary-terms.glossarytermupdate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-term
+      description: Delete a term
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-glossary-terms.glossarytermdelete
+      outputParameters:
+      - type: object
+        mapping: $.

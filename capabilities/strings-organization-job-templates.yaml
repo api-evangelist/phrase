@@ -1,0 +1,200 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Organization Job Templates
+  description: 'Phrase Strings API Reference — Organization Job Templates. 5 operations. Lead operation: List organization
+    job templates. Self-contained Naftiko capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Organization Job Templates
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-organization-job-templates
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Organization Job Templates business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: accounts-account_id-job_templates
+      path: /accounts/{account_id}/job_templates
+      operations:
+      - name: organizationjobtemplateslist
+        method: GET
+        description: List organization job templates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: organizationjobtemplatecreate
+        method: POST
+        description: Create an organization job template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: accounts-account_id-job_templates-id
+      path: /accounts/{account_id}/job_templates/{id}
+      operations:
+      - name: organizationjobtemplatesshow
+        method: GET
+        description: Get a single organization job template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: organizationjobtemplateupdate
+        method: PATCH
+        description: Update an organization job template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: organizationjobtemplatedelete
+        method: DELETE
+        description: Delete an organization job template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-organization-job-templates-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Organization Job Templates. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/accounts/{account-id}/job-templates
+      name: accounts-account-id-job-templates
+      description: REST surface for accounts-account_id-job_templates.
+      operations:
+      - method: GET
+        name: organizationjobtemplateslist
+        description: List organization job templates
+        call: strings-organization-job-templates.organizationjobtemplateslist
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: organizationjobtemplatecreate
+        description: Create an organization job template
+        call: strings-organization-job-templates.organizationjobtemplatecreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/{account-id}/job-templates/{id}
+      name: accounts-account-id-job-templates-id
+      description: REST surface for accounts-account_id-job_templates-id.
+      operations:
+      - method: GET
+        name: organizationjobtemplatesshow
+        description: Get a single organization job template
+        call: strings-organization-job-templates.organizationjobtemplatesshow
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: organizationjobtemplateupdate
+        description: Update an organization job template
+        call: strings-organization-job-templates.organizationjobtemplateupdate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: organizationjobtemplatedelete
+        description: Delete an organization job template
+        call: strings-organization-job-templates.organizationjobtemplatedelete
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-organization-job-templates-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Organization Job Templates. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: list-organization-job-templates
+      description: List organization job templates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-organization-job-templates.organizationjobtemplateslist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-organization-job-template
+      description: Create an organization job template
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-organization-job-templates.organizationjobtemplatecreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-single-organization-job-template
+      description: Get a single organization job template
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-organization-job-templates.organizationjobtemplatesshow
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-organization-job-template
+      description: Update an organization job template
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-organization-job-templates.organizationjobtemplateupdate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-organization-job-template
+      description: Delete an organization job template
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-organization-job-templates.organizationjobtemplatedelete
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Search
+  description: 'Phrase Strings API Reference — Search. 1 operations. Lead operation: Search across projects. Self-contained
+    Naftiko capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Search
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-search
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Search business capability. Self-contained, no shared references.
+    resources:
+    - name: accounts-account_id-search
+      path: /accounts/{account_id}/search
+      operations:
+      - name: searchinaccount
+        method: POST
+        description: Search across projects
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-search-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Search. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/accounts/{account-id}/search
+      name: accounts-account-id-search
+      description: REST surface for accounts-account_id-search.
+      operations:
+      - method: POST
+        name: searchinaccount
+        description: Search across projects
+        call: strings-search.searchinaccount
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-search-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Search. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: search-across-projects
+      description: Search across projects
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: strings-search.searchinaccount
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Key's Figma attachments
+  description: 'Phrase Strings API Reference — Key''s Figma attachments. 2 operations. Lead operation: Attach the Figma attachment
+    to a key. Self-contained Naftiko capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Key's Figma attachments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-key-s-figma-attachments
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Key's Figma attachments business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-project_id-figma_attachments-figma_attachment_id-keys
+      path: /projects/{project_id}/figma_attachments/{figma_attachment_id}/keys
+      operations:
+      - name: figmaattachmentattachtokey
+        method: POST
+        description: Attach the Figma attachment to a key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    - name: projects-project_id-figma_attachments-figma_attachment_id-keys-id
+      path: /projects/{project_id}/figma_attachments/{figma_attachment_id}/keys/{id}
+      operations:
+      - name: figmaattachmentdetachfromkey
+        method: DELETE
+        description: Detach the Figma attachment from a key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-key-s-figma-attachments-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Key's Figma attachments. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/projects/{project-id}/figma-attachments/{figma-attachment-id}/keys
+      name: projects-project-id-figma-attachments-figma-attachment-id-keys
+      description: REST surface for projects-project_id-figma_attachments-figma_attachment_id-keys.
+      operations:
+      - method: POST
+        name: figmaattachmentattachtokey
+        description: Attach the Figma attachment to a key
+        call: strings-key-s-figma-attachments.figmaattachmentattachtokey
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/figma-attachments/{figma-attachment-id}/keys/{id}
+      name: projects-project-id-figma-attachments-figma-attachment-id-keys-id
+      description: REST surface for projects-project_id-figma_attachments-figma_attachment_id-keys-id.
+      operations:
+      - method: DELETE
+        name: figmaattachmentdetachfromkey
+        description: Detach the Figma attachment from a key
+        call: strings-key-s-figma-attachments.figmaattachmentdetachfromkey
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-key-s-figma-attachments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Key's Figma attachments. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: attach-figma-attachment-key
+      description: Attach the Figma attachment to a key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-key-s-figma-attachments.figmaattachmentattachtokey
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: detach-figma-attachment-key
+      description: Detach the Figma attachment from a key
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-key-s-figma-attachments.figmaattachmentdetachfromkey
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.

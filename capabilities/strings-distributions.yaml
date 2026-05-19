@@ -1,0 +1,199 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Distributions
+  description: 'Phrase Strings API Reference — Distributions. 5 operations. Lead operation: List distributions. Self-contained
+    Naftiko capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Distributions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-distributions
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Distributions business capability. Self-contained, no shared references.
+    resources:
+    - name: accounts-account_id-distributions
+      path: /accounts/{account_id}/distributions
+      operations:
+      - name: distributionslist
+        method: GET
+        description: List distributions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: distributioncreate
+        method: POST
+        description: Create a distribution
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: accounts-account_id-distributions-id
+      path: /accounts/{account_id}/distributions/{id}
+      operations:
+      - name: distributionshow
+        method: GET
+        description: Get a single distribution
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: distributionupdate
+        method: PATCH
+        description: Update a distribution
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: distributiondelete
+        method: DELETE
+        description: Delete a distribution
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-distributions-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Distributions. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/accounts/{account-id}/distributions
+      name: accounts-account-id-distributions
+      description: REST surface for accounts-account_id-distributions.
+      operations:
+      - method: GET
+        name: distributionslist
+        description: List distributions
+        call: strings-distributions.distributionslist
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: distributioncreate
+        description: Create a distribution
+        call: strings-distributions.distributioncreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/{account-id}/distributions/{id}
+      name: accounts-account-id-distributions-id
+      description: REST surface for accounts-account_id-distributions-id.
+      operations:
+      - method: GET
+        name: distributionshow
+        description: Get a single distribution
+        call: strings-distributions.distributionshow
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: distributionupdate
+        description: Update a distribution
+        call: strings-distributions.distributionupdate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: distributiondelete
+        description: Delete a distribution
+        call: strings-distributions.distributiondelete
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-distributions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Distributions. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-distributions
+      description: List distributions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-distributions.distributionslist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-distribution
+      description: Create a distribution
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-distributions.distributioncreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-single-distribution
+      description: Get a single distribution
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-distributions.distributionshow
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-distribution
+      description: Update a distribution
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-distributions.distributionupdate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-distribution
+      description: Delete a distribution
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-distributions.distributiondelete
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,199 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Variables
+  description: 'Phrase Strings API Reference — Variables. 5 operations. Lead operation: List variables. Self-contained Naftiko
+    capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Variables
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-variables
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Variables business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-project_id-variables
+      path: /projects/{project_id}/variables
+      operations:
+      - name: variableslist
+        method: GET
+        description: List variables
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: variablecreate
+        method: POST
+        description: Create a variable
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-project_id-variables-name
+      path: /projects/{project_id}/variables/{name}
+      operations:
+      - name: variableshow
+        method: GET
+        description: Get a single variable
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: variableupdate
+        method: PATCH
+        description: Update a variable
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: variabledelete
+        method: DELETE
+        description: Delete a variable
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-variables-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Variables. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/projects/{project-id}/variables
+      name: projects-project-id-variables
+      description: REST surface for projects-project_id-variables.
+      operations:
+      - method: GET
+        name: variableslist
+        description: List variables
+        call: strings-variables.variableslist
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: variablecreate
+        description: Create a variable
+        call: strings-variables.variablecreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/variables/{name}
+      name: projects-project-id-variables-name
+      description: REST surface for projects-project_id-variables-name.
+      operations:
+      - method: GET
+        name: variableshow
+        description: Get a single variable
+        call: strings-variables.variableshow
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: variableupdate
+        description: Update a variable
+        call: strings-variables.variableupdate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: variabledelete
+        description: Delete a variable
+        call: strings-variables.variabledelete
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-variables-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Variables. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-variables
+      description: List variables
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-variables.variableslist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-variable
+      description: Create a variable
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-variables.variablecreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-single-variable
+      description: Get a single variable
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-variables.variableshow
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-variable
+      description: Update a variable
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-variables.variableupdate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-variable
+      description: Delete a variable
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-variables.variabledelete
+      outputParameters:
+      - type: object
+        mapping: $.

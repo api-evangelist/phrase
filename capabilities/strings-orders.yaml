@@ -1,0 +1,233 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Orders
+  description: 'Phrase Strings API Reference — Orders. 5 operations. Lead operation: List orders. Self-contained Naftiko capability
+    covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Orders
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-orders
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Orders business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-project_id-orders
+      path: /projects/{project_id}/orders
+      operations:
+      - name: orderslist
+        method: GET
+        description: List orders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+      - name: ordercreate
+        method: POST
+        description: Create a new order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-project_id-orders-id
+      path: /projects/{project_id}/orders/{id}
+      operations:
+      - name: ordershow
+        method: GET
+        description: Get a single order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+      - name: orderdelete
+        method: DELETE
+        description: Cancel an order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    - name: projects-project_id-orders-id-confirm
+      path: /projects/{project_id}/orders/{id}/confirm
+      operations:
+      - name: orderconfirm
+        method: PATCH
+        description: Confirm an order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-orders-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Orders. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/projects/{project-id}/orders
+      name: projects-project-id-orders
+      description: REST surface for projects-project_id-orders.
+      operations:
+      - method: GET
+        name: orderslist
+        description: List orders
+        call: strings-orders.orderslist
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: ordercreate
+        description: Create a new order
+        call: strings-orders.ordercreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/orders/{id}
+      name: projects-project-id-orders-id
+      description: REST surface for projects-project_id-orders-id.
+      operations:
+      - method: GET
+        name: ordershow
+        description: Get a single order
+        call: strings-orders.ordershow
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: orderdelete
+        description: Cancel an order
+        call: strings-orders.orderdelete
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/orders/{id}/confirm
+      name: projects-project-id-orders-id-confirm
+      description: REST surface for projects-project_id-orders-id-confirm.
+      operations:
+      - method: PATCH
+        name: orderconfirm
+        description: Confirm an order
+        call: strings-orders.orderconfirm
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-orders-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Orders. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-orders
+      description: List orders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-orders.orderslist
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-new-order
+      description: Create a new order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-orders.ordercreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-single-order
+      description: Get a single order
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-orders.ordershow
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-order
+      description: Cancel an order
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-orders.orderdelete
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: confirm-order
+      description: Confirm an order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-orders.orderconfirm
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

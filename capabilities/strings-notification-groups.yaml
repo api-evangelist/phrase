@@ -1,0 +1,136 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Notification Groups
+  description: 'Phrase Strings API Reference — Notification Groups. 3 operations. Lead operation: List notification groups.
+    Self-contained Naftiko capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Notification Groups
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-notification-groups
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Notification Groups business capability. Self-contained, no shared references.
+    resources:
+    - name: notification_groups
+      path: /notification_groups
+      operations:
+      - name: notificationgroupslist
+        method: GET
+        description: List notification groups
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: notification_groups-mark_all_as_read
+      path: /notification_groups/mark_all_as_read
+      operations:
+      - name: notificationgroupsmarkallasread
+        method: PATCH
+        description: Mark all notification groups as read
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: notification_groups-id-mark_as_read
+      path: /notification_groups/{id}/mark_as_read
+      operations:
+      - name: notificationgroupsmarkasread
+        method: PATCH
+        description: Mark a notification group as read
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-notification-groups-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Notification Groups. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/notification-groups
+      name: notification-groups
+      description: REST surface for notification_groups.
+      operations:
+      - method: GET
+        name: notificationgroupslist
+        description: List notification groups
+        call: strings-notification-groups.notificationgroupslist
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/notification-groups/mark-all-as-read
+      name: notification-groups-mark-all-as-read
+      description: REST surface for notification_groups-mark_all_as_read.
+      operations:
+      - method: PATCH
+        name: notificationgroupsmarkallasread
+        description: Mark all notification groups as read
+        call: strings-notification-groups.notificationgroupsmarkallasread
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/notification-groups/{id}/mark-as-read
+      name: notification-groups-id-mark-as-read
+      description: REST surface for notification_groups-id-mark_as_read.
+      operations:
+      - method: PATCH
+        name: notificationgroupsmarkasread
+        description: Mark a notification group as read
+        call: strings-notification-groups.notificationgroupsmarkasread
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-notification-groups-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Notification Groups. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-notification-groups
+      description: List notification groups
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-notification-groups.notificationgroupslist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mark-all-notification-groups-read
+      description: Mark all notification groups as read
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-notification-groups.notificationgroupsmarkallasread
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mark-notification-group-read
+      description: Mark a notification group as read
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-notification-groups.notificationgroupsmarkasread
+      outputParameters:
+      - type: object
+        mapping: $.

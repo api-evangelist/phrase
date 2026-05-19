@@ -1,0 +1,150 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Glossary Term Translations
+  description: 'Phrase Strings API Reference — Glossary Term Translations. 3 operations. Lead operation: Create a translation
+    for a term. Self-contained Naftiko capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Glossary Term Translations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-glossary-term-translations
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Glossary Term Translations business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: accounts-account_id-glossaries-glossary_id-terms-term_id-translations
+      path: /accounts/{account_id}/glossaries/{glossary_id}/terms/{term_id}/translations
+      operations:
+      - name: glossarytermtranslationcreate
+        method: POST
+        description: Create a translation for a term
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: accounts-account_id-glossaries-glossary_id-terms-term_id-translations-id
+      path: /accounts/{account_id}/glossaries/{glossary_id}/terms/{term_id}/translations/{id}
+      operations:
+      - name: glossarytermtranslationupdate
+        method: PATCH
+        description: Update a translation for a term
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: glossarytermtranslationdelete
+        method: DELETE
+        description: Delete a translation for a term
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-glossary-term-translations-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Glossary Term Translations. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/accounts/{account-id}/glossaries/{glossary-id}/terms/{term-id}/translations
+      name: accounts-account-id-glossaries-glossary-id-terms-term-id-translations
+      description: REST surface for accounts-account_id-glossaries-glossary_id-terms-term_id-translations.
+      operations:
+      - method: POST
+        name: glossarytermtranslationcreate
+        description: Create a translation for a term
+        call: strings-glossary-term-translations.glossarytermtranslationcreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/{account-id}/glossaries/{glossary-id}/terms/{term-id}/translations/{id}
+      name: accounts-account-id-glossaries-glossary-id-terms-term-id-translations-id
+      description: REST surface for accounts-account_id-glossaries-glossary_id-terms-term_id-translations-id.
+      operations:
+      - method: PATCH
+        name: glossarytermtranslationupdate
+        description: Update a translation for a term
+        call: strings-glossary-term-translations.glossarytermtranslationupdate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: glossarytermtranslationdelete
+        description: Delete a translation for a term
+        call: strings-glossary-term-translations.glossarytermtranslationdelete
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-glossary-term-translations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Glossary Term Translations. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: create-translation-term
+      description: Create a translation for a term
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-glossary-term-translations.glossarytermtranslationcreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-translation-term
+      description: Update a translation for a term
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-glossary-term-translations.glossarytermtranslationupdate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-translation-term
+      description: Delete a translation for a term
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-glossary-term-translations.glossarytermtranslationdelete
+      outputParameters:
+      - type: object
+        mapping: $.

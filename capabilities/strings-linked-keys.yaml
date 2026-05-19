@@ -1,0 +1,184 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Linked Keys
+  description: 'Phrase Strings API Reference — Linked Keys. 4 operations. Lead operation: Batch unlink child keys from a parent
+    key. Self-contained Naftiko capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Linked Keys
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-linked-keys
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Linked Keys business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-project_id-keys-id-key_links
+      path: /projects/{project_id}/keys/{id}/key_links
+      operations:
+      - name: keylinksbatchdestroy
+        method: DELETE
+        description: Batch unlink child keys from a parent key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: keylinksindex
+        method: GET
+        description: List child keys of a parent key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: keylinkscreate
+        method: POST
+        description: Link child keys to a parent key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-project_id-keys-id-key_links-child_key_id
+      path: /projects/{project_id}/keys/{id}/key_links/{child_key_id}
+      operations:
+      - name: keylinksdestroy
+        method: DELETE
+        description: Unlink a child key from a parent key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: child_key_id
+          in: path
+          type: string
+          description: The ID of the child key to unlink.
+          required: true
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-linked-keys-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Linked Keys. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/projects/{project-id}/keys/{id}/key-links
+      name: projects-project-id-keys-id-key-links
+      description: REST surface for projects-project_id-keys-id-key_links.
+      operations:
+      - method: DELETE
+        name: keylinksbatchdestroy
+        description: Batch unlink child keys from a parent key
+        call: strings-linked-keys.keylinksbatchdestroy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: keylinksindex
+        description: List child keys of a parent key
+        call: strings-linked-keys.keylinksindex
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: keylinkscreate
+        description: Link child keys to a parent key
+        call: strings-linked-keys.keylinkscreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/keys/{id}/key-links/{child-key-id}
+      name: projects-project-id-keys-id-key-links-child-key-id
+      description: REST surface for projects-project_id-keys-id-key_links-child_key_id.
+      operations:
+      - method: DELETE
+        name: keylinksdestroy
+        description: Unlink a child key from a parent key
+        call: strings-linked-keys.keylinksdestroy
+        with:
+          child_key_id: rest.child_key_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-linked-keys-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Linked Keys. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: batch-unlink-child-keys-parent
+      description: Batch unlink child keys from a parent key
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-linked-keys.keylinksbatchdestroy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-child-keys-parent-key
+      description: List child keys of a parent key
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-linked-keys.keylinksindex
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: link-child-keys-parent-key
+      description: Link child keys to a parent key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-linked-keys.keylinkscreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: unlink-child-key-parent-key
+      description: Unlink a child key from a parent key
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-linked-keys.keylinksdestroy
+      with:
+        child_key_id: tools.child_key_id
+      outputParameters:
+      - type: object
+        mapping: $.

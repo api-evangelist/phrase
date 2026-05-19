@@ -1,0 +1,157 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Uploads
+  description: 'Phrase Strings API Reference — Uploads. 3 operations. Lead operation: Upload a new file. Self-contained Naftiko
+    capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Uploads
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-uploads
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Uploads business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-project_id-uploads
+      path: /projects/{project_id}/uploads
+      operations:
+      - name: uploadcreate
+        method: POST
+        description: Upload a new file
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: uploadslist
+        method: GET
+        description: List uploads
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    - name: projects-project_id-uploads-id
+      path: /projects/{project_id}/uploads/{id}
+      operations:
+      - name: uploadshow
+        method: GET
+        description: Get a single upload
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: specify the branch to use
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-uploads-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Uploads. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/projects/{project-id}/uploads
+      name: projects-project-id-uploads
+      description: REST surface for projects-project_id-uploads.
+      operations:
+      - method: POST
+        name: uploadcreate
+        description: Upload a new file
+        call: strings-uploads.uploadcreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: uploadslist
+        description: List uploads
+        call: strings-uploads.uploadslist
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-id}/uploads/{id}
+      name: projects-project-id-uploads-id
+      description: REST surface for projects-project_id-uploads-id.
+      operations:
+      - method: GET
+        name: uploadshow
+        description: Get a single upload
+        call: strings-uploads.uploadshow
+        with:
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-uploads-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Uploads. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: upload-new-file
+      description: Upload a new file
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-uploads.uploadcreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-uploads
+      description: List uploads
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-uploads.uploadslist
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-single-upload
+      description: Get a single upload
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-uploads.uploadshow
+      with:
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,145 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Notifications
+  description: 'Phrase Strings API Reference — Notifications. 3 operations. Lead operation: List notifications. Self-contained
+    Naftiko capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Notifications
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-notifications
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Notifications business capability. Self-contained, no shared references.
+    resources:
+    - name: notifications
+      path: /notifications
+      operations:
+      - name: notificationslist
+        method: GET
+        description: List notifications
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: unseen
+          in: query
+          type: boolean
+          description: Include only unseen notifications
+    - name: notifications-mark_all_as_read
+      path: /notifications/mark_all_as_read
+      operations:
+      - name: notificationsmarkallasread
+        method: POST
+        description: Mark all notifications as read
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: notifications-id
+      path: /notifications/{id}
+      operations:
+      - name: notificationsshow
+        method: GET
+        description: Get a single notification
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-notifications-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Notifications. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/notifications
+      name: notifications
+      description: REST surface for notifications.
+      operations:
+      - method: GET
+        name: notificationslist
+        description: List notifications
+        call: strings-notifications.notificationslist
+        with:
+          unseen: rest.unseen
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/notifications/mark-all-as-read
+      name: notifications-mark-all-as-read
+      description: REST surface for notifications-mark_all_as_read.
+      operations:
+      - method: POST
+        name: notificationsmarkallasread
+        description: Mark all notifications as read
+        call: strings-notifications.notificationsmarkallasread
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/notifications/{id}
+      name: notifications-id
+      description: REST surface for notifications-id.
+      operations:
+      - method: GET
+        name: notificationsshow
+        description: Get a single notification
+        call: strings-notifications.notificationsshow
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-notifications-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Notifications. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-notifications
+      description: List notifications
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-notifications.notificationslist
+      with:
+        unseen: tools.unseen
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mark-all-notifications-read
+      description: Mark all notifications as read
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-notifications.notificationsmarkallasread
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-single-notification
+      description: Get a single notification
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-notifications.notificationsshow
+      outputParameters:
+      - type: object
+        mapping: $.

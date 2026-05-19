@@ -1,0 +1,104 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Repo Sync Events
+  description: 'Phrase Strings API Reference — Repo Sync Events. 2 operations. Lead operation: Repository Syncs History. Self-contained
+    Naftiko capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Repo Sync Events
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-repo-sync-events
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Repo Sync Events business capability. Self-contained, no shared references.
+    resources:
+    - name: accounts-account_id-repo_syncs-id-events
+      path: /accounts/{account_id}/repo_syncs/{id}/events
+      operations:
+      - name: reposynceventlist
+        method: GET
+        description: Repository Syncs History
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-account_id-repo_syncs-repo_sync_id-events-id
+      path: /accounts/{account_id}/repo_syncs/{repo_sync_id}/events/{id}
+      operations:
+      - name: reposynceventshow
+        method: GET
+        description: Get a single Repo Sync Event
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-repo-sync-events-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Repo Sync Events. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/accounts/{account-id}/repo-syncs/{id}/events
+      name: accounts-account-id-repo-syncs-id-events
+      description: REST surface for accounts-account_id-repo_syncs-id-events.
+      operations:
+      - method: GET
+        name: reposynceventlist
+        description: Repository Syncs History
+        call: strings-repo-sync-events.reposynceventlist
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/{account-id}/repo-syncs/{repo-sync-id}/events/{id}
+      name: accounts-account-id-repo-syncs-repo-sync-id-events-id
+      description: REST surface for accounts-account_id-repo_syncs-repo_sync_id-events-id.
+      operations:
+      - method: GET
+        name: reposynceventshow
+        description: Get a single Repo Sync Event
+        call: strings-repo-sync-events.reposynceventshow
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-repo-sync-events-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Repo Sync Events. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: repository-syncs-history
+      description: Repository Syncs History
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-repo-sync-events.reposynceventlist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-single-repo-sync-event
+      description: Get a single Repo Sync Event
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-repo-sync-events.reposynceventshow
+      outputParameters:
+      - type: object
+        mapping: $.

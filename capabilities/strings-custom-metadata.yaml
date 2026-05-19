@@ -1,0 +1,226 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Phrase Strings API Reference — Custom Metadata
+  description: 'Phrase Strings API Reference — Custom Metadata. 5 operations. Lead operation: List properties. Self-contained
+    Naftiko capability covering one Phrase business surface.'
+  tags:
+  - Phrase
+  - Custom Metadata
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PHRASE_API_KEY: PHRASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strings-custom-metadata
+    baseUri: https://api.phrase.com/v2
+    description: Phrase Strings API Reference — Custom Metadata business capability. Self-contained, no shared references.
+    resources:
+    - name: accounts-account_id-custom_metadata-properties
+      path: /accounts/{account_id}/custom_metadata/properties
+      operations:
+      - name: custommetadatapropertieslist
+        method: GET
+        description: List properties
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: project_id
+          in: query
+          type: string
+          description: id of project that the properties belong to
+        - name: q
+          in: query
+          type: string
+          description: query to find a property by name
+        - name: sort
+          in: query
+          type: string
+          description: 'Sort criteria. Can be one of: name, data_type, created_at.'
+        - name: order
+          in: query
+          type: string
+          description: 'Order direction. Can be one of: asc, desc.'
+      - name: custommetadatapropertycreate
+        method: POST
+        description: Create a property
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: accounts-account_id-custom_metadata-properties-id
+      path: /accounts/{account_id}/custom_metadata/properties/{id}
+      operations:
+      - name: custommetadatapropertyshow
+        method: GET
+        description: Get a single property
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: custommetadatapropertyupdate
+        method: PATCH
+        description: Update a property
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: custommetadatapropertiesdelete
+        method: DELETE
+        description: Destroy property
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.PHRASE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: strings-custom-metadata-rest
+    port: 8080
+    description: REST adapter for Phrase Strings API Reference — Custom Metadata. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/accounts/{account-id}/custom-metadata/properties
+      name: accounts-account-id-custom-metadata-properties
+      description: REST surface for accounts-account_id-custom_metadata-properties.
+      operations:
+      - method: GET
+        name: custommetadatapropertieslist
+        description: List properties
+        call: strings-custom-metadata.custommetadatapropertieslist
+        with:
+          project_id: rest.project_id
+          q: rest.q
+          sort: rest.sort
+          order: rest.order
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: custommetadatapropertycreate
+        description: Create a property
+        call: strings-custom-metadata.custommetadatapropertycreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/{account-id}/custom-metadata/properties/{id}
+      name: accounts-account-id-custom-metadata-properties-id
+      description: REST surface for accounts-account_id-custom_metadata-properties-id.
+      operations:
+      - method: GET
+        name: custommetadatapropertyshow
+        description: Get a single property
+        call: strings-custom-metadata.custommetadatapropertyshow
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: custommetadatapropertyupdate
+        description: Update a property
+        call: strings-custom-metadata.custommetadatapropertyupdate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: custommetadatapropertiesdelete
+        description: Destroy property
+        call: strings-custom-metadata.custommetadatapropertiesdelete
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strings-custom-metadata-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Phrase Strings API Reference — Custom Metadata. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-properties
+      description: List properties
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-custom-metadata.custommetadatapropertieslist
+      with:
+        project_id: tools.project_id
+        q: tools.q
+        sort: tools.sort
+        order: tools.order
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-property
+      description: Create a property
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: strings-custom-metadata.custommetadatapropertycreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-single-property
+      description: Get a single property
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strings-custom-metadata.custommetadatapropertyshow
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-property
+      description: Update a property
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: strings-custom-metadata.custommetadatapropertyupdate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: destroy-property
+      description: Destroy property
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: strings-custom-metadata.custommetadatapropertiesdelete
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -173,6 +173,8 @@ common:
     url: https://phrase.com/terms-of-service/
   - type: PrivacyPolicy
     url: https://phrase.com/privacy-policy/
+  - type: LLMsTxt
+    url: https://phrase.com/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

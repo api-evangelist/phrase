@@ -1,0 +1,1340 @@
+"""
+Phrase GraphQL Schema
+Derived from the Phrase Strings REST API (https://developers.phrase.com/api/)
+Covers: projects, keys, translations, locales, jobs, glossaries, webhooks,
+uploads, members, branches, orders, screenshots, style guides, tags, teams,
+translation memory, machine translation, QA checks, and workflow automation.
+"""
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+# ─── Root Types ───────────────────────────────────────────────────────────────
+
+type Query {
+  # Accounts
+  account(id: ID!): Account
+  accounts: [Account!]!
+
+  # Projects
+  project(id: ID!): Project
+  projects(accountId: ID, page: Int, perPage: Int): ProjectConnection!
+
+  # Keys
+  key(projectId: ID!, id: ID!): Key
+  keys(projectId: ID!, localeId: ID, q: String, page: Int, perPage: Int): KeyConnection!
+
+  # Translations
+  translation(projectId: ID!, id: ID!): Translation
+  translations(projectId: ID!, localeId: ID, q: String, page: Int, perPage: Int): TranslationConnection!
+
+  # Locales
+  locale(projectId: ID!, id: ID!): Locale
+  locales(projectId: ID!, page: Int, perPage: Int): LocaleConnection!
+
+  # Jobs
+  job(projectId: ID!, id: ID!): Job
+  jobs(projectId: ID!, page: Int, perPage: Int): JobConnection!
+
+  # Job Templates
+  jobTemplate(projectId: ID!, id: ID!): JobTemplate
+  jobTemplates(projectId: ID!, page: Int, perPage: Int): JobTemplateConnection!
+
+  # Glossaries
+  glossary(accountId: ID!, id: ID!): Glossary
+  glossaries(accountId: ID!, page: Int, perPage: Int): GlossaryConnection!
+
+  # Glossary Terms
+  glossaryTerm(accountId: ID!, glossaryId: ID!, id: ID!): GlossaryTerm
+  glossaryTerms(accountId: ID!, glossaryId: ID!, page: Int, perPage: Int): GlossaryTermConnection!
+
+  # Webhooks
+  webhook(projectId: ID!, id: ID!): Webhook
+  webhooks(projectId: ID!, page: Int, perPage: Int): WebhookConnection!
+
+  # Uploads
+  upload(projectId: ID!, id: ID!): Upload
+  uploads(projectId: ID!, page: Int, perPage: Int): UploadConnection!
+
+  # Members
+  member(accountId: ID!, id: ID!): Member
+  members(accountId: ID!, page: Int, perPage: Int): MemberConnection!
+
+  # Invitations
+  invitation(accountId: ID!, id: ID!): Invitation
+  invitations(accountId: ID!, page: Int, perPage: Int): InvitationConnection!
+
+  # Branches
+  branch(projectId: ID!, name: String!): Branch
+  branches(projectId: ID!, page: Int, perPage: Int): BranchConnection!
+
+  # Orders
+  order(projectId: ID!, id: ID!): Order
+  orders(projectId: ID!, page: Int, perPage: Int): OrderConnection!
+
+  # Screenshots
+  screenshot(projectId: ID!, id: ID!): Screenshot
+  screenshots(projectId: ID!, page: Int, perPage: Int): ScreenshotConnection!
+
+  # Style Guides
+  styleGuide(projectId: ID!, id: ID!): StyleGuide
+  styleGuides(projectId: ID!, page: Int, perPage: Int): StyleGuideConnection!
+
+  # Tags
+  tag(projectId: ID!, name: String!): Tag
+  tags(projectId: ID!, page: Int, perPage: Int): TagConnection!
+
+  # Teams
+  team(accountId: ID!, id: ID!): Team
+  teams(accountId: ID!, page: Int, perPage: Int): TeamConnection!
+
+  # Spaces
+  space(accountId: ID!, id: ID!): Space
+  spaces(accountId: ID!, page: Int, perPage: Int): SpaceConnection!
+
+  # Reports
+  localeReport(projectId: ID!, localeId: ID!): LocaleReport
+
+  # Formats
+  formats: [Format!]!
+
+  # Notifications
+  notification(id: ID!): Notification
+  notifications(page: Int, perPage: Int): NotificationConnection!
+
+  # Search
+  searchInAccount(accountId: ID!, q: String!, page: Int, perPage: Int): SearchResultConnection!
+
+  # Distributions
+  distribution(projectId: ID!, id: ID!): Distribution
+  distributions(projectId: ID!, page: Int, perPage: Int): DistributionConnection!
+
+  # Release Triggers
+  releaseTrigger(projectId: ID!, distributionId: ID!, id: ID!): ReleaseTrigger
+  releaseTriggers(projectId: ID!, distributionId: ID!): [ReleaseTrigger!]!
+
+  # Releases
+  release(projectId: ID!, distributionId: ID!, id: ID!): Release
+  releases(projectId: ID!, distributionId: ID!, page: Int, perPage: Int): ReleaseConnection!
+
+  # Repo Syncs
+  repoSync(projectId: ID!, id: ID!): RepoSync
+  repoSyncs(projectId: ID!): [RepoSync!]!
+
+  # Comments
+  comment(projectId: ID!, keyId: ID!, id: ID!): Comment
+  comments(projectId: ID!, keyId: ID!, page: Int, perPage: Int): CommentConnection!
+
+  # ICU
+  icuVerify(content: String!, localeCode: String!): ICUVerifyResult
+
+  # Custom Metadata
+  customMetadataProperty(accountId: ID!, id: ID!): CustomMetadataProperty
+  customMetadataProperties(accountId: ID!): [CustomMetadataProperty!]!
+}
+
+type Mutation {
+  # Projects
+  createProject(input: CreateProjectInput!): Project
+  updateProject(id: ID!, input: UpdateProjectInput!): Project
+  deleteProject(id: ID!): Boolean
+
+  # Keys
+  createKey(projectId: ID!, input: CreateKeyInput!): Key
+  updateKey(projectId: ID!, id: ID!, input: UpdateKeyInput!): Key
+  deleteKey(projectId: ID!, id: ID!): Boolean
+  batchDestroyKeys(projectId: ID!, ids: [ID!]!): BatchResult
+  tagKeys(projectId: ID!, ids: [ID!]!, tags: [String!]!): BatchResult
+  untagKeys(projectId: ID!, ids: [ID!]!, tags: [String!]!): BatchResult
+
+  # Translations
+  createTranslation(projectId: ID!, input: CreateTranslationInput!): Translation
+  updateTranslation(projectId: ID!, id: ID!, input: UpdateTranslationInput!): Translation
+  verifyTranslation(projectId: ID!, id: ID!): Translation
+  unverifyTranslation(projectId: ID!, id: ID!): Translation
+  excludeTranslation(projectId: ID!, id: ID!): Translation
+  includeTranslation(projectId: ID!, id: ID!): Translation
+
+  # Locales
+  createLocale(projectId: ID!, input: CreateLocaleInput!): Locale
+  updateLocale(projectId: ID!, id: ID!, input: UpdateLocaleInput!): Locale
+  deleteLocale(projectId: ID!, id: ID!): Boolean
+
+  # Jobs
+  createJob(projectId: ID!, input: CreateJobInput!): Job
+  updateJob(projectId: ID!, id: ID!, input: UpdateJobInput!): Job
+  deleteJob(projectId: ID!, id: ID!): Boolean
+  startJob(projectId: ID!, id: ID!): Job
+  completeJob(projectId: ID!, id: ID!): Job
+
+  # Glossaries
+  createGlossary(accountId: ID!, input: CreateGlossaryInput!): Glossary
+  updateGlossary(accountId: ID!, id: ID!, input: UpdateGlossaryInput!): Glossary
+  deleteGlossary(accountId: ID!, id: ID!): Boolean
+
+  # Glossary Terms
+  createGlossaryTerm(accountId: ID!, glossaryId: ID!, input: CreateGlossaryTermInput!): GlossaryTerm
+  updateGlossaryTerm(accountId: ID!, glossaryId: ID!, id: ID!, input: UpdateGlossaryTermInput!): GlossaryTerm
+  deleteGlossaryTerm(accountId: ID!, glossaryId: ID!, id: ID!): Boolean
+
+  # Webhooks
+  createWebhook(projectId: ID!, input: CreateWebhookInput!): Webhook
+  updateWebhook(projectId: ID!, id: ID!, input: UpdateWebhookInput!): Webhook
+  deleteWebhook(projectId: ID!, id: ID!): Boolean
+  testWebhook(projectId: ID!, id: ID!): Boolean
+
+  # Uploads
+  createUpload(projectId: ID!, input: CreateUploadInput!): Upload
+
+  # Members
+  updateMember(accountId: ID!, id: ID!, input: UpdateMemberInput!): Member
+  deleteMember(accountId: ID!, id: ID!): Boolean
+
+  # Invitations
+  createInvitation(accountId: ID!, input: CreateInvitationInput!): Invitation
+  resendInvitation(accountId: ID!, id: ID!): Invitation
+  deleteInvitation(accountId: ID!, id: ID!): Boolean
+
+  # Branches
+  createBranch(projectId: ID!, input: CreateBranchInput!): Branch
+  mergeBranch(projectId: ID!, name: String!, input: MergeBranchInput!): Branch
+  deleteBranch(projectId: ID!, name: String!): Boolean
+
+  # Orders
+  createOrder(projectId: ID!, input: CreateOrderInput!): Order
+  confirmOrder(projectId: ID!, id: ID!): Order
+  deleteOrder(projectId: ID!, id: ID!): Boolean
+
+  # Screenshots
+  createScreenshot(projectId: ID!, input: CreateScreenshotInput!): Screenshot
+  updateScreenshot(projectId: ID!, id: ID!, input: UpdateScreenshotInput!): Screenshot
+  deleteScreenshot(projectId: ID!, id: ID!): Boolean
+
+  # Screenshot Markers
+  createScreenshotMarker(projectId: ID!, screenshotId: ID!, input: CreateScreenshotMarkerInput!): ScreenshotMarker
+  updateScreenshotMarker(projectId: ID!, screenshotId: ID!, id: ID!, input: UpdateScreenshotMarkerInput!): ScreenshotMarker
+  deleteScreenshotMarker(projectId: ID!, screenshotId: ID!, id: ID!): Boolean
+
+  # Style Guides
+  createStyleGuide(projectId: ID!, input: CreateStyleGuideInput!): StyleGuide
+  updateStyleGuide(projectId: ID!, id: ID!, input: UpdateStyleGuideInput!): StyleGuide
+  deleteStyleGuide(projectId: ID!, id: ID!): Boolean
+
+  # Tags
+  createTag(projectId: ID!, input: CreateTagInput!): Tag
+  deleteTag(projectId: ID!, name: String!): Boolean
+
+  # Comments
+  createComment(projectId: ID!, keyId: ID!, input: CreateCommentInput!): Comment
+  updateComment(projectId: ID!, keyId: ID!, id: ID!, input: UpdateCommentInput!): Comment
+  deleteComment(projectId: ID!, keyId: ID!, id: ID!): Boolean
+  markCommentRead(projectId: ID!, keyId: ID!, id: ID!): Comment
+
+  # Machine Translation
+  machineTranslate(projectId: ID!, input: MachineTranslateInput!): MachineTranslateResult
+
+  # Teams
+  createTeam(accountId: ID!, input: CreateTeamInput!): Team
+  updateTeam(accountId: ID!, id: ID!, input: UpdateTeamInput!): Team
+  deleteTeam(accountId: ID!, id: ID!): Boolean
+
+  # Spaces
+  createSpace(accountId: ID!, input: CreateSpaceInput!): Space
+  updateSpace(accountId: ID!, id: ID!, input: UpdateSpaceInput!): Space
+  deleteSpace(accountId: ID!, id: ID!): Boolean
+
+  # Distributions
+  createDistribution(projectId: ID!, input: CreateDistributionInput!): Distribution
+  updateDistribution(projectId: ID!, id: ID!, input: UpdateDistributionInput!): Distribution
+  deleteDistribution(projectId: ID!, id: ID!): Boolean
+
+  # Repo Syncs
+  createRepoSync(projectId: ID!, input: CreateRepoSyncInput!): RepoSync
+  deleteRepoSync(projectId: ID!, id: ID!): Boolean
+  activateRepoSync(projectId: ID!, id: ID!): RepoSync
+  deactivateRepoSync(projectId: ID!, id: ID!): RepoSync
+
+  # Custom Metadata
+  createCustomMetadataProperty(accountId: ID!, input: CreateCustomMetadataPropertyInput!): CustomMetadataProperty
+  updateCustomMetadataProperty(accountId: ID!, id: ID!, input: UpdateCustomMetadataPropertyInput!): CustomMetadataProperty
+  deleteCustomMetadataProperty(accountId: ID!, id: ID!): Boolean
+}
+
+# ─── Core Domain Types ────────────────────────────────────────────────────────
+
+type Account {
+  id: ID!
+  name: String!
+  slug: String
+  company: String
+  phoneNumber: String
+  createdAt: String!
+  updatedAt: String!
+  projects: [Project!]!
+  members: [Member!]!
+  glossaries: [Glossary!]!
+  teams: [Team!]!
+  spaces: [Space!]!
+}
+
+type Project {
+  id: ID!
+  name: String!
+  slug: String!
+  mainFormat: String
+  sharesTranslationMemory: Boolean
+  projectImageUrl: String
+  removedFromTeamAt: String
+  account: Account
+  point_of_contact: Member
+  createdAt: String!
+  updatedAt: String!
+  locales: [Locale!]!
+  keys: [Key!]!
+  jobs: [Job!]!
+  webhooks: [Webhook!]!
+  branches: [Branch!]!
+  tags: [Tag!]!
+  screenshots: [Screenshot!]!
+  styleGuides: [StyleGuide!]!
+  uploads: [Upload!]!
+  team: Team
+  space: Space
+}
+
+type Key {
+  id: ID!
+  name: String!
+  description: String
+  nameHash: String
+  plural: Boolean
+  tags: [String!]!
+  dataType: KeyDataType
+  createdAt: String!
+  updatedAt: String!
+  project: Project!
+  screenshotUrl: String
+  unformatted: Boolean
+  xmlSpacePreserve: Boolean
+  originalFile: String
+  formatValueType: String
+  customMetadata: [CustomMetadataValue!]
+  comments: [Comment!]!
+  screenshots: [Screenshot!]!
+  translations: [Translation!]!
+  linkedKeys: [Key!]!
+}
+
+type Translation {
+  id: ID!
+  content: String!
+  unverified: Boolean!
+  excluded: Boolean!
+  pluralSuffix: String
+  key: Key!
+  locale: Locale!
+  createdAt: String!
+  updatedAt: String!
+  wordCount: Int
+  characterCount: Int
+  user: User
+  placeholders: [String!]!
+}
+
+type Locale {
+  id: ID!
+  name: String!
+  code: String!
+  default: Boolean!
+  main: Boolean!
+  rtl: Boolean!
+  pluralForms: [String!]!
+  sourceLocale: Locale
+  fallbackLocale: Locale
+  createdAt: String!
+  updatedAt: String!
+  statistics: LocaleStatistics
+}
+
+type LocaleStatistics {
+  keysTotal: Int!
+  keysUntranslated: Int!
+  wordsTotal: Int!
+  wordsUntranslated: Int!
+  keysMissingTranslations: Int!
+  keysUnverified: Int!
+  wordsUnverified: Int!
+  percentTranslated: Float!
+  percentReviewed: Float!
+}
+
+type Job {
+  id: ID!
+  name: String!
+  briefing: String
+  dueDate: String
+  state: JobState!
+  ticketUrl: String
+  project: Project!
+  locales: [Locale!]!
+  createdAt: String!
+  updatedAt: String!
+  owner: Member
+  jobLocales: [JobLocale!]!
+  annotations: [JobAnnotation!]!
+  comments: [JobComment!]!
+}
+
+type JobLocale {
+  id: ID!
+  jobId: ID!
+  locale: Locale!
+  state: JobLocaleState!
+  completedAt: String
+  user: User
+  statisticsType: String
+  keysCount: Int
+  wordsCount: Int
+}
+
+type JobAnnotation {
+  id: ID!
+  job: Job!
+  message: String!
+  createdAt: String!
+  user: User
+}
+
+type JobComment {
+  id: ID!
+  job: Job!
+  message: String!
+  createdAt: String!
+  updatedAt: String!
+  user: User
+}
+
+type JobTemplate {
+  id: ID!
+  name: String!
+  briefing: String
+  dueDate: String
+  project: Project!
+  createdAt: String!
+  updatedAt: String!
+  locales: [Locale!]!
+  jobTemplateLocales: [JobTemplateLocale!]!
+}
+
+type JobTemplateLocale {
+  id: ID!
+  jobTemplateId: ID!
+  locale: Locale!
+  user: User
+}
+
+type Glossary {
+  id: ID!
+  name: String!
+  description: String
+  isGlobal: Boolean
+  account: Account!
+  createdAt: String!
+  updatedAt: String!
+  terms: [GlossaryTerm!]!
+  projects: [Project!]!
+}
+
+type GlossaryTerm {
+  id: ID!
+  term: String!
+  description: String
+  caseSensitive: Boolean!
+  doNotTranslate: Boolean!
+  glossary: Glossary!
+  translations: [GlossaryTermTranslation!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type GlossaryTermTranslation {
+  id: ID!
+  localeCode: String!
+  content: String!
+  caseSensitive: Boolean
+  doNotTranslate: Boolean
+  term: GlossaryTerm!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Webhook {
+  id: ID!
+  callbackUrl: String!
+  description: String
+  events: [String!]!
+  active: Boolean!
+  project: Project!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type WebhookDelivery {
+  id: ID!
+  webhookId: ID!
+  requestUrl: String!
+  requestBody: String
+  responseStatusCode: Int
+  responseBody: String
+  createdAt: String!
+  success: Boolean!
+  errorMessage: String
+}
+
+type Upload {
+  id: ID!
+  filename: String!
+  format: String
+  state: UploadState!
+  tag: String
+  summary: UploadSummary
+  project: Project!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type UploadSummary {
+  localesCreated: Int
+  translationsCreated: Int
+  translationsUpdated: Int
+  translationsSkipped: Int
+  keysCreated: Int
+  keysUpdated: Int
+  tagsCreated: Int
+}
+
+type Member {
+  id: ID!
+  user: User!
+  role: MemberRole!
+  projectRole: [ProjectRole!]
+  spaces: [Space!]!
+  projects: [Project!]!
+  createdAt: String!
+}
+
+type User {
+  id: ID!
+  login: String
+  name: String
+  email: String
+  position: String
+  avatarUrl: String
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Invitation {
+  id: ID!
+  email: String!
+  role: MemberRole!
+  state: InvitationState!
+  projects: [Project!]!
+  spaces: [Space!]!
+  createdAt: String!
+  acceptedAt: String
+}
+
+type Branch {
+  id: ID!
+  name: String!
+  createdAt: String!
+  updatedAt: String!
+  mergedAt: String
+  createdBy: User
+  project: Project!
+}
+
+type Order {
+  id: ID!
+  lsp: String!
+  amount: Float
+  amountFormatted: String
+  currency: String
+  message: String
+  state: OrderState!
+  progressPercent: Int
+  sourceLocale: Locale
+  targetLocales: [Locale!]!
+  translationType: String
+  styleguide: StyleGuide
+  tag: String
+  project: Project!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Screenshot {
+  id: ID!
+  name: String
+  description: String
+  screenshotUrl: String
+  filename: String
+  project: Project!
+  markers: [ScreenshotMarker!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type ScreenshotMarker {
+  id: ID!
+  screenshot: Screenshot!
+  key: Key!
+  presentation: ScreenshotMarkerPresentation
+  createdAt: String!
+  updatedAt: String!
+}
+
+type ScreenshotMarkerPresentation {
+  x: Int
+  y: Int
+  width: Int
+  height: Int
+}
+
+type StyleGuide {
+  id: ID!
+  title: String!
+  audience: String
+  targetAudience: String
+  businessGoal: String
+  toneAndPersonality: String
+  vocabulary: String
+  validationEndpoint: String
+  project: Project!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Tag {
+  id: ID!
+  name: String!
+  keyCount: Int
+  project: Project!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Team {
+  id: ID!
+  name: String!
+  account: Account!
+  members: [Member!]!
+  projects: [Project!]!
+  spaces: [Space!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Space {
+  id: ID!
+  name: String!
+  account: Account!
+  projects: [Project!]!
+  members: [Member!]!
+  teams: [Team!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Comment {
+  id: ID!
+  message: String!
+  key: Key!
+  user: User
+  unread: Boolean
+  createdAt: String!
+  updatedAt: String!
+  replies: [CommentReply!]!
+  reactions: [CommentReaction!]!
+}
+
+type CommentReply {
+  id: ID!
+  message: String!
+  comment: Comment!
+  user: User
+  createdAt: String!
+  updatedAt: String!
+}
+
+type CommentReaction {
+  id: ID!
+  emoji: String!
+  comment: Comment!
+  user: User!
+  createdAt: String!
+}
+
+type Format {
+  name: String!
+  apiName: String!
+  description: String
+  extension: String
+  defaultEncoding: String
+  importable: Boolean!
+  exportable: Boolean!
+}
+
+type Notification {
+  id: ID!
+  eventType: String!
+  eventName: String
+  data: String
+  read: Boolean!
+  createdAt: String!
+}
+
+type NotificationGroup {
+  id: ID!
+  eventType: String!
+  count: Int!
+  latestNotification: Notification
+  createdAt: String!
+}
+
+type Distribution {
+  id: ID!
+  name: String!
+  description: String
+  platforms: [String!]!
+  locales: [Locale!]!
+  formatOptions: String
+  project: Project!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type ReleaseTrigger {
+  id: ID!
+  description: String
+  cronSchedule: String
+  nextRunAt: String
+  distribution: Distribution!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Release {
+  id: ID!
+  description: String
+  releasedAt: String
+  version: Int
+  appMinVersion: String
+  appMaxVersion: String
+  distribution: Distribution!
+  project: Project!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type RepoSync {
+  id: ID!
+  project: Project!
+  active: Boolean!
+  provider: String
+  repositoryName: String
+  branch: String
+  autoimport: Boolean
+  autoexport: Boolean
+  createdAt: String!
+  updatedAt: String!
+  events: [RepoSyncEvent!]!
+}
+
+type RepoSyncEvent {
+  id: ID!
+  repoSync: RepoSync!
+  eventType: String!
+  success: Boolean
+  message: String
+  createdAt: String!
+}
+
+type LocaleReport {
+  project: Project!
+  locale: Locale!
+  keysTotal: Int!
+  keysUntranslated: Int!
+  wordsTotal: Int!
+  wordsUntranslated: Int!
+  percentTranslated: Float!
+  missingCount: Int!
+}
+
+type MachineTranslateResult {
+  translations: [MachineTranslation!]!
+  provider: String!
+}
+
+type MachineTranslation {
+  keyId: ID!
+  localeCode: String!
+  content: String!
+  plural: Boolean
+}
+
+type ICUVerifyResult {
+  valid: Boolean!
+  errors: [ICUError!]!
+}
+
+type ICUError {
+  message: String!
+  position: Int
+}
+
+type CustomMetadataProperty {
+  id: ID!
+  name: String!
+  description: String
+  dataType: CustomMetadataDataType!
+  projectIds: [ID!]
+  valueOptions: [String!]
+  account: Account!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type CustomMetadataValue {
+  property: CustomMetadataProperty!
+  value: String
+}
+
+type SearchResult {
+  key: Key!
+  translation: Translation
+  score: Float
+}
+
+type ProjectRole {
+  projectId: ID!
+  role: String!
+}
+
+type BatchResult {
+  summary: BatchSummary!
+}
+
+type BatchSummary {
+  affected: Int!
+  errors: Int!
+}
+
+# ─── Connection / Pagination Types ────────────────────────────────────────────
+
+type PageInfo {
+  page: Int!
+  perPage: Int!
+  totalEntries: Int!
+  totalPages: Int!
+}
+
+type ProjectConnection {
+  nodes: [Project!]!
+  pageInfo: PageInfo!
+}
+
+type KeyConnection {
+  nodes: [Key!]!
+  pageInfo: PageInfo!
+}
+
+type TranslationConnection {
+  nodes: [Translation!]!
+  pageInfo: PageInfo!
+}
+
+type LocaleConnection {
+  nodes: [Locale!]!
+  pageInfo: PageInfo!
+}
+
+type JobConnection {
+  nodes: [Job!]!
+  pageInfo: PageInfo!
+}
+
+type JobTemplateConnection {
+  nodes: [JobTemplate!]!
+  pageInfo: PageInfo!
+}
+
+type GlossaryConnection {
+  nodes: [Glossary!]!
+  pageInfo: PageInfo!
+}
+
+type GlossaryTermConnection {
+  nodes: [GlossaryTerm!]!
+  pageInfo: PageInfo!
+}
+
+type WebhookConnection {
+  nodes: [Webhook!]!
+  pageInfo: PageInfo!
+}
+
+type UploadConnection {
+  nodes: [Upload!]!
+  pageInfo: PageInfo!
+}
+
+type MemberConnection {
+  nodes: [Member!]!
+  pageInfo: PageInfo!
+}
+
+type InvitationConnection {
+  nodes: [Invitation!]!
+  pageInfo: PageInfo!
+}
+
+type BranchConnection {
+  nodes: [Branch!]!
+  pageInfo: PageInfo!
+}
+
+type OrderConnection {
+  nodes: [Order!]!
+  pageInfo: PageInfo!
+}
+
+type ScreenshotConnection {
+  nodes: [Screenshot!]!
+  pageInfo: PageInfo!
+}
+
+type StyleGuideConnection {
+  nodes: [StyleGuide!]!
+  pageInfo: PageInfo!
+}
+
+type TagConnection {
+  nodes: [Tag!]!
+  pageInfo: PageInfo!
+}
+
+type TeamConnection {
+  nodes: [Team!]!
+  pageInfo: PageInfo!
+}
+
+type SpaceConnection {
+  nodes: [Space!]!
+  pageInfo: PageInfo!
+}
+
+type NotificationConnection {
+  nodes: [Notification!]!
+  pageInfo: PageInfo!
+}
+
+type DistributionConnection {
+  nodes: [Distribution!]!
+  pageInfo: PageInfo!
+}
+
+type ReleaseConnection {
+  nodes: [Release!]!
+  pageInfo: PageInfo!
+}
+
+type CommentConnection {
+  nodes: [Comment!]!
+  pageInfo: PageInfo!
+}
+
+type SearchResultConnection {
+  nodes: [SearchResult!]!
+  pageInfo: PageInfo!
+}
+
+# ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum KeyDataType {
+  string
+  number
+  boolean
+  array
+  xml
+}
+
+enum JobState {
+  draft
+  in_progress
+  completed
+  cancelled
+}
+
+enum JobLocaleState {
+  queued
+  in_progress
+  completed
+}
+
+enum MemberRole {
+  admin
+  project_manager
+  developer
+  designer
+  translator
+  guest
+}
+
+enum InvitationState {
+  pending
+  accepted
+  expired
+  declined
+}
+
+enum OrderState {
+  new
+  pending
+  in_progress
+  ready
+  cancelled
+}
+
+enum UploadState {
+  waiting
+  processing
+  success
+  failure
+}
+
+enum CustomMetadataDataType {
+  string
+  number
+  boolean
+  list
+}
+
+# ─── Input Types ──────────────────────────────────────────────────────────────
+
+input CreateProjectInput {
+  name: String!
+  mainFormat: String
+  sharesTranslationMemory: Boolean
+  projectImageUrl: String
+  accountId: ID
+  sourceLocaleCode: String
+  workflowId: ID
+}
+
+input UpdateProjectInput {
+  name: String
+  mainFormat: String
+  sharesTranslationMemory: Boolean
+  projectImageUrl: String
+}
+
+input CreateKeyInput {
+  name: String!
+  description: String
+  plural: Boolean
+  tags: [String!]
+  dataType: KeyDataType
+  unformatted: Boolean
+  xmlSpacePreserve: Boolean
+  originalFile: String
+  nameHash: String
+  localizedFormatString: String
+  localizedFormatKey: String
+}
+
+input UpdateKeyInput {
+  name: String
+  description: String
+  plural: Boolean
+  tags: [String!]
+  dataType: KeyDataType
+  unformatted: Boolean
+  xmlSpacePreserve: Boolean
+  originalFile: String
+}
+
+input CreateTranslationInput {
+  keyId: ID!
+  localeId: ID!
+  content: String!
+  pluralSuffix: String
+  unverified: Boolean
+  excluded: Boolean
+  autotranslate: Boolean
+}
+
+input UpdateTranslationInput {
+  content: String
+  unverified: Boolean
+  excluded: Boolean
+  pluralSuffix: String
+}
+
+input CreateLocaleInput {
+  name: String!
+  code: String!
+  default: Boolean
+  main: Boolean
+  rtl: Boolean
+  sourceLocaleId: ID
+  fallbackLocaleId: ID
+}
+
+input UpdateLocaleInput {
+  name: String
+  code: String
+  default: Boolean
+  main: Boolean
+  rtl: Boolean
+  sourceLocaleId: ID
+  fallbackLocaleId: ID
+}
+
+input CreateJobInput {
+  name: String!
+  briefing: String
+  dueDate: String
+  ticketUrl: String
+  localeIds: [ID!]
+}
+
+input UpdateJobInput {
+  name: String
+  briefing: String
+  dueDate: String
+  ticketUrl: String
+}
+
+input CreateGlossaryInput {
+  name: String!
+  description: String
+  isGlobal: Boolean
+  projectIds: [ID!]
+}
+
+input UpdateGlossaryInput {
+  name: String
+  description: String
+  isGlobal: Boolean
+  projectIds: [ID!]
+}
+
+input CreateGlossaryTermInput {
+  term: String!
+  description: String
+  caseSensitive: Boolean
+  doNotTranslate: Boolean
+  translatable: Boolean
+}
+
+input UpdateGlossaryTermInput {
+  term: String
+  description: String
+  caseSensitive: Boolean
+  doNotTranslate: Boolean
+}
+
+input CreateWebhookInput {
+  callbackUrl: String!
+  description: String
+  events: [String!]!
+  active: Boolean
+}
+
+input UpdateWebhookInput {
+  callbackUrl: String
+  description: String
+  events: [String!]
+  active: Boolean
+}
+
+input CreateUploadInput {
+  file: String!
+  fileFormat: String
+  localeId: ID
+  tagKeys: [String!]
+  updateTranslations: Boolean
+  updateDescriptions: Boolean
+  skipUploadTags: Boolean
+  skipUnverification: Boolean
+  fileEncoding: String
+  locale: String
+  autotranslate: Boolean
+  markReviewed: Boolean
+}
+
+input UpdateMemberInput {
+  role: MemberRole
+  projectIds: [ID!]
+  spaceIds: [ID!]
+}
+
+input CreateInvitationInput {
+  email: String!
+  role: MemberRole!
+  projectIds: [ID!]
+  spaceIds: [ID!]
+  teamIds: [ID!]
+}
+
+input CreateBranchInput {
+  name: String!
+}
+
+input MergeBranchInput {
+  strategy: String
+  deleteAfterMerge: Boolean
+}
+
+input CreateOrderInput {
+  lsp: String!
+  sourceLocaleId: ID!
+  targetLocaleIds: [ID!]!
+  translationType: String
+  tag: String
+  styleguideId: ID
+  message: String
+}
+
+input CreateScreenshotInput {
+  name: String
+  description: String
+  filename: String!
+}
+
+input UpdateScreenshotInput {
+  name: String
+  description: String
+}
+
+input CreateScreenshotMarkerInput {
+  keyId: ID!
+  presentation: ScreenshotMarkerPresentationInput
+}
+
+input UpdateScreenshotMarkerInput {
+  keyId: ID
+  presentation: ScreenshotMarkerPresentationInput
+}
+
+input ScreenshotMarkerPresentationInput {
+  x: Int
+  y: Int
+  width: Int
+  height: Int
+}
+
+input CreateStyleGuideInput {
+  title: String!
+  audience: String
+  targetAudience: String
+  businessGoal: String
+  toneAndPersonality: String
+  vocabulary: String
+  validationEndpoint: String
+}
+
+input UpdateStyleGuideInput {
+  title: String
+  audience: String
+  targetAudience: String
+  businessGoal: String
+  toneAndPersonality: String
+  vocabulary: String
+  validationEndpoint: String
+}
+
+input CreateTagInput {
+  name: String!
+}
+
+input CreateCommentInput {
+  message: String!
+  localeId: ID
+}
+
+input UpdateCommentInput {
+  message: String!
+}
+
+input MachineTranslateInput {
+  localeIds: [ID!]!
+  keyIds: [ID!]
+  provider: String
+  translation_type: String
+}
+
+input CreateTeamInput {
+  name: String!
+  projectIds: [ID!]
+  spaceIds: [ID!]
+}
+
+input UpdateTeamInput {
+  name: String
+  projectIds: [ID!]
+  spaceIds: [ID!]
+}
+
+input CreateSpaceInput {
+  name: String!
+  projectIds: [ID!]
+}
+
+input UpdateSpaceInput {
+  name: String
+  projectIds: [ID!]
+}
+
+input CreateDistributionInput {
+  name: String!
+  description: String
+  platforms: [String!]!
+  localeIds: [ID!]!
+  formatOptions: String
+}
+
+input UpdateDistributionInput {
+  name: String
+  description: String
+  platforms: [String!]
+  localeIds: [ID!]
+  formatOptions: String
+}
+
+input CreateRepoSyncInput {
+  provider: String!
+  repositoryName: String!
+  branch: String
+  autoimport: Boolean
+  autoexport: Boolean
+}
+
+input CreateCustomMetadataPropertyInput {
+  name: String!
+  description: String
+  dataType: CustomMetadataDataType!
+  projectIds: [ID!]
+  valueOptions: [String!]
+}
+
+input UpdateCustomMetadataPropertyInput {
+  name: String
+  description: String
+  projectIds: [ID!]
+  valueOptions: [String!]
+}

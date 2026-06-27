@@ -40,119 +40,119 @@ apis:
     url: https://help.phrase.com/help/phrase-in-your-coding-workflow
   - type: OpenAPI
     url: https://raw.githubusercontent.com/api-evangelist/phrase/refs/heads/main/openapi/phrase-strings-openapi-original.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-accounts.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-authorizations.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-automations.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-blacklisted-keys.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-branches.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-comment-reactions.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-comment-replies.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-comments.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-custom-metadata.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-distributions.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-documents.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-figma-attachments.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-formats.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-glossaries.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-glossary-term-translations.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-glossary-terms.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-icu.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-invitations.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-job-annotations.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-job-comments.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-job-locales.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-job-template-locales.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-job-templates.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-jobs.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-key-s-figma-attachments.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-keys.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-linked-keys.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-locale-downloads.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-locales.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-members.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-notification-groups.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-notifications.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-orders.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-organization-job-template-locales.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-organization-job-templates.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-projects.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-quality-performance-score.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-release-triggers.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-releases.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-repo-sync-events.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-repo-syncs.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-reports.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-screenshot-markers.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-screenshots.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-search.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-spaces.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-style-guides.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-tags.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-teams.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-translations.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-upload-batches.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-uploads.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-users.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-variables.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-versions-history.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-webhook-deliveries.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/strings-webhooks.yaml
   - url: graphql/phrase-graphql.md
     type: GraphQL
@@ -167,7 +167,7 @@ common:
   url: https://developers.phrase.com/api/
 - type: Website
   url: https://phrase.com/
-- type: SignUp
+- type: Signup
   url: https://app.phrase.com/signup
 - type: Login
   url: https://app.phrase.com/login
@@ -177,7 +177,7 @@ common:
   url: https://phrase.com/terms-of-service/
 - type: PrivacyPolicy
   url: https://phrase.com/privacy-policy/
-- type: LLMsTxt
+- type: LlmsText
   url: https://phrase.com/llms.txt
 maintainers:
 - FN: Kin Lane

@@ -1,0 +1,22 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/phrase-strings-openapi-original.yaml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: Token
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: Enter your token in the format `token TOKEN`
+  sources:
+  - openapi/phrase-strings-openapi-original.yaml
+- name: Basic
+  type: http
+  scheme: basic
+  sources:
+  - openapi/phrase-strings-openapi-original.yaml

@@ -157,6 +157,10 @@ apis:
   - url: graphql/phrase-graphql.md
     type: GraphQL
 common:
+- type: DomainSecurity
+  url: security/phrase-domain-security.yml
+- type: Authentication
+  url: authentication/phrase-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/phrase
 - type: LinkedIn

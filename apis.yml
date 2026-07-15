@@ -157,6 +157,8 @@ apis:
   - url: graphql/phrase-graphql.md
     type: GraphQL
 common:
+- type: AgenticAccess
+  url: agentic-access/phrase-agentic-access.yml
 - type: DomainSecurity
   url: security/phrase-domain-security.yml
 - type: Authentication

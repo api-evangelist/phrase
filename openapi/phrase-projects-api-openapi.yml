@@ -1,0 +1,860 @@
+openapi: 3.0.3
+info:
+  title: Phrase Strings API Reference Accounts Projects API
+  version: 2.0.0
+  description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
+  contact:
+    name: Phrase Support
+    url: https://developers.phrase.com/api/
+    email: support@phrase.com
+  x-logo:
+    url: https://developers.phrase.com/images/phrase-logo.svg
+    backgroundColor: '#03eab3'
+    altText: Phrase Strings
+  termsOfService: https://phrase.com/terms/
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+- url: https://api.phrase.com/v2
+  description: EU production server
+- url: https://api.us.app.phrase.com/v2
+  description: US production server
+security:
+- Token: []
+- Basic: []
+tags:
+- name: Projects
+paths:
+  /projects:
+    get:
+      summary: List projects
+      description: List all projects the current user has access to.
+      operationId: projects/list
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/query_account_id'
+      - description: Sort projects. Valid options are "name_asc", "name_desc", "updated_at_asc", "updated_at_desc", "space_asc" and "space_desc".
+        example: null
+        name: sort_by
+        in: query
+        schema:
+          type: string
+      - description: Filter projects. Valid options are ["favorites"].
+        example: favorites
+        name: filters
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/project'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Link:
+              $ref: '#/components/headers/Link'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase projects list \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    post:
+      summary: Create a project
+      description: Create a new project.
+      operationId: project/create
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/project_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X POST \\\n  -F name=My%20Android%20Project \\\n  -F main_format=yml \\\n  -F shares_translation_memory=true"
+      - lang: CLI v2
+        source: 'phrase projects create \
+
+          --data ''{"name": "My Android Project", "main_format":"yml", "shares_translation_memory":true}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: project/create/parameters
+              required:
+              - name
+              properties:
+                name:
+                  description: Name of the project
+                  type: string
+                  example: My Android Project
+                main_format:
+                  description: Main file format specified by its API Extension name. Used for locale downloads if no format is specified. For API Extension names of available file formats see [Format Guide](https://support.phrase.com/hc/en-us/sections/6111343326364) or our [Formats API Endpoint](/en/api/strings/formats/list-formats).
+                  type: string
+                  example: yml
+                media:
+                  description: '(Optional) Main technology stack used in the project. It affects for example the suggested placeholder style. Predefined values include: `Ruby`, `JavaScript`, `AngularJS`, `React`, `iOS`, `Android`, `Python`, `PHP`, `Java`, `Go`, `Windows Phone`, `Rails`, `Node.js`, `.NET`, `Django`, `Symfony`, `Yii Framework`, `Zend Framework`, `Apple App Store Description`, `Google Play Description`, but it can also take any other value.'
+                  type: string
+                  example: Python
+                shares_translation_memory:
+                  description: Indicates whether the project should share the account's translation memory
+                  type: boolean
+                  example: true
+                project_image:
+                  description: Image to identify the project
+                  type: string
+                  format: binary
+                  example: /path/to/my/project-screenshot.png
+                remove_project_image:
+                  description: Indicates whether the project image should be deleted.
+                  type: boolean
+                  example: null
+                account_id:
+                  description: Account ID to specify the actual account the project should be created in. Required if the requesting user is a member of multiple accounts.
+                  type: string
+                  example: abcd1234
+                point_of_contact:
+                  description: (Optional) User ID of the point of contact for the project.
+                  type: string
+                  example: abcd1234
+                source_project_id:
+                  description: When a source project ID is given, a clone of that project will be created, including all locales, keys and translations as well as the main project settings if they are not defined otherwise through the params.
+                  type: string
+                  example: abcd1234
+                workflow:
+                  description: (Optional) Review Workflow. "simple" / "review". [Read more](https://support.phrase.com/hc/en-us/articles/5784094755484)
+                  type: string
+                  example: review
+                machine_translation_enabled:
+                  description: (Optional) Enable machine translation support in the project. Required for Pre-Translation
+                  type: boolean
+                  example: true
+                enable_branching:
+                  description: (Optional) Enable branching in the project
+                  type: boolean
+                  example: true
+                protect_master_branch:
+                  description: (Optional) Protect the master branch in project where branching is enabled
+                  type: boolean
+                  example: true
+                enable_all_data_type_translation_keys_for_translators:
+                  description: (Optional) Otherwise, translators are not allowed to edit translations other than strings
+                  type: boolean
+                  example: true
+                enable_icu_message_format:
+                  description: (Optional) We can validate and highlight your ICU messages. [Read more](https://support.phrase.com/hc/en-us/articles/5822319545116)
+                  type: boolean
+                  example: true
+                zero_plural_form_enabled:
+                  description: (Optional) Displays the input fields for the 'ZERO' plural form for every key as well although only some languages require the 'ZERO' explicitly.
+                  type: boolean
+                  example: true
+                autotranslate_enabled:
+                  description: (Optional) Autopilot, requires machine_translation_enabled. [Read more](https://support.phrase.com/hc/en-us/articles/5822187934364)
+                  type: boolean
+                  example: true
+                autotranslate_check_new_translation_keys:
+                  description: (Optional) Requires autotranslate_enabled to be true
+                  type: boolean
+                  example: true
+                autotranslate_check_new_uploads:
+                  description: (Optional) Requires autotranslate_enabled to be true
+                  type: boolean
+                  example: true
+                autotranslate_check_new_locales:
+                  description: (Optional) Requires autotranslate_enabled to be true
+                  type: boolean
+                  example: true
+                autotranslate_mark_as_unverified:
+                  description: (Optional) Requires autotranslate_enabled to be true
+                  type: boolean
+                  example: true
+                autotranslate_use_machine_translation:
+                  description: (Optional) Requires autotranslate_enabled to be true
+                  type: boolean
+                  example: true
+                autotranslate_use_translation_memory:
+                  description: (Optional) Requires autotranslate_enabled to be true
+                  type: boolean
+                  example: true
+                autotranslate_overwrite_unverified_translations:
+                  description: (Optional) Requires autotranslate_enabled to be true
+                  type: boolean
+                  example: true
+                placeholder_styles:
+                  description: (Optional) List of placeholder styles enabled for the project.
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - angular
+                  - iOS
+      x-cli-version: 2.6.3
+  /projects/{id}:
+    get:
+      summary: Get a single project
+      description: Get details on a single project.
+      operationId: project/show
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/project_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase projects show \
+
+          --id <id> \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    patch:
+      summary: Update a project
+      description: Update an existing project.
+      operationId: project/update
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/project_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -F name=My%20Android%20Project \\\n  -F main_format=yml \\\n  -F shares_translation_memory=true"
+      - lang: CLI v2
+        source: 'phrase projects update \
+
+          --id <id> \
+
+          --data ''{"name": "My Android Project", "main_format":"yml", "shares_translation_memory":true}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: project/update/parameters
+              properties:
+                account_id:
+                  description: Required if the requesting user is a member of multiple accounts. Account ID to specify the actual account the project should be created in.
+                  type: string
+                  example: abcd1234
+                name:
+                  description: (Optional) Name of the project
+                  type: string
+                  example: My Android Project
+                point_of_contact:
+                  description: (Optional) User ID of the point of contact for the project. Pass `null` to unset.
+                  type: string
+                  example: abcd1234
+                main_format:
+                  description: (Optional) Main file format specified by its API Extension name. Used for locale downloads if no format is specified. For API Extension names of available file formats see [Format Guide](https://support.phrase.com/hc/en-us/sections/6111343326364) or our [Formats API Endpoint](#formats).
+                  type: string
+                  example: yml
+                media:
+                  description: '(Optional) Main technology stack used in the project. It affects for example the suggested placeholder style. Predefined values include: `Ruby`, `JavaScript`, `AngularJS`, `React`, `iOS`, `Android`, `Python`, `PHP`, `Java`, `Go`, `Windows Phone`, `Rails`, `Node.js`, `.NET`, `Django`, `Symfony`, `Yii Framework`, `Zend Framework`, `Apple App Store Description`, `Google Play Description`, but it can also take any other value.'
+                  type: string
+                  example: Python
+                shares_translation_memory:
+                  description: (Optional) Indicates whether the project should share the account's translation memory
+                  type: boolean
+                  example: true
+                project_image:
+                  description: (Optional) Image to identify the project
+                  type: string
+                  format: binary
+                  example: /path/to/my/project-screenshot.png
+                remove_project_image:
+                  description: (Optional) Indicates whether the project image should be deleted.
+                  type: boolean
+                  example: false
+                workflow:
+                  description: (Optional) Review Workflow. "simple" / "review". [Read more](https://support.phrase.com/hc/en-us/articles/5784094755484)
+                  type: string
+                  example: review
+                machine_translation_enabled:
+                  description: (Optional) Enable machine translation support in the project. Required for Pre-Translation
+                  type: boolean
+                  example: true
+                enable_branching:
+                  description: (Optional) Enable branching in the project
+                  type: boolean
+                  example: true
+                protect_master_branch:
+                  description: (Optional) Protect the master branch in project where branching is enabled
+                  type: boolean
+                  example: true
+                enable_all_data_type_translation_keys_for_translators:
+                  description: (Optional) Otherwise, translators are not allowed to edit translations other than strings
+                  type: boolean
+                  example: true
+                enable_icu_message_format:
+                  description: (Optional) We can validate and highlight your ICU messages. [Read more](https://support.phrase.com/hc/en-us/articles/5822319545116)
+                  type: boolean
+                  example: true
+                zero_plural_form_enabled:
+                  description: (Optional) Displays the input fields for the 'ZERO' plural form for every key as well although only some languages require the 'ZERO' explicitly.
+                  type: boolean
+                  example: true
+                autotranslate_enabled:
+                  description: (Optional) Autopilot, requires machine_translation_enabled. [Read more](https://support.phrase.com/hc/en-us/articles/5822187934364)
+                  type: boolean
+                  example: true
+                autotranslate_check_new_translation_keys:
+                  description: (Optional) Requires autotranslate_enabled to be true
+                  type: boolean
+                  example: true
+                autotranslate_check_new_uploads:
+                  description: (Optional) Requires autotranslate_enabled to be true
+                  type: boolean
+                  example: true
+                autotranslate_check_new_locales:
+                  description: (Optional) Requires autotranslate_enabled to be true
+                  type: boolean
+                  example: true
+                autotranslate_mark_as_unverified:
+                  description: (Optional) Requires autotranslate_enabled to be true
+                  type: boolean
+                  example: true
+                autotranslate_use_machine_translation:
+                  description: (Optional) Requires autotranslate_enabled to be true
+                  type: boolean
+                  example: true
+                autotranslate_use_translation_memory:
+                  description: (Optional) Requires autotranslate_enabled to be true
+                  type: boolean
+                  example: true
+                autotranslate_overwrite_unverified_translations:
+                  description: (Optional) Requires autotranslate_enabled to be true
+                  type: boolean
+                  example: true
+                default_encoding:
+                  description: (Optional) Sets the default encoding for Uploads. If you leave it empty, we will try to guess it automatically for you when you Upload a file. You can still override this value by setting the [`file_encoding`](/en/api/strings/uploads/upload-a-new-file) parameter for Uploads.
+                  type: string
+                  example: UTF-8
+                  enum:
+                  - UTF-8
+                  - UTF-16
+                  - UTF-16BE
+                  - UTF-16LE
+                  - ISO-8859-1
+                placeholder_styles:
+                  description: (Optional) List of placeholder styles enabled for the project.
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - angular
+                  - iOS
+      x-cli-version: 2.6.3
+    delete:
+      summary: Delete a project
+      description: Delete an existing project.
+      operationId: project/delete
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X DELETE"
+      - lang: CLI v2
+        source: 'phrase projects delete \
+
+          --id <id> \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+components:
+  schemas:
+    project:
+      type: object
+      title: project
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        main_format:
+          type: string
+        project_image_url:
+          type: string
+        media:
+          type: string
+        account:
+          $ref: '#/components/schemas/account'
+        space:
+          $ref: '#/components/schemas/space_short'
+        point_of_contact:
+          $ref: '#/components/schemas/user_preview'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: My Android Project
+        slug: android_project
+        main_format: xml
+        project_image_url: http://assets.example.com/project.png
+        account: account
+        space: space
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+    space_short:
+      type: object
+      title: space
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        projects_count:
+          type: integer
+      example:
+        id: 2e7574e8f2372906a03110c2a7cfe671
+        name: My first space
+        created_at: '2020-02-25T12:17:25Z'
+        updated_at: '2020-03-13T14:46:57Z'
+        projects_count: 2
+    account:
+      type: object
+      title: account
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        company:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        company_logo_url:
+          type: string
+      example:
+        id: abcd1234
+        name: Company Account
+        slug: company_account
+        company: My Awesome Company
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+        company_logo_url: http://assets.example.com/company_logo.png
+    project_details:
+      allOf:
+      - $ref: '#/components/schemas/project'
+      - type: object
+        title: project_details
+        properties:
+          slug:
+            type: string
+          shares_translation_memory:
+            type: boolean
+          machine_translation_enabled:
+            type: boolean
+            example: true
+          zero_plural_form_enabled:
+            type: boolean
+            example: true
+          enable_all_data_type_translation_keys_for_translators:
+            type: boolean
+            example: false
+          enable_icu_message_format:
+            type: boolean
+            example: false
+          enable_branching:
+            type: boolean
+            example: false
+          protect_master_branch:
+            type: boolean
+            example: false
+          autotranslate_enabled:
+            type: boolean
+            example: false
+          autotranslate_check_new_translation_keys:
+            type: boolean
+            example: false
+          autotranslate_check_new_uploads:
+            type: boolean
+            example: false
+          autotranslate_check_new_locales:
+            type: boolean
+            example: false
+          autotranslate_mark_as_unverified:
+            type: boolean
+            example: false
+          autotranslate_use_machine_translation:
+            type: boolean
+            example: false
+          autotranslate_use_translation_memory:
+            type: boolean
+            example: true
+          default_encoding:
+            type: string
+            example: UTF-8
+          cldr_version:
+            type: string
+            example: legacy
+          job_locking_enabled:
+            type: boolean
+            example: false
+          placeholder_styles:
+            type: array
+            items:
+              type: string
+            example:
+            - angular
+            - iOS
+        example:
+          slug: my-android-project
+          shares_translation_memory: true
+          machine_translation_enabled: true
+          zero_plural_form_enabled: true
+          enable_all_data_type_translation_keys_for_translators: false
+          enable_icu_message_format: false
+          enable_branching: false
+          protect_master_branch: false
+          autotranslate_enabled: false
+          autotranslate_check_new_translation_keys: false
+          autotranslate_check_new_uploads: false
+          autotranslate_check_new_locales: false
+          autotranslate_mark_as_unverified: false
+          autotranslate_use_machine_translation: false
+          autotranslate_use_translation_memory: true
+          default_encoding: UTF-8
+          cldr_version: legacy
+          job_locking_enabled: false
+          placeholder_styles:
+          - angular
+          - iOS
+    user_preview:
+      type: object
+      title: user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        gravatar_uid:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: johndoe
+        name: John Doe
+        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+  headers:
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+  responses:
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '204':
+      description: The resource was deleted successfully.
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  parameters:
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    query_account_id:
+      in: query
+      name: account_id
+      description: Filter by Account ID
+      required: false
+      schema:
+        type: string
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your token in the format `token TOKEN`
+    Basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Core Resources
+  tags:
+  - Projects
+  - Locales
+  - Keys
+  - Translations
+  - Uploads
+  - Tags
+  - Custom Metadata Properties
+  - Blacklisted Keys
+  - Versions / History
+- name: Workflows
+  tags:
+  - Spaces
+  - Jobs
+  - Job Comments
+  - Job Locales
+  - Job Templates
+  - Job Template Locales
+  - Organization Job Templates
+  - Organization Job Template Locales
+  - Comments
+  - Comment Reactions
+  - Comment Replies
+  - Branches
+- name: Quality
+  tags:
+  - Glossaries
+  - Glossary Terms
+  - Glossary Term Translations
+- name: Integrations
+  tags:
+  - Webhooks
+  - Distributions
+  - Releases
+  - Release Triggers
+- name: Ordering
+  tags:
+  - Orders
+  - Style guides
+- name: User management
+  tags:
+  - Authorizations
+  - Users
+  - Accounts
+  - Members
+  - Invitations
+- name: Screenshots
+  tags:
+  - Screenshots
+  - Screenshot Markers
+- name: Misc
+  tags:
+  - Formats
+- name: Figma Attachments
+  tags:
+  - Figma attachments
+  - Key's Figma attachments

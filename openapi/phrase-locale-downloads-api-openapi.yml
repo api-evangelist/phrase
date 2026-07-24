@@ -1,0 +1,460 @@
+openapi: 3.0.3
+info:
+  title: Phrase Strings API Reference Accounts Locale Downloads API
+  version: 2.0.0
+  description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
+  contact:
+    name: Phrase Support
+    url: https://developers.phrase.com/api/
+    email: support@phrase.com
+  x-logo:
+    url: https://developers.phrase.com/images/phrase-logo.svg
+    backgroundColor: '#03eab3'
+    altText: Phrase Strings
+  termsOfService: https://phrase.com/terms/
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+- url: https://api.phrase.com/v2
+  description: EU production server
+- url: https://api.us.app.phrase.com/v2
+  description: US production server
+security:
+- Token: []
+- Basic: []
+tags:
+- name: Locale Downloads
+paths:
+  /projects/{project_id}/locales/{locale_id}/downloads:
+    post:
+      summary: Initiate async download of a locale
+      description: Prepare a locale for download in a specific file format.
+      operationId: locale_download/create
+      tags:
+      - Locale Downloads
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/If-Modified-Since'
+      - $ref: '#/components/parameters/If-None-Match'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/locale_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: locale_download/create/parameters
+              required:
+              - file_format
+              properties:
+                file_format:
+                  description: File format name. See the [format guide](https://support.phrase.com/hc/en-us/sections/6111343326364) for all supported file formats.
+                  type: string
+                  example: yml
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                tags:
+                  description: Limit results to keys tagged with a list of comma separated tag names.
+                  type: string
+                  example: feature1,feature2
+                include_empty_translations:
+                  description: Indicates whether keys without translations should be included in the output as well.
+                  example: true
+                  type: boolean
+                exclude_empty_zero_forms:
+                  description: Indicates whether zero forms should be included when empty in pluralized keys.
+                  example: true
+                  type: boolean
+                include_translated_keys:
+                  description: Include translated keys in the locale file. Use in combination with include_empty_translations to obtain only untranslated keys.
+                  example: true
+                  type: boolean
+                keep_notranslate_tags:
+                  description: Indicates whether [NOTRANSLATE] tags should be kept.
+                  type: boolean
+                  example: true
+                format_options:
+                  description: 'Additional formatting and render options. See the [format guide](https://support.phrase.com/hc/en-us/sections/6111343326364)
+
+                    for a list of options available for each format. Pass format options as a JSON object with key-value pairs corresponding
+
+                    to the option name and value. For example, to include comments in a Gettext file, pass `{"include_comments": true}`.
+
+                    '
+                  example:
+                    format_options:
+                      foo: bar
+                  type: object
+                  properties: {}
+                encoding:
+                  description: Enforces a specific encoding on the file contents. Valid options are "UTF-8", "UTF-16" and "ISO-8859-1".
+                  example: UTF-8
+                  type: string
+                include_unverified_translations:
+                  description: if set to false unverified translations are excluded
+                  example: true
+                  type: boolean
+                use_last_reviewed_version:
+                  description: If set to true the last reviewed version of a translation is used. This is only available if the review workflow is enabled for the project.
+                  type: boolean
+                  example: null
+                locale_ids:
+                  description: Locale IDs or locale names
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - de
+                  - en
+                fallback_locale_id:
+                  description: 'If a key has no translation in the locale being downloaded, the translation in the fallback locale will be used.
+
+                    Provide the ID of the locale that should be used as the fallback.
+
+                    Requires `include_empty_translations` to be set to `true`. Mutually exclusive with `use_locale_fallback`.
+
+                    '
+                  type: string
+                  example: abcd1234abcd1234abcd1234abcd1234
+                use_locale_fallback:
+                  description: 'If a key has no translation in the locale being downloaded, the translation in the fallback locale will be used.
+
+                    Fallback locale is defined in [locale''s settings](/en/api/strings/locales/update-a-locale#body-fallback-locale-id).
+
+                    Requires `include_empty_translations` to be set to `true`. Mutually exclusive with `fallback_locale_id`.
+
+                    '
+                  type: boolean
+                  example: false
+                source_locale_id:
+                  description: Provides the source language of a corresponding job as the source language of the generated locale file. This parameter will be ignored unless used in combination with a `tag` parameter indicating a specific job.
+                  example: abcd1234abcd1234abcd1234abcd1234
+                  type: string
+                custom_metadata_filters:
+                  description: 'Custom metadata filters. Provide the name of the metadata field and the value to filter by. Only keys with matching metadata will be included in the download.
+
+                    '
+                  type: object
+                  properties: {}
+                updated_since:
+                  description: 'Only include translations and keys that have been updated since the given date. The date must be in ISO 8601 format (e.g., `2023-01-01T00:00:00Z`).
+
+                    '
+                  type: string
+                  example: '2023-01-01T00:00:00Z'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/locale_download'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/locales/:locale_id/downloads\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X POST \\\n  -d '{\"branch\":\"my-feature-branch\",\"file_format\":\"yml\",\"tags\":\"feature1,feature\",\"custom_metadata_filters\":{\"tone\":\"friendly\"}}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase locale_downloads create \
+
+          --project_id <project_id> \
+
+          --locale_id <locale_id> \
+
+          --branch my-feature-branch \
+
+          --file_format yml \
+
+          --tags feature1,feature2 \
+
+          --access_token <token>'
+      x-cli-version: 2.29.0
+  /projects/{project_id}/locales/{locale_id}/downloads/{id}:
+    get:
+      summary: Show status of an async locale download
+      description: Show status of already started async locale download. If the download is finished, the download link will be returned.
+      operationId: locale_download/show
+      tags:
+      - Locale Downloads
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/If-Modified-Since'
+      - $ref: '#/components/parameters/If-None-Match'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/locale_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/locale_download'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/locales/:locale_id/downloads/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase locale_downloads show \
+
+          --project_id <project_id> \
+
+          --locale_id <locale_id> \
+
+          --id <id>
+
+          --access_token <token>'
+      x-cli-version: 2.29.0
+components:
+  schemas:
+    locale_download:
+      type: object
+      title: Async Locale Download
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          enum:
+          - processing
+          - completed
+          - error
+          description: 'The status of the download request. Possible values are `processing`, `completed`, and `error`.
+
+            '
+        result:
+          type: object
+          properties:
+            url:
+              type: string
+              format: uri
+              description: 'The URL to the download file. This URL is valid for 15 minutes.
+
+                '
+        params:
+          type: object
+          description: 'The parameters of the download request.
+
+            '
+          properties:
+            file_format:
+              type: string
+            locale_id:
+              type: string
+            tags:
+              type: string
+            branch:
+              type: string
+            include_empty_translations:
+              type: boolean
+            include_translated_keys:
+              type: boolean
+            include_unverified_translations:
+              type: boolean
+        error:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        status: completed
+        result:
+          url: https://example.com/locales/abcd1234cdef1234abcd1234cdef1234/download?file_format=yml
+        params:
+          file_format: yml
+          locale_id: abcd1234cdef1234abcd1234cdef1234
+          tags: feature1,feature2
+          branch: my-feature-branch
+          include_empty_translations: true
+          include_translated_keys: true
+          include_unverified_translations: true
+        created_at: '2015-01-28T09:52:53Z'
+        completed_at: '2015-01-28T09:52:53Z'
+  responses:
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  headers:
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+  parameters:
+    If-None-Match:
+      description: ETag condition, see [Conditional GET requests / HTTP Caching](/en/api/strings/pagination#conditional-get-requests-%2F-http-caching) (optional)
+      explode: false
+      in: header
+      name: If-None-Match
+      required: false
+      schema:
+        type: string
+      style: simple
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    If-Modified-Since:
+      description: Last modified condition, see [Conditional GET requests / HTTP Caching](/en/api/strings/pagination#conditional-get-requests-%2F-http-caching) (optional)
+      explode: false
+      in: header
+      name: If-Modified-Since
+      required: false
+      schema:
+        type: string
+      style: simple
+    locale_id:
+      in: path
+      name: locale_id
+      description: Locale ID
+      required: true
+      schema:
+        type: string
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your token in the format `token TOKEN`
+    Basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Core Resources
+  tags:
+  - Projects
+  - Locales
+  - Keys
+  - Translations
+  - Uploads
+  - Tags
+  - Custom Metadata Properties
+  - Blacklisted Keys
+  - Versions / History
+- name: Workflows
+  tags:
+  - Spaces
+  - Jobs
+  - Job Comments
+  - Job Locales
+  - Job Templates
+  - Job Template Locales
+  - Organization Job Templates
+  - Organization Job Template Locales
+  - Comments
+  - Comment Reactions
+  - Comment Replies
+  - Branches
+- name: Quality
+  tags:
+  - Glossaries
+  - Glossary Terms
+  - Glossary Term Translations
+- name: Integrations
+  tags:
+  - Webhooks
+  - Distributions
+  - Releases
+  - Release Triggers
+- name: Ordering
+  tags:
+  - Orders
+  - Style guides
+- name: User management
+  tags:
+  - Authorizations
+  - Users
+  - Accounts
+  - Members
+  - Invitations
+- name: Screenshots
+  tags:
+  - Screenshots
+  - Screenshot Markers
+- name: Misc
+  tags:
+  - Formats
+- name: Figma Attachments
+  tags:
+  - Figma attachments
+  - Key's Figma attachments

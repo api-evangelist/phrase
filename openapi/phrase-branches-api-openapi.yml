@@ -1,0 +1,764 @@
+openapi: 3.0.3
+info:
+  title: Phrase Strings API Reference Accounts Branches API
+  version: 2.0.0
+  description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
+  contact:
+    name: Phrase Support
+    url: https://developers.phrase.com/api/
+    email: support@phrase.com
+  x-logo:
+    url: https://developers.phrase.com/images/phrase-logo.svg
+    backgroundColor: '#03eab3'
+    altText: Phrase Strings
+  termsOfService: https://phrase.com/terms/
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+- url: https://api.phrase.com/v2
+  description: EU production server
+- url: https://api.us.app.phrase.com/v2
+  description: US production server
+security:
+- Token: []
+- Basic: []
+tags:
+- name: Branches
+  description: "### Branch creation\n\nBranches will be created asynchronously. State of branch creation is returned as state.\n\n#### Available States\n\n<div class=\"table-responsive\">\n  <table class=\"basic-table\">\n    <thead>\n      <tr class=\"basic-table__row basic-table__row--header\">\n        <th class=\"basic-table__cell basic-table__cell--header\">State</th>\n        <th class=\"basic-table__cell basic-table__cell--header\">Description</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td class=\"basic-table__cell\"><code>initialized</code></td>\n        <td class=\"basic-table__cell\">Data received.</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>processing</code></td>\n        <td class=\"basic-table__cell\">Branch is currently creating.</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>success</code></td>\n        <td class=\"basic-table__cell\">Branch was created successfully</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>error</code></td>\n        <td class=\"basic-table__cell\">Branch creation failed.</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
+paths:
+  /projects/{project_id}/branches:
+    get:
+      summary: List branches
+      description: List all branches the of the current project.
+      operationId: branches/list
+      tags:
+      - Branches
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/branch'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Link:
+              $ref: '#/components/headers/Link'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/branches\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase branches list \
+
+          --project_id <project_id> \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    post:
+      summary: Create a branch
+      description: 'Create a new branch.
+
+
+        *Note: Creating a new branch may take several minutes depending on the project size.*
+
+        '
+      operationId: branch/create
+      tags:
+      - Branches
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/branch'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/branches\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X POST \\\n  -d '{\"name\":\"my-branch\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase branches create \
+
+          --project_id <project_id> \
+
+          --data ''{"name":"my-branch"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: branch/create/parameters
+              required:
+              - name
+              properties:
+                name:
+                  description: Name of the branch
+                  type: string
+                  example: my-branch
+      x-cli-version: '2.5'
+  /projects/{project_id}/branches/{name}:
+    get:
+      summary: Get a single branch
+      description: Get details on a single branch for a given project.
+      operationId: branch/show
+      tags:
+      - Branches
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/branch'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/branches/:name\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase branches show \
+
+          --project_id <project_id> \
+
+          --name <name> \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    patch:
+      summary: Update a branch
+      description: Update an existing branch.
+      operationId: branch/update
+      tags:
+      - Branches
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/branch'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/branches/:name\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"name\":\"my-branch\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase branches update \
+
+          --project_id <project_id> \
+
+          --name <name> \
+
+          --data ''{"name":"my-branch"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: branch/update/parameters
+              properties:
+                name:
+                  description: Name of the branch
+                  type: string
+                  example: my-branch
+      x-cli-version: '2.5'
+    delete:
+      summary: Delete a branch
+      description: Delete an existing branch.
+      operationId: branch/delete
+      tags:
+      - Branches
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/name'
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/branches/:name\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X DELETE"
+      - lang: CLI v2
+        source: 'phrase branches delete \
+
+          --project_id <project_id> \
+
+          --name <name> \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+  /projects/{project_id}/branches/{name}/merge:
+    patch:
+      summary: Merge a branch
+      description: 'Merge an existing branch.
+
+
+        *Note: Merging a branch may take several minutes depending on diff size.*
+
+        '
+      operationId: branch/merge
+      tags:
+      - Branches
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/branches/:name/merge\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"strategy\":\"use_main\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase branches merge \
+
+          --project_id <project_id> \
+
+          --name <name> \
+
+          --data ''{"strategy":"use_main"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: branch/merge/parameters
+              properties:
+                strategy:
+                  description: strategy used for merge conflicts, use_main or use_branch
+                  type: string
+                  example: use_main
+  /projects/{project_id}/branches/{name}/sync:
+    patch:
+      summary: Sync a branch
+      description: 'Sync an existing branch.
+
+
+        *Note: Only available for branches created with new branching.*
+
+        '
+      operationId: branch/sync
+      tags:
+      - Branches
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/branches/:name/sync\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"strategy\":\"use_main\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase branches sync \
+
+          --project_id <project_id> \
+
+          --name <name> \
+
+          --data ''{"strategy":"use_main"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: branch/sync/parameters
+              properties:
+                strategy:
+                  description: strategy used for conflicts, use_main or use_branch
+                  type: string
+                  example: use_main
+  /projects/{project_id}/branches/{name}/compare:
+    get:
+      summary: Compare branches
+      description: 'Compare branch with main branch.
+
+
+        *Note: Comparing a branch may take several minutes depending on the project size. Consider using the `POST /compare` endpoint for creating comparison asynchronously.*
+
+        '
+      operationId: branch/compare
+      tags:
+      - Branches
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/name'
+      - description: Name of the branch
+        example: my-branch
+        name: name
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+          description: A comparison is already in progress for this branch.
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/branches/:name/compare?name=my-branch\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase branches compare \
+
+          --project_id <project_id> \
+
+          --name <name> \
+
+          --name my-branch \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    post:
+      summary: Create comparison (async.)
+      description: 'Create a branch comparison asynchronously.
+
+        '
+      operationId: branch/comparison/create
+      tags:
+      - Branches
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/name'
+      responses:
+        '202':
+          $ref: '#/components/responses/202'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+          description: An asynchronous comparison is already in progress for this branch.
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/branches/:name/compare\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X POST \\\n  -d '{\"direction\":\"merge\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase branches create_comparison \
+
+          --project_id <project_id> \
+
+          --name <name> \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: branch/create_comparison/parameters
+              properties:
+                direction:
+                  description: direction of comparison, possible values are sync or merge (only for v2 branches)
+                  type: string
+                  example: merge
+                  default: merge
+components:
+  responses:
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '409':
+      description: Conflict
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '202':
+      description: Accepted
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '204':
+      description: The resource was deleted successfully.
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  headers:
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+  parameters:
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    name:
+      in: path
+      name: name
+      description: name
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
+  schemas:
+    branch:
+      type: object
+      title: branch
+      properties:
+        base_project_id:
+          type: string
+        branch_project_id:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        merged_at:
+          type: string
+          format: date-time
+        merged_by:
+          $ref: '#/components/schemas/user_preview'
+        created_by:
+          $ref: '#/components/schemas/user_preview'
+        state:
+          type: string
+        child_branches:
+          type: array
+          items:
+            type: string
+      example:
+        name: new-branch
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+        merged_at: '2015-01-28T09:52:53Z'
+        merged_by:
+          id: abcd1234cdef1234abcd1234cdef1234
+          username: joe.doe
+          name: Joe Doe
+        created_by:
+          id: abcd1234cdef1234abcd1234cdef1234
+          username: joe.doe
+          name: Joe Doe
+        state: success
+        child_branches:
+        - feature_2
+        - feature_3
+    user_preview:
+      type: object
+      title: user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        gravatar_uid:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: johndoe
+        name: John Doe
+        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your token in the format `token TOKEN`
+    Basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Core Resources
+  tags:
+  - Projects
+  - Locales
+  - Keys
+  - Translations
+  - Uploads
+  - Tags
+  - Custom Metadata Properties
+  - Blacklisted Keys
+  - Versions / History
+- name: Workflows
+  tags:
+  - Spaces
+  - Jobs
+  - Job Comments
+  - Job Locales
+  - Job Templates
+  - Job Template Locales
+  - Organization Job Templates
+  - Organization Job Template Locales
+  - Comments
+  - Comment Reactions
+  - Comment Replies
+  - Branches
+- name: Quality
+  tags:
+  - Glossaries
+  - Glossary Terms
+  - Glossary Term Translations
+- name: Integrations
+  tags:
+  - Webhooks
+  - Distributions
+  - Releases
+  - Release Triggers
+- name: Ordering
+  tags:
+  - Orders
+  - Style guides
+- name: User management
+  tags:
+  - Authorizations
+  - Users
+  - Accounts
+  - Members
+  - Invitations
+- name: Screenshots
+  tags:
+  - Screenshots
+  - Screenshot Markers
+- name: Misc
+  tags:
+  - Formats
+- name: Figma Attachments
+  tags:
+  - Figma attachments
+  - Key's Figma attachments

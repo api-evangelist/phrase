@@ -1,0 +1,653 @@
+openapi: 3.0.3
+info:
+  title: Phrase Strings API Reference Accounts Job Template Locales API
+  version: 2.0.0
+  description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
+  contact:
+    name: Phrase Support
+    url: https://developers.phrase.com/api/
+    email: support@phrase.com
+  x-logo:
+    url: https://developers.phrase.com/images/phrase-logo.svg
+    backgroundColor: '#03eab3'
+    altText: Phrase Strings
+  termsOfService: https://phrase.com/terms/
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+- url: https://api.phrase.com/v2
+  description: EU production server
+- url: https://api.us.app.phrase.com/v2
+  description: US production server
+security:
+- Token: []
+- Basic: []
+tags:
+- name: Job Template Locales
+paths:
+  /projects/{project_id}/job_templates/{job_template_id}/locales:
+    get:
+      summary: List job template locales
+      description: List all job template locales for a given job template.
+      operationId: job_template_locales/list
+      tags:
+      - Job Template Locales
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/job_template_id'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/job_template_locale'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Link:
+              $ref: '#/components/headers/Link'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/job_templates/:job_template_id/locales?branch=my-feature-branch\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase job_template_locales list \
+
+          --project_id <project_id> \
+
+          --job_template_id <job_template_id> \
+
+          --branch my-feature-branch \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    post:
+      summary: Create a job template locale
+      description: Create a new job template locale.
+      operationId: job_template_locales/create
+      tags:
+      - Job Template Locales
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/job_template_id'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/job_template_locale'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/job_templates/:job_template_id/locales\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X POST \\\n  -d '{\"branch\":\"my-feature-branch\",\"locale_id\":\"abcd1234cdef1234abcd1234cdef1234\",\"user_ids\":[\"abcd1234cdef1234abcd1234cdef1234\"],\"reviewer_ids\":[\"abcd1234cdef1234abcd1234cdef1234\"], \"translator_team_ids\":[\"abcd1234cdef1234abcd1234cdef1234\"]}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase job_template_locales create \
+
+          --project_id <project_id> \
+
+          --job_template_id <job_template_id> \
+
+          --data ''{"branch":"my-feature-branch", "locale_id":"abcd1234cdef1234abcd1234cdef1234", "user_ids": "abcd1234cdef1234abcd1234cdef1234", "reviewer_ids": "abcd1234cdef1234abcd1234cdef1234", "translator_team_ids":"abcd1234cdef1234abcd1234cdef1234"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: job_template_locales/create/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                locale_id:
+                  description: locale id
+                  type: string
+                  example: abcd1234cdef1234abcd1234cdef1234
+                user_ids:
+                  description: Array of user ids to be assigned to the job template locale
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - abcd1234cdef1234abcd1234cdef1234
+                reviewer_ids:
+                  description: Array of reviewer ids to be assigned to the job template locale
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - abcd1234cdef1234abcd1234cdef1234
+                translator_team_ids:
+                  description: Array of team ids to be assigned to the job locale as translators
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - abcd1234cdef1234abcd1234cdef1234
+                reviewer_team_ids:
+                  description: Array of team ids to be assigned to the job locale as reviewers
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - abcd1234cdef1234abcd1234cdef1234
+              required:
+              - locale_id
+      x-cli-version: 2.6.8
+  /projects/{project_id}/job_templates/{job_template_id}/locales/{job_template_locale_id}:
+    get:
+      summary: Get a single job template locale
+      description: Get a single job template locale for a given job template.
+      operationId: job_template_locale/show
+      tags:
+      - Job Template Locales
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/job_template_id'
+      - $ref: '#/components/parameters/job_template_locale_id'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/job_template_locale'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/job_templates/:job_template_id/locales/:job_template_locale_id?branch=my-feature-branch\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase job_template_locales show \
+
+          --project_id <project_id> \
+
+          --job_template_id <job_template_id> \
+
+          --job_template_locale_id <job_template_locale_id> \
+
+          --branch my-feature-branch \
+
+          --access_token <token>'
+      x-cli-version: 2.6.8
+    patch:
+      summary: Update a job template locale
+      description: Update an existing job template locale.
+      operationId: job_template_locale/update
+      tags:
+      - Job Template Locales
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/job_template_id'
+      - $ref: '#/components/parameters/job_template_locale_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/job_template_locale'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/job_templates/:job_template_id/locales/:job_template_locale_id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\",\"locale_id\":\"abcd1234cdef1234abcd1234cdef1234\",\"user_ids\":[\"abcd1234cdef1234abcd1234cdef1234\"],\"reviewer_ids\":[\"abcd1234cdef1234abcd1234cdef1234\"], \"translator_team_ids\":[\"abcd1234cdef1234abcd1234cdef1234\"]}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase job_template_locales update \
+
+          --project_id <project_id> \
+
+          --job_template_id <job_template_id> \
+
+          --job_template_locale_id <job_template_locale_id> \
+
+          --data ''{"branch":"my-feature-branch", "locale_id":"abcd1234cdef1234abcd1234cdef1234", "user_ids": "abcd1234cdef1234abcd1234cdef1234", "reviewer_ids": "abcd1234cdef1234abcd1234cdef1234", "translator_team_ids": "abcd1234cdef1234abcd1234cdef1234"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: job_template_locale/update/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                locale_id:
+                  description: locale id
+                  type: string
+                  example: abcd1234cdef1234abcd1234cdef1234
+                user_ids:
+                  description: Array of user ids to be assigned to the job template locale
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - abcd1234cdef1234abcd1234cdef1234
+                reviewer_ids:
+                  description: Array of reviewer ids to be assigned to the job template locale
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - abcd1234cdef1234abcd1234cdef1234
+                translator_team_ids:
+                  description: Array of team ids to be assigned to the job locale as translators
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - abcd1234cdef1234abcd1234cdef1234
+                reviewer_team_ids:
+                  description: Array of team ids to be assigned to the job locale as reviewers
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - abcd1234cdef1234abcd1234cdef1234
+      x-cli-version: 2.6.8
+    delete:
+      summary: Delete a job template locale
+      description: Delete an existing job template locale.
+      operationId: job_template_locale/delete
+      tags:
+      - Job Template Locales
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/job_template_id'
+      - $ref: '#/components/parameters/job_template_locale_id'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/job_templates/:job_template_id/locales/:job_template_locale_id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X DELETE \\\n  -d '{\"branch\":\"my-feature-branch\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase job_template_locales delete \
+
+          --project_id <project_id> \
+
+          --job_template_id <job_template_id> \
+
+          --job_template_locale_id <job_template_locale_id> \
+
+          --branch my-feature-branch \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+components:
+  schemas:
+    locale_team_preview:
+      type: object
+      title: locale_team_preview
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+      example: null
+    job_template_preview:
+      type: object
+      title: job_template_preview
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      example: null
+    locale_preview:
+      type: object
+      title: locale_preview
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: English
+        code: en-GB
+    job_template_locale:
+      type: object
+      title: job_template_locale
+      properties:
+        id:
+          type: string
+        job_template:
+          $ref: '#/components/schemas/job_template_preview'
+        locale:
+          $ref: '#/components/schemas/locale_preview'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/locale_user_preview'
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/locale_team_preview'
+      example:
+        id: 626ea67628690c73ac86ac81eec2d185
+        job_template:
+          id: abcd1234cdef1234abcd1234cdef1234
+          name: template
+        users:
+        - id: abcd1234cdef1234abcd1234cdef1234
+          username: joe.doe
+          name: Joe Doe
+          role: translator
+        teams:
+        - id: abcd1234cdef1234abcd1234cdef1234
+          name: Joe's team
+          role: translator
+        locale:
+          id: abcd1234cdef1234abcd1234cdef1234
+          name: English
+          code: en-GB
+    locale_user_preview:
+      type: object
+      title: locale_user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+      example: null
+  parameters:
+    job_template_id:
+      in: path
+      name: job_template_id
+      description: Job Template ID
+      required: true
+      schema:
+        type: string
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
+    job_template_locale_id:
+      in: path
+      name: job_template_locale_id
+      description: Job Template Locale ID
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+  headers:
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+  responses:
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '204':
+      description: The resource was deleted successfully.
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your token in the format `token TOKEN`
+    Basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Core Resources
+  tags:
+  - Projects
+  - Locales
+  - Keys
+  - Translations
+  - Uploads
+  - Tags
+  - Custom Metadata Properties
+  - Blacklisted Keys
+  - Versions / History
+- name: Workflows
+  tags:
+  - Spaces
+  - Jobs
+  - Job Comments
+  - Job Locales
+  - Job Templates
+  - Job Template Locales
+  - Organization Job Templates
+  - Organization Job Template Locales
+  - Comments
+  - Comment Reactions
+  - Comment Replies
+  - Branches
+- name: Quality
+  tags:
+  - Glossaries
+  - Glossary Terms
+  - Glossary Term Translations
+- name: Integrations
+  tags:
+  - Webhooks
+  - Distributions
+  - Releases
+  - Release Triggers
+- name: Ordering
+  tags:
+  - Orders
+  - Style guides
+- name: User management
+  tags:
+  - Authorizations
+  - Users
+  - Accounts
+  - Members
+  - Invitations
+- name: Screenshots
+  tags:
+  - Screenshots
+  - Screenshot Markers
+- name: Misc
+  tags:
+  - Formats
+- name: Figma Attachments
+  tags:
+  - Figma attachments
+  - Key's Figma attachments

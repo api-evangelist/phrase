@@ -1,0 +1,1267 @@
+openapi: 3.0.3
+info:
+  title: Phrase Strings API Reference Accounts Keys API
+  version: 2.0.0
+  description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
+  contact:
+    name: Phrase Support
+    url: https://developers.phrase.com/api/
+    email: support@phrase.com
+  x-logo:
+    url: https://developers.phrase.com/images/phrase-logo.svg
+    backgroundColor: '#03eab3'
+    altText: Phrase Strings
+  termsOfService: https://phrase.com/terms/
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+- url: https://api.phrase.com/v2
+  description: EU production server
+- url: https://api.us.app.phrase.com/v2
+  description: US production server
+security:
+- Token: []
+- Basic: []
+tags:
+- name: Keys
+paths:
+  /projects/{project_id}/keys:
+    get:
+      summary: List keys
+      description: List all keys for the given project. Alternatively you can POST requests to /search.
+      operationId: keys/list
+      tags:
+      - Keys
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      - description: 'Sort by field. Can be one of: name, created_at, updated_at.'
+        example: updated_at
+        name: sort
+        in: query
+        schema:
+          type: string
+      - description: 'Order direction. Can be one of: asc, desc.'
+        example: desc
+        name: order
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/q'
+      - description: Locale used to determine the translation state of a key when filtering for untranslated or translated keys.
+        example: abcd1234abcd1234abcd1234abcd1234
+        name: locale_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/translation_key'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Link:
+              $ref: '#/components/headers/Link'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys?branch=my-feature-branch&sort=updated_at&order=desc&q=mykey*%20translated:true&locale_id=abcd1234abcd1234abcd1234abcd1234\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase keys list \
+
+          --project_id <project_id> \
+
+          --branch my-feature-branch \
+
+          --sort updated_at \
+
+          --order desc \
+
+          --query ''mykey* translated:true'' \
+
+          --locale_id abcd1234abcd1234abcd1234abcd1234 \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    post:
+      summary: Create a key
+      description: Create a new key.
+      operationId: key/create
+      tags:
+      - Keys
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/translation_key_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X POST \\\n  -F branch=my-feature-branch \\\n  -F name=home.index.headline \\\n  -F description=Some%20description%20worth%20knowing... \\\n  -F name_plural=home.index.headlines \\\n  -F data_type=number \\\n  -F tags=awesome-feature,needs-proofreading \\\n  -F max_characters_allowed=140 \\\n  -F screenshot=@/path/to/my/screenshot.png\n  -F custom_metadata[property]=value"
+      - lang: CLI v2
+        source: 'phrase keys create \
+
+          --project_id <project_id> \
+
+          --data ''{"branch":"my-feature-branch", "name":"home.index.headline", "description": "Some description worth knowing...", "name_plural":"home.index.headlines", "data_type":"number", "tags":"awesome-feature,needs-proofreading", "max_characters_allowed":"140", "screenshot":"/path/to/my/screenshot.png", "custom_metadata": {"property" => "value"}}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: key/create/parameters
+              required:
+              - name
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                name:
+                  description: Key name
+                  type: string
+                  example: home.index.headline
+                description:
+                  description: Key description (usually includes contextual information for translators)
+                  type: string
+                  example: Some description worth knowing...
+                plural:
+                  description: Indicates whether key supports pluralization
+                  type: boolean
+                  example: null
+                use_ordinal_rules:
+                  description: Indicates whether key uses ordinal rules for pluralization
+                  type: boolean
+                  example: null
+                name_plural:
+                  description: Plural name for the key (used in some file formats, e.g. Gettext)
+                  type: string
+                  example: home.index.headlines
+                data_type:
+                  description: 'Type of the key. Can be one of the following: string, number, boolean, array, markdown.'
+                  type: string
+                  example: number
+                tags:
+                  description: List of tags separated by comma to be associated with the key.
+                  type: string
+                  example: awesome-feature,needs-proofreading
+                max_characters_allowed:
+                  description: Max. number of characters translations for this key can have.
+                  type: integer
+                  example: 140
+                screenshot:
+                  description: Screenshot/image for the key. This parameter is deprecated. Please use the Screenshots endpoint instead.
+                  type: string
+                  format: binary
+                  example: /path/to/my/screenshot.png
+                  deprecated: true
+                remove_screenshot:
+                  description: Indicates whether the screenshot will be deleted. This parameter is deprecated. Please use the Screenshots endpoint instead.
+                  type: boolean
+                  example: null
+                  deprecated: true
+                unformatted:
+                  description: Indicates whether the key should be exported as "unformatted". Supported by Android XML and other formats.
+                  type: boolean
+                  example: null
+                default_translation_content:
+                  description: Creates a translation in the default locale with the specified content
+                  type: string
+                  example: Default translation content
+                autotranslate:
+                  description: Indicates whether the key should be autotranslated to other locales based on the copy provided in `default_translation_content`.
+                  type: boolean
+                  example: null
+                xml_space_preserve:
+                  description: Indicates whether the key should be exported with "xml:space=preserve". Supported by several XML-based formats.
+                  type: boolean
+                  example: null
+                original_file:
+                  description: Original file attribute. Used in some formats, e.g. XLIFF.
+                  type: string
+                  example: null
+                localized_format_string:
+                  description: NSStringLocalizedFormatKey attribute. Used in .stringsdict format.
+                  type: string
+                  example: null
+                localized_format_key:
+                  description: NSStringLocalizedFormatKey attribute. Used in .stringsdict format.
+                  type: string
+                  example: null
+                custom_metadata:
+                  description: Custom metadata property name and value pairs to be associated with key.
+                  type: object
+                  example:
+                    fruit: Apple
+                    vegetable: Tomato
+      x-cli-version: '2.5'
+    delete:
+      summary: Delete collection of keys
+      description: Delete all keys matching query. Same constraints as list. Please limit the number of affected keys to about 1,000 as you might experience timeouts otherwise.
+      operationId: keys/delete-collection
+      tags:
+      - Keys
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/q'
+      - description: Locale used to determine the translation state of a key when filtering for untranslated or translated keys.
+        example: abcd1234abcd1234abcd1234abcd1234
+        name: locale_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/affected_resources'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X DELETE \\\n  -d '{\"branch\":\"my-feature-branch\",\"q\":\"mykey* translated:true\",\"locale_id\":\"abcd1234abcd1234abcd1234abcd1234\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase keys delete-collection \
+
+          --project_id <project_id> \
+
+          --branch my-feature-branch \
+
+          --query ''mykey* translated:true'' \
+
+          --locale_id abcd1234abcd1234abcd1234abcd1234 \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+  /projects/{project_id}/keys/search:
+    post:
+      summary: Search keys
+      description: Search keys for the given project matching query.
+      operationId: keys/search
+      tags:
+      - Keys
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/translation_key'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys/search\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X POST \\\n  -d '{\"branch\":\"my-feature-branch\",\"sort\":\"updated_at\",\"order\":\"desc\",\"q\":\"mykey* translated:true\",\"locale_id\":\"abcd1234abcd1234abcd1234abcd1234\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase keys search \
+
+          --project_id <project_id> \
+
+          --data ''{"branch":"my-feature-branch", "sort":"updated_at", "order":"desc", "q":"''mykey* translated:true''", "locale_id":"abcd1234abcd1234abcd1234abcd1234"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: keys/search/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                sort:
+                  description: 'Sort by field. Can be one of: name, created_at, updated_at.'
+                  type: string
+                  example: updated_at
+                order:
+                  description: 'Order direction. Can be one of: asc, desc.'
+                  type: string
+                  example: desc
+                q:
+                  description: 'Specify a query to do broad search for keys by name (including wildcards).
+
+
+                    The following qualifiers are also supported in the search term:
+
+
+                    * `ids:key_id,...` for queries on a comma-separated list of ids
+
+                    * `name:key_name,...` for text queries on a comma-seperated list of exact key names - spaces, commas, and colons need to be escaped with double backslashes
+
+                    * `tags:tag_name,...` to filter for keys with certain comma-seperated list of tags
+
+                    * `uploads:upload_id,...` to filter for keys with certain comma-seperated list of uploads
+
+                    * `job:{true|false}` to filter for keys mentioned in an active job
+
+                    * `translated:{true|false}` for translation status (also requires `locale_id` to be specified)
+
+                    * `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries
+
+                    * `unmentioned_in_upload:upload_id,...` to filter keys unmentioned within upload. When multiple upload IDs provided, matches only keys not mentioned in **all** uploads
+
+
+                    Find more examples [here](/en/api/strings/usage-examples).
+
+                    Please note: If `tags` are added to filter the search, the search will be limited to a maximum of 65,536 tagged keys.
+
+                    '
+                  type: string
+                  example: mykey* translated:true
+                locale_id:
+                  description: Locale used to determine the translation state of a key when filtering for untranslated or translated keys.
+                  type: string
+                  example: abcd1234abcd1234abcd1234abcd1234
+      x-cli-version: '2.5'
+  /projects/{project_id}/keys/{id}:
+    get:
+      summary: Get a single key
+      description: Get details on a single key for a given project.
+      operationId: key/show
+      tags:
+      - Keys
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/id'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/translation_key_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys/:id?branch=my-feature-branch\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase keys show \
+
+          --project_id <project_id> \
+
+          --id <id> \
+
+          --branch my-feature-branch \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    patch:
+      summary: Update a key
+      description: Update an existing key.
+      operationId: key/update
+      tags:
+      - Keys
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/translation_key_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -F branch=my-feature-branch \\\n  -F name=home.index.headline \\\n  -F description=Some%20description%20worth%20knowing... \\\n  -F name_plural=home.index.headlines \\\n  -F data_type=number \\\n  -F tags=awesome-feature,needs-proofreading \\\n  -F max_characters_allowed=140 \\\n  -F screenshot=@/path/to/my/screenshot.png\n  -F custom_metadata[property]=value"
+      - lang: CLI v2
+        source: 'phrase keys update \
+
+          --project_id <project_id> \
+
+          --id <id> \
+
+          --data ''{"branch":"my-feature-branch", "name":"home.index.headline", "description": "Some description worth knowing...", "name_plural":"home.index.headlines", "data_type":"number", "tags":"awesome-feature,needs-proofreading", "max_characters_allowed":"140", "screenshot":"/path/to/my/screenshot.png", "custom_metadata": {"property" => "value"}}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: key/update/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                name:
+                  description: Key name
+                  type: string
+                  example: home.index.headline
+                description:
+                  description: Key description (usually includes contextual information for translators)
+                  type: string
+                  example: Some description worth knowing...
+                plural:
+                  description: Indicates whether key supports pluralization
+                  type: boolean
+                  example: null
+                use_ordinal_rules:
+                  description: Indicates whether key uses ordinal rules for pluralization
+                  type: boolean
+                  example: null
+                name_plural:
+                  description: Plural name for the key (used in some file formats, e.g. Gettext)
+                  type: string
+                  example: home.index.headlines
+                data_type:
+                  description: 'Type of the key. Can be one of the following: string, number, boolean, array, markdown.'
+                  type: string
+                  example: number
+                tags:
+                  description: List of tags separated by comma to be associated with the key.
+                  type: string
+                  example: awesome-feature,needs-proofreading
+                max_characters_allowed:
+                  description: Max. number of characters translations for this key can have.
+                  type: integer
+                  example: 140
+                screenshot:
+                  description: Screenshot/image for the key. This parameter is deprecated. Please use the Screenshots endpoint instead.
+                  type: string
+                  format: binary
+                  example: /path/to/my/screenshot.png
+                  deprecated: true
+                remove_screenshot:
+                  description: Indicates whether the screenshot will be deleted. This parameter is deprecated. Please use the Screenshots endpoint instead.
+                  type: boolean
+                  example: null
+                  deprecated: true
+                unformatted:
+                  description: Indicates whether the key should be exported as "unformatted". Supported by Android XML and other formats.
+                  type: boolean
+                  example: null
+                xml_space_preserve:
+                  description: Indicates whether the key should be exported with "xml:space=preserve". Supported by several XML-based formats.
+                  type: boolean
+                  example: null
+                original_file:
+                  description: Original file attribute. Used in some formats, e.g. XLIFF.
+                  type: string
+                  example: null
+                localized_format_string:
+                  description: NSStringLocalizedFormatKey attribute. Used in .stringsdict format.
+                  type: string
+                  example: null
+                localized_format_key:
+                  description: NSStringLocalizedFormatKey attribute. Used in .stringsdict format.
+                  type: string
+                  example: null
+                custom_metadata:
+                  description: Updates/Creates custom metadata property name and value pairs to be associated with key. If you want to delete a custom metadata property, you can set its value to null. If you want to update a custom metadata property, you can set its value to the new value.
+                  type: object
+                  example:
+                    fruit: Apple
+                    vegetable: Tomato
+      x-cli-version: '2.5'
+    delete:
+      summary: Delete a key
+      description: Delete an existing key.
+      operationId: key/delete
+      tags:
+      - Keys
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/id'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X DELETE \\\n  -d '{\"branch\":\"my-feature-branch\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase keys delete \
+
+          --project_id <project_id> \
+
+          --id <id> \
+
+          --branch my-feature-branch \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+  /projects/{project_id}/keys/tag:
+    patch:
+      summary: Add tags to collection of keys
+      description: Tags all keys matching query. Same constraints as list.
+      operationId: keys/tag
+      tags:
+      - Keys
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/affected_resources'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys/tag\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\",\"q\":\"mykey* translated:true\",\"locale_id\":\"abcd1234abcd1234abcd1234abcd1234\",\"tags\":\"landing-page,release-1.2\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase keys tag \
+
+          --project_id <project_id> \
+
+          --data ''{"branch":"my-feature-branch", "q":"''mykey* translated:true''", "locale_id":"abcd1234abcd1234abcd1234abcd1234", "tags":"landing-page,release-1.2"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: keys/tag/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                q:
+                  description: 'Specify a query to do broad search for keys by name (including wildcards).
+
+
+                    The following qualifiers are also supported in the search term:
+
+
+                    * `ids:key_id,...` for queries on a comma-separated list of ids
+
+                    * `name:key_name` for text queries on exact key names - spaces, commas, and colons need to be escaped with double backslashes
+
+                    * `tags:tag_name` to filter for keys with certain tags
+
+                    * `translated:{true|false}` for translation status (also requires `locale_id` to be specified)
+
+                    * `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries
+
+                    * `unmentioned_in_upload:upload_id,...` to filter keys unmentioned within upload. When multiple upload IDs provided, matches only keys not mentioned in **all** uploads
+
+
+                    Find more examples [here](/en/api/strings/usage-examples).
+
+                    '
+                  type: string
+                  example: mykey* translated:true
+                locale_id:
+                  description: Locale used to determine the translation state of a key when filtering for untranslated or translated keys.
+                  type: string
+                  example: abcd1234abcd1234abcd1234abcd1234
+                tags:
+                  description: Tag or comma-separated list of tags to add to the matching collection of keys
+                  type: string
+                  example: landing-page,release-1.2
+      x-cli-version: '2.5'
+  /projects/{project_id}/keys/untag:
+    patch:
+      summary: Remove tags from collection of keys
+      description: Removes specified tags from keys matching query.
+      operationId: keys/untag
+      tags:
+      - Keys
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/affected_resources'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys/untag\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\",\"q\":\"mykey* translated:true\",\"locale_id\":\"abcd1234abcd1234abcd1234abcd1234\",\"tags\":\"landing-page,release-1.2\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase keys untag \
+
+          --project_id <project_id> \
+
+          --data ''{"branch":"my-feature-branch", "q":"''mykey* translated:true''", "locale_id":"abcd1234abcd1234abcd1234abcd1234", "tags":"landing-page,release-1.2"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: keys/untag/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                q:
+                  description: "Specify a query to do broad search for keys by name (including wildcards).\n\nThe following qualifiers are also supported in the search term:\n* `ids:key_id,...` for queries on a comma-separated list of ids\n* `name:key_name` for text queries on exact key names - spaces, commas, and colons need to be escaped with double backslashes\n* `tags:tag_name` to filter for keys with certain tags\n* `translated:{true|false}` for translation status (also requires `locale_id` to be specified)\n* `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries\n* `unmentioned_in_upload:upload_id,...` to filter keys unmentioned within upload. When multiple upload IDs provided, matches only keys not mentioned in **all** uploads\n\nFind more examples [here](/en/api/strings/usage-examples).    \n"
+                  type: string
+                  example: mykey* translated:true
+                locale_id:
+                  description: Locale used to determine the translation state of a key when filtering for untranslated or translated keys.
+                  type: string
+                  example: abcd1234abcd1234abcd1234abcd1234
+                tags:
+                  description: Tag or comma-separated list of tags to remove from the matching collection of keys
+                  type: string
+                  example: landing-page,release-1.2
+      x-cli-version: '2.5'
+  /projects/{project_id}/keys/exclude:
+    patch:
+      summary: Exclude a locale on a collection of keys
+      description: Exclude a locale on keys matching query. Same constraints as list.
+      operationId: keys/exclude
+      tags:
+      - Keys
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/affected_resources'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys/exclude\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\",\"q\":\"mykey* translated:true\",\"target_locale_id\":\"abcd1234abcd1234abcd1234abcd1234\",\"tags\":\"landing-page,release-1.2\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase keys exclude \
+
+          --project_id <project_id> \
+
+          --data ''{"branch":"my-feature-branch", "q":"''mykey* translated:true''", "target_locale_id":"abcd1234abcd1234abcd1234abcd1234", "tags":"landing-page,release-1.2"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: keys/exclude/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                q:
+                  description: "Specify a query to do broad search for keys by name (including wildcards).\n\nThe following qualifiers are also supported in the search term:\n- `ids:key_id,...` for queries on a comma-separated list of ids\n- `name:key_name` for text queries on exact key names - spaces, commas, and colons need to be escaped with double backslashes\n- `tags:tag_name` to filter for keys with certain tags\n- `translated:{true|false}` for translation status (also requires `locale_id` to be specified)\n- `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries\n- `unmentioned_in_upload:upload_id,...` to filter keys unmentioned within upload. When multiple upload IDs provided, matches only keys not mentioned in **all** uploads\n\nFind more examples [here](/en/api/strings/usage-examples).    \n"
+                  type: string
+                  example: mykey* translated:true
+                target_locale_id:
+                  description: Exclude translations in locale
+                  type: string
+                  example: abcd1234abcd1234abcd1234abcd1234
+                tags:
+                  description: Tag or comma-separated list of tags to add to the matching collection of keys
+                  type: string
+                  example: landing-page,release-1.2
+      x-cli-version: '2.5'
+  /projects/{project_id}/keys/include:
+    patch:
+      summary: Include a locale on a collection of keys
+      description: Include a locale on keys matching query. Same constraints as list.
+      operationId: keys/include
+      tags:
+      - Keys
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/affected_resources'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys/include\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\",\"q\":\"mykey* translated:true\",\"target_locale_id\":\"abcd1234abcd1234abcd1234abcd1234\",\"tags\":\"landing-page,release-1.2\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase keys include \
+
+          --project_id <project_id> \
+
+          --data ''{"branch":"my-feature-branch", "q":"''mykey* translated:true''", "target_locale_id":"abcd1234abcd1234abcd1234abcd1234", "tags":"landing-page,release-1.2"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: keys/include/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                q:
+                  description: 'Specify a query to do broad search for keys by name (including wildcards).
+
+
+                    The following qualifiers are also supported in the search term:
+
+
+                    * `ids:key_id,...` for queries on a comma-separated list of ids
+
+                    * `name:key_name` for text queries on exact key names - spaces, commas, and colons need to be escaped with double backslashes
+
+                    * `tags:tag_name` to filter for keys with certain tags
+
+                    * `translated:{true|false}` for translation status (also requires `locale_id` to be specified)
+
+                    * `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries
+
+                    * `unmentioned_in_upload:upload_id,...` to filter keys unmentioned within upload. When multiple upload IDs provided, matches only keys not mentioned in **all** uploads
+
+
+                    Find more examples [here](/en/api/strings/usage-examples).
+
+                    '
+                  type: string
+                  example: mykey* translated:true
+                target_locale_id:
+                  description: Include translations in locale
+                  type: string
+                  example: abcd1234abcd1234abcd1234abcd1234
+                tags:
+                  description: Tag or comma-separated list of tags to add to the matching collection of keys
+                  type: string
+                  example: landing-page,release-1.2
+      x-cli-version: '2.5'
+components:
+  headers:
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+  responses:
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '204':
+      description: The resource was deleted successfully.
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  parameters:
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+    q:
+      description: 'Specify a query to do broad search for keys by name (including wildcards).
+
+
+        The following qualifiers are also supported in the search term:
+
+
+        - `ids:key_id,...` for queries on a comma-separated list of ids
+
+        - `name:key_name` for text queries on exact key names - spaces, commas, and colons  need to be escaped with double backslashes
+
+        - `tags:tag_name` to filter for keys with certain tags
+
+        - `translated:{true|false}` for translation status (also requires `locale_id` to be specified)
+
+        - `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries
+
+        - `unmentioned_in_upload:upload_id,...` to filter keys unmentioned within upload. When multiple upload IDs provided, matches only keys not mentioned in **all** uploads
+
+
+        **Caution:** Query parameters with empty values will be treated as though they are not included in the request and will be ignored.
+
+
+        Find more examples [here](/en/api/strings/usage-examples).
+
+        '
+      example: mykey* translated:true
+      name: q
+      in: query
+      schema:
+        type: string
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+  schemas:
+    affected_resources:
+      type: object
+      title: affected_resources
+      properties:
+        records_affected:
+          type: integer
+      example:
+        records_affected: 2
+    translation_key_details:
+      allOf:
+      - $ref: '#/components/schemas/translation_key'
+      - type: object
+        title: translation_key_details
+        properties:
+          name_plural:
+            type: string
+          comments_count:
+            type: integer
+          max_characters_allowed:
+            type: integer
+          screenshot_url:
+            type: string
+          unformatted:
+            type: boolean
+          xml_space_preserve:
+            type: boolean
+          original_file:
+            type: string
+          format_value_type:
+            type: string
+          creator:
+            $ref: '#/components/schemas/user_preview'
+          custom_metadata:
+            type: object
+            title: custom_metadata
+            additionalProperties:
+              type: string
+        example:
+          name_plural: home.index.headlines
+          comments_count: 2
+          data_type: string
+          max_characters_allowed: 140
+          screenshot_url: http://assets.example.com/screenshot.png
+          unformatted: false
+          xml_space_preserve: false
+          original_file: ''
+          format_value_type: ''
+          creator:
+            id: abcd1234cdef1234abcd1234cdef1234
+            username: joe.doe
+            name: Joe Doe
+          custom_metadata:
+            fruit: Apple
+            vegetable: Tomato
+    translation_key:
+      type: object
+      title: translation_key
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        name_hash:
+          type: string
+        plural:
+          type: boolean
+        use_ordinal_rules:
+          type: boolean
+        tags:
+          type: array
+          items:
+            type: string
+        data_type:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: home.index.headline
+        description: My description for this key...
+        name_hash: 1b31d2580ce324f246f66b3be00ed399
+        plural: false
+        use_ordinal_rules: false
+        tags:
+        - awesome-feature
+        - needs-proofreading
+        data_type: string
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+    user_preview:
+      type: object
+      title: user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        gravatar_uid:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: johndoe
+        name: John Doe
+        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your token in the format `token TOKEN`
+    Basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Core Resources
+  tags:
+  - Projects
+  - Locales
+  - Keys
+  - Translations
+  - Uploads
+  - Tags
+  - Custom Metadata Properties
+  - Blacklisted Keys
+  - Versions / History
+- name: Workflows
+  tags:
+  - Spaces
+  - Jobs
+  - Job Comments
+  - Job Locales
+  - Job Templates
+  - Job Template Locales
+  - Organization Job Templates
+  - Organization Job Template Locales
+  - Comments
+  - Comment Reactions
+  - Comment Replies
+  - Branches
+- name: Quality
+  tags:
+  - Glossaries
+  - Glossary Terms
+  - Glossary Term Translations
+- name: Integrations
+  tags:
+  - Webhooks
+  - Distributions
+  - Releases
+  - Release Triggers
+- name: Ordering
+  tags:
+  - Orders
+  - Style guides
+- name: User management
+  tags:
+  - Authorizations
+  - Users
+  - Accounts
+  - Members
+  - Invitations
+- name: Screenshots
+  tags:
+  - Screenshots
+  - Screenshot Markers
+- name: Misc
+  tags:
+  - Formats
+- name: Figma Attachments
+  tags:
+  - Figma attachments
+  - Key's Figma attachments

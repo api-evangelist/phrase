@@ -1,0 +1,1850 @@
+openapi: 3.0.3
+info:
+  title: Phrase Strings API Reference Accounts Translations API
+  version: 2.0.0
+  description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
+  contact:
+    name: Phrase Support
+    url: https://developers.phrase.com/api/
+    email: support@phrase.com
+  x-logo:
+    url: https://developers.phrase.com/images/phrase-logo.svg
+    backgroundColor: '#03eab3'
+    altText: Phrase Strings
+  termsOfService: https://phrase.com/terms/
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+- url: https://api.phrase.com/v2
+  description: EU production server
+- url: https://api.us.app.phrase.com/v2
+  description: US production server
+security:
+- Token: []
+- Basic: []
+tags:
+- name: Translations
+paths:
+  /projects/{project_id}/translations:
+    get:
+      summary: List all translations
+      description: 'List translations for the given project. If you want to download all translations for one locale we recommend to use the `locales#download` endpoint.
+
+        '
+      operationId: translations/list
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/If-Modified-Since'
+      - $ref: '#/components/parameters/If-None-Match'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      - description: 'Sort criteria. Can be one of: key_name, created_at, updated_at.'
+        example: updated_at
+        name: sort
+        in: query
+        schema:
+          type: string
+      - description: 'Order direction. Can be one of: asc, desc.'
+        example: desc
+        name: order
+        in: query
+        schema:
+          type: string
+      - description: 'Specify a query to find translations by content (including wildcards).
+
+
+          *Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).*
+
+
+          The following qualifiers are supported in the query:
+
+
+          * `id:translation_id,...` for queries on a comma-separated list of ids
+
+          * `tags:XYZ` for tags on the translation
+
+          * `unverified:{true|false}` for verification status
+
+          * `excluded:{true|false}` for exclusion status
+
+          * `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries
+
+          * `reviewed_after:2013-02-21T00:00:00Z` for fetching translations that were reviewed after the given timestamp
+
+
+          Find more examples [here](/en/api/strings/usage-examples).
+
+          '
+        example: PhraseApp*%20unverified:true%20excluded:true%20tags:feature,center
+        name: q
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/translation'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Link:
+              $ref: '#/components/headers/Link'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/translations?branch=my-feature-branch&sort=updated_at&order=desc&q=PhraseApp*%2520unverified:true%2520excluded:true%2520tags:feature,center\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase translations list \
+
+          --project_id <project_id> \
+
+          --branch my-feature-branch \
+
+          --sort updated_at \
+
+          --order desc \
+
+          --query ''PhraseApp*%20unverified:true%20excluded:true%20tags:feature,center'' \
+
+          --access_token <token>'
+      x-cli-version: 2.6.4
+    post:
+      summary: Create a translation
+      description: Create a translation.
+      operationId: translation/create
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/translation_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/translations\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X POST \\\n  -d '{\"branch\":\"my-feature-branch\",\"locale_id\":\"abcd1234cdef1234abcd1234cdef1234\",\"key_id\":\"abcd1234cdef1234abcd1234cdef1234\",\"content\":\"My translation\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase translations create \
+
+          --project_id <project_id> \
+
+          --data ''{"branch":"my-feature-branch", "locale_id":"abcd1234cdef1234abcd1234cdef1234", "key_id":"abcd1234cdef1234abcd1234cdef1234", "content": "My translation"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: translation/create/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                locale_id:
+                  description: Locale. Can be the name or id of the locale. Preferred is id
+                  type: string
+                  example: abcd1234cdef1234abcd1234cdef1234
+                key_id:
+                  description: Key
+                  type: string
+                  example: abcd1234cdef1234abcd1234cdef1234
+                content:
+                  description: Translation content
+                  type: string
+                  example: My translation
+                plural_suffix:
+                  description: 'Plural suffix. Can be one of: zero, one, two, few, many, other. Must be specified if the key associated to the translation is pluralized.'
+                  type: string
+                  example: null
+                unverified:
+                  description: Indicates whether translation is unverified. Part of the [Advanced Workflows](https://support.phrase.com/hc/en-us/articles/5784094755484) feature.
+                  type: boolean
+                  example: null
+                excluded:
+                  description: Indicates whether translation is excluded.
+                  type: boolean
+                  example: null
+                autotranslate:
+                  description: Indicates whether the translation should be auto-translated. Responses with status 422 if provided for translation within a non-default locale or the project does not have the Autopilot feature enabled.
+                  type: boolean
+                  example: null
+      x-cli-version: '2.5'
+  /projects/{project_id}/locales/{locale_id}/translations:
+    get:
+      summary: List translations by locale
+      description: 'List translations for a specific locale. If you want to download all translations for one locale we recommend to use the `locales#download` endpoint.
+
+        '
+      operationId: translations/by_locale
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/locale_id'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      - description: 'Sort criteria. Can be one of: key_name, created_at, updated_at.'
+        example: updated_at
+        name: sort
+        in: query
+        schema:
+          type: string
+      - description: 'Order direction. Can be one of: asc, desc.'
+        example: desc
+        name: order
+        in: query
+        schema:
+          type: string
+      - description: 'Specify a query to find translations by content (including wildcards).
+
+
+          *Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).*
+
+
+          The following qualifiers are supported in the query:
+
+          - `id:translation_id,...` for queries on a comma-separated list of ids
+
+          - `unverified:{true|false}` for verification status
+
+          - `tags:XYZ` for tags on the translation
+
+          - `excluded:{true|false}` for exclusion status
+
+          - `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries
+
+
+          Find more examples [here](/en/api/strings/usage-examples).
+
+          '
+        example: PhraseApp*%20unverified:true%20excluded:true%20tags:feature,center
+        name: q
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/translation'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Link:
+              $ref: '#/components/headers/Link'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/locales/:locale_id/translations?branch=my-feature-branch&sort=updated_at&order=desc&q=PhraseApp*%2520unverified:true%2520excluded:true%2520tags:feature,center\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase translations by_locale \
+
+          --project_id <project_id> \
+
+          --locale_id <locale_id> \
+
+          --branch my-feature-branch \
+
+          --sort updated_at \
+
+          --order desc \
+
+          --query ''PhraseApp*%20unverified:true%20excluded:true%20tags:feature,center'' \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+  /projects/{project_id}/keys/{key_id}/translations:
+    get:
+      summary: List translations by key
+      description: List translations for a specific key.
+      operationId: translations/by_key
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/key_id'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      - description: 'Sort criteria. Can be one of: key_name, created_at, updated_at.'
+        example: updated_at
+        name: sort
+        in: query
+        schema:
+          type: string
+      - description: 'Order direction. Can be one of: asc, desc.'
+        example: desc
+        name: order
+        in: query
+        schema:
+          type: string
+      - description: 'Specify a query to find translations by content (including wildcards).
+
+
+          The following qualifiers are supported in the query:
+
+
+          * `id:translation_id,...` for queries on a comma-separated list of ids
+
+          * `unverified:{true|false}` for verification status
+
+          * `tags:XYZ` for tags on the translation
+
+          * `excluded:{true|false}` for exclusion status
+
+          * `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries
+
+
+          Find more examples [here](/en/api/strings/usage-examples).
+
+          '
+        example: PhraseApp*%20unverified:true%20excluded:true%20tags:feature,center
+        name: q
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/translation'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Link:
+              $ref: '#/components/headers/Link'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys/:key_id/translations?branch=my-feature-branch&sort=updated_at&order=desc&q=PhraseApp*%2520unverified:true%2520excluded:true%2520tags:feature,center\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase translations by_key \
+
+          --project_id <project_id> \
+
+          --key_id <key_id> \
+
+          --branch my-feature-branch \
+
+          --sort updated_at \
+
+          --order desc \
+
+          --query ''PhraseApp*%20unverified:true%20excluded:true%20tags:feature,center'' \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+  /projects/{project_id}/translations/search:
+    post:
+      summary: Search translations
+      description: Search translations for the given project. Provides the same search interface as `translations#index` but allows POST requests to avoid limitations imposed by GET requests. If you want to download all translations for one locale we recommend to use the `locales#download` endpoint.
+      operationId: translations/search
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/translation'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/translations/search\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X POST \\\n  -d '{\"branch\":\"my-feature-branch\",\"sort\":\"updated_at\",\"order\":\"desc\",\"q\":\"PhraseApp*%20unverified:true%20excluded:true%20tags:feature,center\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase translations search \
+
+          --project_id <project_id> \
+
+          --data ''{"branch":"my-feature-branch", "sort":"updated_at", "order":"desc", "q":"''PhraseApp*%20unverified:true%20excluded:true%20tags:feature,center''"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: translations/search/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                sort:
+                  description: 'Sort criteria. Can be one of: key_name, created_at, updated_at.'
+                  type: string
+                  example: updated_at
+                order:
+                  description: 'Order direction. Can be one of: asc, desc.'
+                  type: string
+                  example: desc
+                q:
+                  description: 'Specify a query to find translations by content (including wildcards).
+
+
+                    *Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).*
+
+
+                    The following qualifiers are supported in the query:
+
+
+                    - `id:translation_id,...` for queries on a comma-separated list of ids
+
+                    - `tags:XYZ` for tags on the translation
+
+                    - `unverified:{true|false}` for verification status
+
+                    - `excluded:{true|false}` for exclusion status
+
+                    - `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries
+
+
+                    Find more examples [here](/en/api/strings/usage-examples).
+
+                    '
+                  type: string
+                  example: PhraseApp*%20unverified:true%20excluded:true%20tags:feature,center
+      x-cli-version: '2.5'
+  /projects/{project_id}/translations/{id}:
+    get:
+      summary: Get a single translation
+      description: Get details on a single translation.
+      operationId: translation/show
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/id'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/translation_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/translations/:id?branch=my-feature-branch\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase translations show \
+
+          --project_id <project_id> \
+
+          --id <id> \
+
+          --branch my-feature-branch \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    patch:
+      summary: Update a translation
+      description: Update an existing translation.
+      operationId: translation/update
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/translation_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/translations/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\",\"content\":\"My translation\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase translations update \
+
+          --project_id <project_id> \
+
+          --id <id> \
+
+          --data ''{"branch":"my-feature-branch", "content": "My translation"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: translation/update/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                content:
+                  description: Translation content
+                  type: string
+                  example: My translation
+                plural_suffix:
+                  description: 'Plural suffix. Can be one of: zero, one, two, few, many, other. Must be specified if the key associated to the translation is pluralized.'
+                  type: string
+                  example: null
+                unverified:
+                  description: Indicates whether translation is unverified. Part of the [Advanced Workflows](https://support.phrase.com/hc/en-us/articles/5784094755484) feature.
+                  type: boolean
+                  example: null
+                excluded:
+                  description: Indicates whether translation is excluded.
+                  type: boolean
+                  example: null
+                autotranslate:
+                  description: Indicates whether the translation should be auto-translated. Responses with status 422 if provided for translation within a non-default locale or the project does not have the Autopilot feature enabled.
+                  type: boolean
+                  example: null
+                reviewed:
+                  description: When set to `true`, the translation will be marked as reviewed.
+                  type: boolean
+                  example: true
+      x-cli-version: '2.5'
+  /projects/{project_id}/translations/{id}/verify:
+    patch:
+      summary: Verify a translation
+      description: Verify an existing translation.
+      operationId: translation/verify
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/translation_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/translations/:id/verify\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase translations verify \
+
+          --project_id <project_id> \
+
+          --id <id> \
+
+          --data ''{"branch":"my-feature-branch"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: translation/verify/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+      x-cli-version: '2.5'
+  /projects/{project_id}/translations/{id}/unverify:
+    patch:
+      summary: Mark a translation as unverified
+      description: Mark an existing translation as unverified.
+      operationId: translation/unverify
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/translation_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/translations/:id/unverify\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase translations unverify \
+
+          --project_id <project_id> \
+
+          --id <id> \
+
+          --data ''{"branch":"my-feature-branch"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: translation/unverify/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+      x-cli-version: '2.5'
+  /projects/{project_id}/translations/{id}/review:
+    patch:
+      summary: Review a translation
+      description: Mark an existing translation as reviewed.
+      operationId: translation/review
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/translation_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/translations/:id/review\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase translations review \
+
+          --project_id <project_id> \
+
+          --id <id> \
+
+          --data ''{"branch":"my-feature-branch"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: translation/review/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+      x-cli-version: '2.5'
+  /projects/{project_id}/translations/{id}/unreview:
+    patch:
+      summary: Unreview a translation
+      description: Mark a reviewed translation as translated.
+      operationId: translation/unreview
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/translation_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/translations/:id/unreview\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase translations unreview \
+
+          --project_id <project_id> \
+
+          --id <id> \
+
+          --data ''{"branch":"my-feature-branch"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: translation/unreview/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+      x-cli-version: '2.41'
+  /projects/{project_id}/translations/{id}/exclude:
+    patch:
+      summary: Exclude a translation from export
+      description: Set exclude from export flag on an existing translation.
+      operationId: translation/exclude
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/translation_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/translations/:id/exclude\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase translations exclude \
+
+          --project_id <project_id> \
+
+          --id <id> \
+
+          --data ''{"branch":"my-feature-branch"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: translation/exclude/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+      x-cli-version: '2.5'
+  /projects/{project_id}/translations/{id}/include:
+    patch:
+      summary: Include a translation
+      description: Remove exclude from export flag from an existing translation.
+      operationId: translation/include
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/translation_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/translations/:id/include\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase translations include \
+
+          --project_id <project_id> \
+
+          --id <id> \
+
+          --data ''{"branch":"my-feature-branch"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: translation/include/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+      x-cli-version: '2.5'
+  /projects/{project_id}/translations/verify:
+    patch:
+      summary: Verify translations by query
+      description: Verify translations matching query.
+      operationId: translations/verify-collection
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/affected_count'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/translations/verify\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\",\"q\":\"PhraseApp*%20unverified:true%20tags:feature,center\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase translations verify-collection \
+
+          --project_id <project_id> \
+
+          --data ''{"branch":"my-feature-branch", "q":"''PhraseApp*%20unverified:true%20tags:feature,center''"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: translations/verify/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                locale_id:
+                  description: specify the locale of the translations to be verified
+                  type: string
+                  example: fc2f11dd6a658fa9652f6f0a9ebee688
+                q:
+                  description: 'Specify a query to find translations by content (including wildcards).
+
+
+                    *Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).*
+
+
+                    The following qualifiers are supported in the query:
+
+                    * `id:translation_id,...` for queries on a comma-separated list of ids
+
+                    * `tags:XYZ` for tags on the translation
+
+                    * `unverified:{true|false}` for verification status
+
+                    * `excluded:{true|false}` for exclusion status
+
+                    * `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries
+
+
+                    Find more examples [here](/en/api/strings/usage-examples).
+
+                    '
+                  type: string
+                  example: PhraseApp*%20unverified:true%20tags:feature,center
+      x-cli-version: '2.5'
+  /projects/{project_id}/translations/unverify:
+    patch:
+      summary: Unverify translations by query
+      description: Mark translations matching query as unverified.
+      operationId: translations/unverify-collection
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/affected_count'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/translations/unverify\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\",\"q\":\"PhraseApp*%20verified:true%20tags:feature,center\",\"sort\":\"updated_at\",\"order\":\"desc\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase translations unverify-collection \
+
+          --project_id <project_id> \
+
+          --data ''{"branch":"my-feature-branch", "q":"''PhraseApp*%20verified:true%20tags:feature,center''", "sort":"updated_at", "order":"desc"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: translations/unverify/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                q:
+                  description: 'Specify a query to find translations by content (including wildcards).
+
+
+                    *Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).*
+
+
+                    The following qualifiers are supported in the query:
+
+                    * `id:translation_id,...` for queries on a comma-separated list of ids
+
+                    * `tags:XYZ` for tags on the translation
+
+                    * `unverified:{true|false}` for verification status
+
+                    * `excluded:{true|false}` for exclusion status
+
+                    * `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries
+
+
+                    Find more examples [here](/en/api/strings/usage-examples).
+
+                    '
+                  type: string
+                  example: PhraseApp*%20verified:true%20tags:feature,center
+                sort:
+                  description: 'Sort criteria. Can be one of: key_name, created_at, updated_at.'
+                  type: string
+                  example: updated_at
+                order:
+                  description: 'Order direction. Can be one of: asc, desc.'
+                  type: string
+                  example: desc
+      x-cli-version: '2.5'
+  /projects/{project_id}/translations/review:
+    patch:
+      summary: Review translations selected by query
+      description: Review translations matching query.
+      operationId: translations/review-collection
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/affected_count'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/translations/review\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\",\"q\":\"PhraseApp*%reviewed:false%20tags:feature,center\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase translations review-collection \
+
+          --project_id <project_id> \
+
+          --data ''{"branch":"my-feature-branch", "q":"''PhraseApp*%reviewed:false%20tags:feature,center''"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: translations/review/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                q:
+                  description: 'Specify a query to find translations by content (including wildcards).
+
+
+                    *Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).*
+
+
+                    The following qualifiers are supported in the query:
+
+
+                    * `id:translation_id,...` for queries on a comma-separated list of ids
+
+                    * `tags:XYZ` for tags on the translation
+
+                    * `unverified:{true|false}` for verification status
+
+                    * `excluded:{true|false}` for exclusion status
+
+                    * `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries
+
+
+                    Find more examples [here](/en/api/strings/usage-examples).
+
+                    '
+                  type: string
+                  example: PhraseApp*%reviewed:false%20tags:feature,center
+      x-cli-version: '2.5'
+  /projects/{project_id}/translations/unreview:
+    patch:
+      summary: Unreview translations selected by query
+      description: Unreview translations matching query.
+      operationId: translations/unreview-collection
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/affected_count'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/translations/unreview\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\",\"q\":\"PhraseApp*%reviewed:false%20tags:feature,center\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase translations unreview-collection \
+
+          --project_id <project_id> \
+
+          --data ''{"branch":"my-feature-branch", "q":"''PhraseApp*%reviewed:false%20tags:feature,center''"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: translations/unreview/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                q:
+                  description: 'Specify a query to find translations by content (including wildcards).
+
+
+                    *Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).*
+
+
+                    The following qualifiers are supported in the query:
+
+                    * `id:translation_id,...` for queries on a comma-separated list of ids
+
+                    * `tags:XYZ` for tags on the translation
+
+                    * `unverified:{true|false}` for verification status
+
+                    * `excluded:{true|false}` for exclusion status
+
+                    * `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries
+
+
+                    Find more examples [here](/en/api/strings/usage-examples).
+
+                    '
+                  type: string
+                  example: PhraseApp*%reviewed:true%20tags:feature,center
+      x-cli-version: '2.41'
+  /projects/{project_id}/translations/exclude:
+    patch:
+      summary: Exclude translations by query
+      description: Exclude translations matching query from locale export.
+      operationId: translations/exclude-collection
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/affected_count'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/translations/exclude\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\",\"q\":\"PhraseApp*%20verified:true%20tags:feature,center\",\"sort\":\"updated_at\",\"order\":\"desc\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase translations exclude-collection \
+
+          --project_id <project_id> \
+
+          --data ''{"branch":"my-feature-branch", "q":"''PhraseApp*%20verified:true%20tags:feature,center''", "sort":"updated_at", "order":"desc"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: translations/exclude/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                q:
+                  description: 'Specify a query to find translations by content (including wildcards).
+
+
+                    *Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).*
+
+
+                    The following qualifiers are supported in the query:
+
+
+                    * `id:translation_id,...` for queries on a comma-separated list of ids
+
+                    * `tags:XYZ` for tags on the translation
+
+                    * `unverified:{true|false}` for verification status
+
+                    * `excluded:{true|false}` for exclusion status
+
+                    * `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries
+
+
+                    Find more examples [here](/en/api/strings/usage-examples).
+
+                    '
+                  type: string
+                  example: PhraseApp*%20verified:true%20tags:feature,center
+                sort:
+                  description: 'Sort criteria. Can be one of: key_name, created_at, updated_at.'
+                  type: string
+                  example: updated_at
+                order:
+                  description: 'Order direction. Can be one of: asc, desc.'
+                  type: string
+                  example: desc
+      x-cli-version: '2.5'
+  /projects/{project_id}/translations/include:
+    patch:
+      summary: Include translations by query
+      description: Include translations matching query in locale export.
+      operationId: translations/include-collection
+      tags:
+      - Translations
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/affected_count'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/translations/include\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\",\"q\":\"PhraseApp*%20verified:true%20tags:feature,center\",\"sort\":\"updated_at\",\"order\":\"desc\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase translations include-collection \
+
+          --project_id <project_id> \
+
+          --data ''{"branch":"my-feature-branch", "q":"''PhraseApp*%20verified:true%20tags:feature,center''", "sort":"updated_at", "order":"desc"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: translations/include/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                q:
+                  description: 'Specify a query to find translations by content (including wildcards).
+
+
+                    *Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).*
+
+
+                    The following qualifiers are supported in the query:
+
+                    - `id:translation_id,...` for queries on a comma-separated list of ids
+
+                    - `tags:XYZ` for tags on the translation
+
+                    - `unverified:{true|false}` for verification status
+
+                    - `excluded:{true|false}` for exclusion status
+
+                    - `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries
+
+
+                    Find more examples [here](/en/api/strings/usage-examples).
+
+                    '
+                  type: string
+                  example: PhraseApp*%20verified:true%20tags:feature,center
+                sort:
+                  description: 'Sort criteria. Can be one of: key_name, created_at, updated_at.'
+                  type: string
+                  example: updated_at
+                order:
+                  description: 'Order direction. Can be one of: asc, desc.'
+                  type: string
+                  example: desc
+      x-cli-version: '2.5'
+components:
+  schemas:
+    translation:
+      type: object
+      title: translation
+      properties:
+        id:
+          type: string
+        content:
+          type: string
+          x-json-tag: json:"content"
+        unverified:
+          type: boolean
+        excluded:
+          type: boolean
+        plural_suffix:
+          type: string
+        key:
+          $ref: '#/components/schemas/key_preview'
+        locale:
+          $ref: '#/components/schemas/locale_preview'
+        placeholders:
+          type: array
+          items:
+            type: string
+        state:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        linked_translation:
+          $ref: '#/components/schemas/translation_parent'
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        content: My translation
+        unverified: false
+        excluded: false
+        plural_suffix: ''
+        key:
+          id: abcd1234cdef1234abcd1234cdef1234
+          name: home.index.headline
+          plural: false
+          use_ordinal_rules: false
+        locale:
+          id: abcd1234cdef1234abcd1234cdef1234
+          name: de
+          code: de-DE
+        placeholders:
+        - '%{count}'
+        state: translated
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+    affected_count:
+      type: object
+      title: affected_count
+      properties:
+        records_affected:
+          type: integer
+      example:
+        records_affected: 96
+    key_preview:
+      type: object
+      title: key_preview
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        plural:
+          type: boolean
+        use_ordinal_rules:
+          type: boolean
+      example: null
+    translation_parent:
+      type: object
+      title: translation_parent
+      properties:
+        id:
+          type: string
+        content:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        content: My parent translation
+    translation_details:
+      allOf:
+      - $ref: '#/components/schemas/translation'
+      - type: object
+        title: translation_details
+        properties:
+          user:
+            $ref: '#/components/schemas/user_preview'
+          word_count:
+            type: integer
+        example:
+          user:
+            id: abcd1234cdef1234abcd1234cdef1234
+            username: joe.doe
+            name: Joe Doe
+          word_count: 2
+    locale_preview:
+      type: object
+      title: locale_preview
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: English
+        code: en-GB
+    user_preview:
+      type: object
+      title: user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        gravatar_uid:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: johndoe
+        name: John Doe
+        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+  parameters:
+    locale_id:
+      in: path
+      name: locale_id
+      description: Locale ID
+      required: true
+      schema:
+        type: string
+    If-None-Match:
+      description: ETag condition, see [Conditional GET requests / HTTP Caching](/en/api/strings/pagination#conditional-get-requests-%2F-http-caching) (optional)
+      explode: false
+      in: header
+      name: If-None-Match
+      required: false
+      schema:
+        type: string
+      style: simple
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+    If-Modified-Since:
+      description: Last modified condition, see [Conditional GET requests / HTTP Caching](/en/api/strings/pagination#conditional-get-requests-%2F-http-caching) (optional)
+      explode: false
+      in: header
+      name: If-Modified-Since
+      required: false
+      schema:
+        type: string
+      style: simple
+    key_id:
+      in: path
+      name: key_id
+      description: Translation Key ID
+      required: true
+      schema:
+        type: string
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+  headers:
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+  responses:
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your token in the format `token TOKEN`
+    Basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Core Resources
+  tags:
+  - Projects
+  - Locales
+  - Keys
+  - Translations
+  - Uploads
+  - Tags
+  - Custom Metadata Properties
+  - Blacklisted Keys
+  - Versions / History
+- name: Workflows
+  tags:
+  - Spaces
+  - Jobs
+  - Job Comments
+  - Job Locales
+  - Job Templates
+  - Job Template Locales
+  - Organization Job Templates
+  - Organization Job Template Locales
+  - Comments
+  - Comment Reactions
+  - Comment Replies
+  - Branches
+- name: Quality
+  tags:
+  - Glossaries
+  - Glossary Terms
+  - Glossary Term Translations
+- name: Integrations
+  tags:
+  - Webhooks
+  - Distributions
+  - Releases
+  - Release Triggers
+- name: Ordering
+  tags:
+  - Orders
+  - Style guides
+- name: User management
+  tags:
+  - Authorizations
+  - Users
+  - Accounts
+  - Members
+  - Invitations
+- name: Screenshots
+  tags:
+  - Screenshots
+  - Screenshot Markers
+- name: Misc
+  tags:
+  - Formats
+- name: Figma Attachments
+  tags:
+  - Figma attachments
+  - Key's Figma attachments

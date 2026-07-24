@@ -1,0 +1,765 @@
+openapi: 3.0.3
+info:
+  title: Phrase Strings API Reference Accounts Comments API
+  version: 2.0.0
+  description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
+  contact:
+    name: Phrase Support
+    url: https://developers.phrase.com/api/
+    email: support@phrase.com
+  x-logo:
+    url: https://developers.phrase.com/images/phrase-logo.svg
+    backgroundColor: '#03eab3'
+    altText: Phrase Strings
+  termsOfService: https://phrase.com/terms/
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+- url: https://api.phrase.com/v2
+  description: EU production server
+- url: https://api.us.app.phrase.com/v2
+  description: US production server
+security:
+- Token: []
+- Basic: []
+tags:
+- name: Comments
+paths:
+  /projects/{project_id}/keys/{key_id}/comments:
+    get:
+      summary: List comments
+      description: List all comments for a key.
+      operationId: comments/list
+      tags:
+      - Comments
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/key_id'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      - description: Search query for comment messages
+        example: Some comment content
+        name: query
+        in: query
+        schema:
+          type: string
+      - description: Search comments by their assigned locales
+        example:
+        - someId
+        name: locale_ids
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Specify the filter for the comments
+        name: filters
+        in: query
+        schema:
+          type: array
+          example:
+          - read
+          - unread
+          items:
+            type: string
+      - description: 'Order direction. Can be one of: asc, desc.'
+        name: order
+        in: query
+        example: desc
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/comment'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Link:
+              $ref: '#/components/headers/Link'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments?branch=my-feature-branch&filters=unread&query=something&locale_ids=someId&order=desc\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X GET \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase comments list \
+
+          --project_id <project_id> \
+
+          --key_id <key_id> \
+
+          --branch "my-feature-branch" \
+
+          --filters unread \
+
+          --order desc \
+
+          --query "Some comment content" \
+
+          --locale_ids someId \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    post:
+      summary: Create a comment
+      description: Create a new comment for a key.
+      operationId: comment/create
+      tags:
+      - Comments
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/key_id'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comment'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X POST \\\n  -d '{\"branch\":\"my-feature-branch\", \"message\":\"Some message...\", \"locale_ids\": [\"someId\"]}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase comments create \
+
+          --project_id <project_id> \
+
+          --key_id <key_id> \
+
+          --data ''{"branch":"my-feature-branch", "message": "Some message...", "locale_ids": ["someId"]}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: comment/create/parameters
+              required:
+              - message
+              properties:
+                message:
+                  description: Comment message
+                  type: string
+                  example: Some message...
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                locale_ids:
+                  description: specify the locales for the comment
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - someId
+                  - someOtherId
+      x-cli-version: '2.5'
+  /projects/{project_id}/keys/{key_id}/comments/{id}:
+    get:
+      summary: Get a single comment
+      description: Get details on a single comment.
+      operationId: comment/show
+      tags:
+      - Comments
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/key_id'
+      - $ref: '#/components/parameters/id'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comment'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments/:id?branch=my-feature-branch\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase comments show \
+
+          --project_id <project_id> \
+
+          --key_id <key_id> \
+
+          --id <id> \
+
+          --branch my-feature-branch \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    patch:
+      summary: Update a comment
+      description: Update an existing comment.
+      operationId: comment/update
+      tags:
+      - Comments
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/key_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comment'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\",\"message\":\"Some message...\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase comments update \
+
+          --project_id <project_id> \
+
+          --key_id <key_id> \
+
+          --id <id> \
+
+          --data ''{"branch":"my-feature-branch", "message": "Some message..."}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: comment/update/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                message:
+                  description: Comment message
+                  type: string
+                  example: Some message...
+      x-cli-version: '2.5'
+    delete:
+      summary: Delete a comment
+      description: Delete an existing comment.
+      operationId: comment/delete
+      tags:
+      - Comments
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/key_id'
+      - $ref: '#/components/parameters/id'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X DELETE \\\n  -d '{\"branch\":\"my-feature-branch\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase comments delete \
+
+          --project_id <project_id> \
+
+          --key_id <key_id> \
+
+          --id <id> \
+
+          --branch my-feature-branch \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+  /projects/{project_id}/keys/{key_id}/comments/{id}/read:
+    patch:
+      summary: Mark a comment as read
+      description: Mark a comment as read.
+      operationId: comment/mark/read
+      tags:
+      - Comments
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/key_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments/:id/read\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase comments mark \
+
+          --project_id <project_id> \
+
+          --key_id <key_id> \
+
+          --id <id> \
+
+          --data ''{"branch":"my-feature-branch"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: comment/mark/read/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+      x-cli-version: '2.5'
+    delete:
+      summary: Mark a comment as unread
+      description: Mark a comment as unread.
+      operationId: comment/mark/unread
+      tags:
+      - Comments
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/key_id'
+      - $ref: '#/components/parameters/id'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments/:id/read\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X DELETE \\\n  -d '{\"branch\":\"my-feature-branch\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase comments mark \
+
+          --project_id <project_id> \
+
+          --key_id <key_id> \
+
+          --id <id> \
+
+          --branch my-feature-branch \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    get:
+      summary: Check if comment is read
+      description: Check if comment was marked as read. Returns 204 if read, 404 if unread.
+      operationId: comment/mark/check
+      tags:
+      - Comments
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/key_id'
+      - $ref: '#/components/parameters/id'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments/:id/read?branch=my-feature-branch\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase comments mark \
+
+          --project_id <project_id> \
+
+          --key_id <key_id> \
+
+          --id <id> \
+
+          --branch my-feature-branch \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+components:
+  responses:
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '204':
+      description: The resource was deleted successfully.
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  headers:
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+  parameters:
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    key_id:
+      in: path
+      name: key_id
+      description: Translation Key ID
+      required: true
+      schema:
+        type: string
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+  schemas:
+    user_preview:
+      type: object
+      title: user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        gravatar_uid:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: johndoe
+        name: John Doe
+        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+    comment:
+      type: object
+      title: comment
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+        has_replies:
+          type: boolean
+        user:
+          $ref: '#/components/schemas/user_preview'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        mentioned_users:
+          type: array
+          items:
+            $ref: '#/components/schemas/user_preview'
+        locales:
+          type: array
+          items:
+            $ref: '#/components/schemas/locale_preview'
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        message: Some message...
+        has_replies: true
+        user:
+          id: abcd1234cdef1234abcd1234cdef1234
+          username: joe.doe
+          name: Joe Doe
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+        locales:
+        - id: abcd1234cdef1234abcd1234cdef1234
+          name: English
+          code: en-GB
+    locale_preview:
+      type: object
+      title: locale_preview
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: English
+        code: en-GB
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your token in the format `token TOKEN`
+    Basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Core Resources
+  tags:
+  - Projects
+  - Locales
+  - Keys
+  - Translations
+  - Uploads
+  - Tags
+  - Custom Metadata Properties
+  - Blacklisted Keys
+  - Versions / History
+- name: Workflows
+  tags:
+  - Spaces
+  - Jobs
+  - Job Comments
+  - Job Locales
+  - Job Templates
+  - Job Template Locales
+  - Organization Job Templates
+  - Organization Job Template Locales
+  - Comments
+  - Comment Reactions
+  - Comment Replies
+  - Branches
+- name: Quality
+  tags:
+  - Glossaries
+  - Glossary Terms
+  - Glossary Term Translations
+- name: Integrations
+  tags:
+  - Webhooks
+  - Distributions
+  - Releases
+  - Release Triggers
+- name: Ordering
+  tags:
+  - Orders
+  - Style guides
+- name: User management
+  tags:
+  - Authorizations
+  - Users
+  - Accounts
+  - Members
+  - Invitations
+- name: Screenshots
+  tags:
+  - Screenshots
+  - Screenshot Markers
+- name: Misc
+  tags:
+  - Formats
+- name: Figma Attachments
+  tags:
+  - Figma attachments
+  - Key's Figma attachments

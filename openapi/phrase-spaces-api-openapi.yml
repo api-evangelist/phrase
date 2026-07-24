@@ -1,0 +1,753 @@
+openapi: 3.0.3
+info:
+  title: Phrase Strings API Reference Accounts Spaces API
+  version: 2.0.0
+  description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
+  contact:
+    name: Phrase Support
+    url: https://developers.phrase.com/api/
+    email: support@phrase.com
+  x-logo:
+    url: https://developers.phrase.com/images/phrase-logo.svg
+    backgroundColor: '#03eab3'
+    altText: Phrase Strings
+  termsOfService: https://phrase.com/terms/
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+- url: https://api.phrase.com/v2
+  description: EU production server
+- url: https://api.us.app.phrase.com/v2
+  description: US production server
+security:
+- Token: []
+- Basic: []
+tags:
+- name: Spaces
+paths:
+  /accounts/{account_id}/spaces:
+    get:
+      summary: List Spaces
+      description: List all Spaces for the given account.
+      operationId: spaces/list
+      tags:
+      - Spaces
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/space'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Link:
+              $ref: '#/components/headers/Link'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/spaces\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase spaces list \
+
+          --account_id <account_id> \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    post:
+      summary: Create a Space
+      description: Create a new Space.
+      operationId: space/create
+      tags:
+      - Spaces
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/space'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/spaces\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X POST \\\n  -d '{\"name\":\"My Android Projects\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase spaces create \
+
+          --account_id <account_id> \
+
+          --data ''{"name": "My Android Projects"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: space/create/parameters
+              required:
+              - name
+              properties:
+                name:
+                  description: Name of the space
+                  type: string
+                  example: My Android Projects
+      x-cli-version: '2.5'
+  /accounts/{account_id}/spaces/{id}:
+    get:
+      summary: Get Space
+      description: Show the specified Space.
+      operationId: space/show
+      tags:
+      - Spaces
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/space'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/spaces/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase spaces show \
+
+          --account_id <account_id> \
+
+          --id <id> \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    patch:
+      summary: Update Space
+      description: Update the specified Space.
+      operationId: space/update
+      tags:
+      - Spaces
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/space'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/spaces/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"name\":\"My Android Projects\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase spaces update \
+
+          --account_id <account_id> \
+
+          --id <id> \
+
+          --data ''{"name": "My Android Projects"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: space/update/parameters
+              properties:
+                name:
+                  description: New name of the space
+                  type: string
+                  example: My Android Projects
+      x-cli-version: '2.5'
+    delete:
+      summary: Delete Space
+      description: Delete the specified Space.
+      operationId: space/delete
+      tags:
+      - Spaces
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/spaces/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X DELETE"
+      - lang: CLI v2
+        source: 'phrase spaces delete \
+
+          --account_id <account_id> \
+
+          --id <id> \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+  /accounts/{account_id}/spaces/{space_id}/projects:
+    get:
+      summary: List Projects in Space
+      description: List all projects for the specified Space.
+      operationId: spaces/projects/list
+      tags:
+      - Spaces
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      - $ref: '#/components/parameters/space_id'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/project'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Link:
+              $ref: '#/components/headers/Link'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/spaces/:space_id/projects\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase spaces projects_list \
+
+          --account_id <account_id> \
+
+          --space_id <space_id> \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    post:
+      summary: Add Project to Space
+      description: Adds an existing project to the space.
+      operationId: spaces/projects/create
+      tags:
+      - Spaces
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      - $ref: '#/components/parameters/space_id'
+      responses:
+        '201':
+          description: Created
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/spaces/:space_id/projects\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X POST \\\n  -d '{\"id\":\"a4b3c2d1\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase spaces projects_create \
+
+          --account_id <account_id> \
+
+          --space_id <space_id> \
+
+          --data ''{"id":"a4b3c2d1"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: spaces/projects/create/parameters
+              required:
+              - id
+              properties:
+                id:
+                  description: Project ID to add or to the Space
+                  type: string
+                  example: a4b3c2d1
+      x-cli-version: '2.5'
+  /accounts/{account_id}/spaces/{space_id}/projects/{id}:
+    delete:
+      summary: Remove Project from Space
+      description: Removes a specified project from the specified space.
+      operationId: spaces/projects/delete
+      tags:
+      - Spaces
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      - $ref: '#/components/parameters/space_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/spaces/:space_id/projects/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X DELETE"
+      - lang: CLI v2
+        source: 'phrase spaces projects_delete \
+
+          --account_id <account_id> \
+
+          --space_id <space_id> \
+
+          --id <id> \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+components:
+  schemas:
+    project:
+      type: object
+      title: project
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        main_format:
+          type: string
+        project_image_url:
+          type: string
+        media:
+          type: string
+        account:
+          $ref: '#/components/schemas/account'
+        space:
+          $ref: '#/components/schemas/space_short'
+        point_of_contact:
+          $ref: '#/components/schemas/user_preview'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: My Android Project
+        slug: android_project
+        main_format: xml
+        project_image_url: http://assets.example.com/project.png
+        account: account
+        space: space
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+    space_short:
+      type: object
+      title: space
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        projects_count:
+          type: integer
+      example:
+        id: 2e7574e8f2372906a03110c2a7cfe671
+        name: My first space
+        created_at: '2020-02-25T12:17:25Z'
+        updated_at: '2020-03-13T14:46:57Z'
+        projects_count: 2
+    account:
+      type: object
+      title: account
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        company:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        company_logo_url:
+          type: string
+      example:
+        id: abcd1234
+        name: Company Account
+        slug: company_account
+        company: My Awesome Company
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+        company_logo_url: http://assets.example.com/company_logo.png
+    space:
+      type: object
+      title: space
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        projects_count:
+          type: integer
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/project'
+      example:
+        id: 2e7574e8f2372906a03110c2a7cfe671
+        name: My first space
+        created_at: '2020-02-25T12:17:25Z'
+        updated_at: '2020-03-13T14:46:57Z'
+        projects_count: 2
+        projects:
+        - id: abcd1234cdef1234abcd1234cdef1234
+          name: My Android Project
+          main_format: xml
+          project_image_url: http://assets.example.com/project.png
+          account: account
+          created_at: '2015-01-28T09:52:53Z'
+          updated_at: '2015-01-28T09:52:53Z'
+        - id: abcd11231fadef1234adacd1234cdef1234
+          name: My IOS Project
+          main_format: yml
+          project_image_url: http://assets.example.com/project2.png
+          account: account
+          created_at: '2015-01-28T09:52:53Z'
+          updated_at: '2015-01-28T09:52:53Z'
+    user_preview:
+      type: object
+      title: user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        gravatar_uid:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: johndoe
+        name: John Doe
+        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+  headers:
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+  responses:
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '204':
+      description: The resource was deleted successfully.
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  parameters:
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+    account_id:
+      in: path
+      name: account_id
+      description: Account ID
+      required: true
+      schema:
+        type: string
+    space_id:
+      in: path
+      name: space_id
+      description: Space ID
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your token in the format `token TOKEN`
+    Basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Core Resources
+  tags:
+  - Projects
+  - Locales
+  - Keys
+  - Translations
+  - Uploads
+  - Tags
+  - Custom Metadata Properties
+  - Blacklisted Keys
+  - Versions / History
+- name: Workflows
+  tags:
+  - Spaces
+  - Jobs
+  - Job Comments
+  - Job Locales
+  - Job Templates
+  - Job Template Locales
+  - Organization Job Templates
+  - Organization Job Template Locales
+  - Comments
+  - Comment Reactions
+  - Comment Replies
+  - Branches
+- name: Quality
+  tags:
+  - Glossaries
+  - Glossary Terms
+  - Glossary Term Translations
+- name: Integrations
+  tags:
+  - Webhooks
+  - Distributions
+  - Releases
+  - Release Triggers
+- name: Ordering
+  tags:
+  - Orders
+  - Style guides
+- name: User management
+  tags:
+  - Authorizations
+  - Users
+  - Accounts
+  - Members
+  - Invitations
+- name: Screenshots
+  tags:
+  - Screenshots
+  - Screenshot Markers
+- name: Misc
+  tags:
+  - Formats
+- name: Figma Attachments
+  tags:
+  - Figma attachments
+  - Key's Figma attachments

@@ -1,0 +1,751 @@
+openapi: 3.0.3
+info:
+  title: Phrase Strings API Reference Accounts Distributions API
+  version: 2.0.0
+  description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
+  contact:
+    name: Phrase Support
+    url: https://developers.phrase.com/api/
+    email: support@phrase.com
+  x-logo:
+    url: https://developers.phrase.com/images/phrase-logo.svg
+    backgroundColor: '#03eab3'
+    altText: Phrase Strings
+  termsOfService: https://phrase.com/terms/
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+- url: https://api.phrase.com/v2
+  description: EU production server
+- url: https://api.us.app.phrase.com/v2
+  description: US production server
+security:
+- Token: []
+- Basic: []
+tags:
+- name: Distributions
+paths:
+  /accounts/{account_id}/distributions:
+    get:
+      summary: List distributions
+      description: List all distributions for the given account.
+      operationId: distributions/list
+      tags:
+      - Distributions
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/distribution_preview'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Link:
+              $ref: '#/components/headers/Link'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/distributions\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase distributions list \
+
+          --account_id <account_id> \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    post:
+      summary: Create a distribution
+      description: Create a new distribution.
+      operationId: distribution/create
+      tags:
+      - Distributions
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/distribution'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/distributions\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X POST \\\n  -d '{\"name\":\"My Android Distribution\",\"project_id\":\"abcd1234abcd1234abcd1234\",\"platforms\":[\"android\",\"ios\"],\"locale_ids\":[\"fff565db236400772368235db2c6117e,abcd1234cdef1234abcd1234cdef1234\"],\"format_options\":\"{xml:{enclose_in_cdata:'1'}}\",\"fallback_to_non_regional_locale\":true,\"fallback_to_default_locale\":true,\"use_last_reviewed_version\":true}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase distributions create \
+
+          --account_id <account_id> \
+
+          --data ''{"name": "My Android Distribution", "project_id":"abcd1234abcd1234abcd1234", "platforms": "android,ios", "locale_ids":["fff565db236400772368235db2c6117e,abcd1234cdef1234abcd1234cdef1234"], "format_options": "{xml:{enclose_in_cdata:''1''}}", "fallback_to_non_regional_locale":true, "fallback_to_default_locale":true, "use_last_reviewed_version":true}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: distribution/create/parameters
+              required:
+              - name
+              - project_id
+              properties:
+                name:
+                  description: Name of the distribution
+                  type: string
+                  example: My Android Distribution
+                project_id:
+                  description: Project id the distribution should be assigned to.
+                  type: string
+                  example: abcd1234abcd1234abcd1234
+                platforms:
+                  description: 'List of platforms the distribution should support.
+
+                    Valid values are:
+
+                    * `android`
+
+                    * `ios`
+
+                    * `flutter`
+
+                    * `i18next`
+
+                    * `rails`'
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - android
+                  - ios
+                locale_ids:
+                  description: List of locale ids that will be part of distribution releases
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - abcd1234cdef1234abcd1234cdef1234
+                  - fff565db236400772368235db2c6117e
+                format_options:
+                  description: 'Additional formatting and render options. Only `enclose_in_cdata` is available for platform `android`.
+
+                    '
+                  type: object
+                  additionalProperties:
+                    type: string
+                  example: '{xml:{enclose_in_cdata:''1''}}'
+                fallback_locales_enabled:
+                  description: Use fallback locale if there is no translation in the current locale.
+                  type: boolean
+                  example: true
+                fallback_to_non_regional_locale:
+                  description: Indicates whether to fallback to non regional locale when locale can not be found
+                  type: boolean
+                  example: true
+                fallback_to_default_locale:
+                  description: Indicates whether to fallback to projects default locale when locale can not be found
+                  type: boolean
+                  example: true
+                use_last_reviewed_version:
+                  description: Use last reviewed instead of latest translation in a project
+                  type: boolean
+                  example: true
+      x-cli-version: '2.5'
+  /accounts/{account_id}/distributions/{id}:
+    get:
+      summary: Get a single distribution
+      description: Get details on a single distribution.
+      operationId: distribution/show
+      tags:
+      - Distributions
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/distribution'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/distributions/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase distributions show \
+
+          --account_id <account_id> \
+
+          --id <id> \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    patch:
+      summary: Update a distribution
+      description: Update an existing distribution.
+      operationId: distribution/update
+      tags:
+      - Distributions
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/distribution'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/distributions/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"name\":\"My Android Distribution\",\"project_id\":\"abcd1234abcd1234abcd1234\",\"platforms\":[\"android\",\"ios\"],\"locale_ids\":[\"fff565db236400772368235db2c6117e,abcd1234cdef1234abcd1234cdef1234\"],\"format_options\":\"{xml:{enclose_in_cdata:'1'}}\",\"fallback_to_non_regional_locale\":true,\"fallback_to_default_locale\":true,\"use_last_reviewed_version\":true}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase distributions update \
+
+          --account_id <account_id> \
+
+          --id <id> \
+
+          --data ''{"name": "My Android Distribution", "project_id":"abcd1234abcd1234abcd1234", "platforms": "android,ios", "locale_ids": "fff565db236400772368235db2c6117e,abcd1234cdef1234abcd1234cdef1234", "format_options": "{xml:{enclose_in_cdata:''1''}}", "fallback_to_non_regional_locale":true, "fallback_to_default_locale":true, "use_last_reviewed_version":true}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: distribution/update/parameters
+              properties:
+                name:
+                  description: Name of the distribution
+                  type: string
+                  example: My Android Distribution
+                project_id:
+                  description: Project id the distribution should be assigned to.
+                  type: string
+                  example: abcd1234abcd1234abcd1234
+                platforms:
+                  description: List of platforms the distribution should support.
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - android
+                  - ios
+                locale_ids:
+                  description: List of locale ids that will be part of distribution releases
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - abcd1234cdef1234abcd1234cdef1234
+                  - fff565db236400772368235db2c6117e
+                format_options:
+                  description: 'Additional formatting and render options. Only `enclose_in_cdata` is available for platform `android`.
+
+                    '
+                  type: object
+                  additionalProperties:
+                    type: string
+                  example: '{xml:{enclose_in_cdata:''1''}}'
+                fallback_locales_enabled:
+                  description: Use fallback locale if there is no translation in the current locale.
+                  type: boolean
+                  example: true
+                fallback_to_non_regional_locale:
+                  description: Indicates whether to fallback to non regional locale when locale can not be found
+                  type: boolean
+                  example: true
+                fallback_to_default_locale:
+                  description: Indicates whether to fallback to projects default locale when locale can not be found
+                  type: boolean
+                  example: true
+                use_last_reviewed_version:
+                  description: Use last reviewed instead of latest translation in a project
+                  type: boolean
+                  example: true
+      x-cli-version: '2.5'
+    delete:
+      summary: Delete a distribution
+      description: Delete an existing distribution.
+      operationId: distribution/delete
+      tags:
+      - Distributions
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/distributions/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X DELETE"
+      - lang: CLI v2
+        source: 'phrase distributions delete \
+
+          --account_id <account_id> \
+
+          --id <id> \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+components:
+  schemas:
+    distribution:
+      type: object
+      title: distribution
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        project:
+          $ref: '#/components/schemas/project_short'
+        platforms:
+          type: array
+          items:
+            type: string
+        locales:
+          type: array
+          items:
+            $ref: '#/components/schemas/locale_preview'
+        releases:
+          type: array
+          items:
+            $ref: '#/components/schemas/release_preview'
+        created_at:
+          type: string
+          format: date-time
+        deleted_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: Android Distribution
+        project:
+          id: abcd1234cdef1234abcd1234cdef1234
+          name: My Android Project
+          main_format: xml
+          created_at: '2015-01-28T09:52:53Z'
+          updated_at: '2015-01-28T09:52:53Z'
+        platforms:
+        - android
+        releases:
+        - id: abcd1234cdef1234abcd1234cdef1234
+          version: 1
+          project:
+            id: abcd1234cdef1234abcd1234cdef1234
+            name: My Android Project
+            main_format: xml
+            created_at: '2015-01-28T09:52:53Z'
+            updated_at: '2015-01-28T09:52:53Z'
+          platforms:
+          - android
+          environments:
+          - development
+          locale_codes:
+          - de
+          - en
+          created_at: '2015-01-28T09:52:53Z'
+          updated_at: '2015-01-28T09:52:53Z'
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+    distribution_preview:
+      type: object
+      title: distribution_preview
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        project:
+          $ref: '#/components/schemas/project_short'
+        platforms:
+          type: array
+          items:
+            type: string
+        release_count:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        deleted_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: Android Distribution
+        project:
+          id: abcd1234cdef1234abcd1234cdef1234
+          name: My Android Project
+          main_format: xml
+          created_at: '2015-01-28T09:52:53Z'
+          updated_at: '2015-01-28T09:52:53Z'
+        platforms:
+        - android
+        release_count: 10
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+    project_short:
+      type: object
+      title: project_short
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        main_format:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: My Android Project
+        main_format: xml
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+    locale_preview:
+      type: object
+      title: locale_preview
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: English
+        code: en-GB
+    release_preview:
+      type: object
+      title: release_preview
+      properties:
+        id:
+          type: string
+        version:
+          type: integer
+        app_min_version:
+          type: string
+        app_max_version:
+          type: string
+        description:
+          type: string
+        platforms:
+          type: array
+          items:
+            type: string
+        environments:
+          type: array
+          items:
+            type: string
+        locale_codes:
+          type: array
+          items:
+            type: string
+        tags:
+          type: array
+          items:
+            type: string
+        project:
+          $ref: '#/components/schemas/project_short'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        version: 1
+        project:
+          id: abcd1234cdef1234abcd1234cdef1234
+          name: My Android Project
+          main_format: xml
+          created_at: '2015-01-28T09:52:53Z'
+          updated_at: '2015-01-28T09:52:53Z'
+        platforms:
+        - android
+        environments:
+        - development
+        locale_codes:
+        - de
+        - en
+        tags:
+        - android
+        - feature1
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+  headers:
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+  responses:
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '204':
+      description: The resource was deleted successfully.
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  parameters:
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+    account_id:
+      in: path
+      name: account_id
+      description: Account ID
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your token in the format `token TOKEN`
+    Basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Core Resources
+  tags:
+  - Projects
+  - Locales
+  - Keys
+  - Translations
+  - Uploads
+  - Tags
+  - Custom Metadata Properties
+  - Blacklisted Keys
+  - Versions / History
+- name: Workflows
+  tags:
+  - Spaces
+  - Jobs
+  - Job Comments
+  - Job Locales
+  - Job Templates
+  - Job Template Locales
+  - Organization Job Templates
+  - Organization Job Template Locales
+  - Comments
+  - Comment Reactions
+  - Comment Replies
+  - Branches
+- name: Quality
+  tags:
+  - Glossaries
+  - Glossary Terms
+  - Glossary Term Translations
+- name: Integrations
+  tags:
+  - Webhooks
+  - Distributions
+  - Releases
+  - Release Triggers
+- name: Ordering
+  tags:
+  - Orders
+  - Style guides
+- name: User management
+  tags:
+  - Authorizations
+  - Users
+  - Accounts
+  - Members
+  - Invitations
+- name: Screenshots
+  tags:
+  - Screenshots
+  - Screenshot Markers
+- name: Misc
+  tags:
+  - Formats
+- name: Figma Attachments
+  tags:
+  - Figma attachments
+  - Key's Figma attachments

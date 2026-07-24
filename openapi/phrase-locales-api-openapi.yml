@@ -1,0 +1,975 @@
+openapi: 3.0.3
+info:
+  title: Phrase Strings API Reference Accounts Locales API
+  version: 2.0.0
+  description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
+  contact:
+    name: Phrase Support
+    url: https://developers.phrase.com/api/
+    email: support@phrase.com
+  x-logo:
+    url: https://developers.phrase.com/images/phrase-logo.svg
+    backgroundColor: '#03eab3'
+    altText: Phrase Strings
+  termsOfService: https://phrase.com/terms/
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+- url: https://api.phrase.com/v2
+  description: EU production server
+- url: https://api.us.app.phrase.com/v2
+  description: US production server
+security:
+- Token: []
+- Basic: []
+tags:
+- name: Locales
+paths:
+  /accounts/{id}/locales:
+    get:
+      summary: List locales used in account
+      description: List all locales unique by locale code used across all projects within an account.
+      operationId: account/locales
+      tags:
+      - Locales
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/account_locale'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Link:
+              $ref: '#/components/headers/Link'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:id/locales\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase accounts locales \
+
+          --id <id> \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+  /projects/{project_id}/locales:
+    get:
+      summary: List locales
+      description: List all locales for the given project.
+      operationId: locales/list
+      tags:
+      - Locales
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - description: Sort locales. Valid options are "name_asc", "name_desc", "default_asc", "default_desc".
+        example: null
+        name: sort_by
+        in: query
+        schema:
+          type: string
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/locale'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Link:
+              $ref: '#/components/headers/Link'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/locales?branch=my-feature-branch\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase locales list \
+
+          --project_id <project_id> \
+
+          --branch my-feature-branch \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    post:
+      summary: Create a locale
+      description: Create a new locale.
+      operationId: locale/create
+      tags:
+      - Locales
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/locale_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/locales\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X POST \\\n  -d '{\"branch\":\"my-feature-branch\",\"name\":\"de\",\"code\":\"de-DE\",\"source_locale_id\":\"abcd1234abcd1234abcd1234abcd1234\", \"fallback_locale_id\":\"abcd1234abcd1234abcd1234abcd1234\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase locales create \
+
+          --project_id <project_id> \
+
+          --data ''{"branch":"my-feature-branch", "name":"de", "code":"de-DE", "source_locale_id":"abcd1234abcd1234abcd1234abcd1234", "fallback_locale_id":"abcd1234abcd1234abcd1234abcd1234"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: locale/create/parameters
+              required:
+              - name
+              - code
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                name:
+                  description: Locale name
+                  type: string
+                  example: de
+                code:
+                  description: Locale ISO code
+                  type: string
+                  example: de-DE
+                default:
+                  description: Indicates whether locale is the default locale. If set to true, the previous default locale the project is no longer the default locale.
+                  type: boolean
+                  example: null
+                main:
+                  description: Indicates whether locale is a main locale. Main locales are part of the [Verification System](https://support.phrase.com/hc/en-us/articles/5784094755484) feature.
+                  type: boolean
+                  example: null
+                rtl:
+                  description: Indicates whether locale is a RTL (Right-to-Left) locale.
+                  type: boolean
+                  example: null
+                source_locale_id:
+                  description: Source locale. Can be the name or id of the locale. Preferred is id.
+                  type: string
+                  example: abcd1234abcd1234abcd1234abcd1234
+                fallback_locale_id:
+                  description: Fallback locale for empty translations. Can be a locale name or id.
+                  type: string
+                  example: abcd1234abcd1234abcd1234abcd1234
+                unverify_new_translations:
+                  description: Indicates that new translations for this locale should be marked as unverified. Part of the [Advanced Workflows](https://support.phrase.com/hc/en-us/articles/5784094755484) feature.
+                  type: boolean
+                  example: null
+                unverify_updated_translations:
+                  description: Indicates that updated translations for this locale should be marked as unverified. Part of the [Advanced Workflows](https://support.phrase.com/hc/en-us/articles/5784094755484) feature.
+                  type: boolean
+                  example: null
+                autotranslate:
+                  description: If set, translations for this locale will be fetched automatically, right after creation.
+                  type: boolean
+                  example: null
+      x-cli-version: '2.5'
+  /projects/{project_id}/locales/{id}:
+    get:
+      summary: Get a single locale
+      description: Get details on a single locale for a given project.
+      operationId: locale/show
+      tags:
+      - Locales
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/locale_id_as_id'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/locale_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/locales/:id?branch=my-feature-branch\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase locales show \
+
+          --project_id <project_id> \
+
+          --id <id> \
+
+          --branch my-feature-branch \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+    patch:
+      summary: Update a locale
+      description: Update an existing locale.
+      operationId: locale/update
+      tags:
+      - Locales
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/locale_id_as_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/locale_details'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/locales/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"branch\":\"my-feature-branch\",\"name\":\"de\",\"code\":\"de-DE\",\"source_locale_id\":\"abcd1234abcd1234abcd1234abcd1234\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase locales update \
+
+          --project_id <project_id> \
+
+          --id <id> \
+
+          --data ''{"branch":"my-feature-branch", "name":"de", "code":"de-DE", "source_locale_id":"abcd1234abcd1234abcd1234abcd1234"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: locale/update/parameters
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                name:
+                  description: Locale name
+                  type: string
+                  example: de
+                code:
+                  description: Locale ISO code
+                  type: string
+                  example: de-DE
+                default:
+                  description: Indicates whether locale is the default locale. If set to true, the previous default locale the project is no longer the default locale.
+                  type: boolean
+                  example: null
+                main:
+                  description: Indicates whether locale is a main locale. Main locales are part of the [Verification System](https://support.phrase.com/hc/en-us/articles/5784094755484) feature.
+                  type: boolean
+                  example: null
+                rtl:
+                  description: Indicates whether locale is a RTL (Right-to-Left) locale.
+                  type: boolean
+                  example: null
+                source_locale_id:
+                  description: Source locale. Can be the name or id of the locale. Preferred is id.
+                  type: string
+                  example: abcd1234abcd1234abcd1234abcd1234
+                fallback_locale_id:
+                  description: Fallback locale for empty translations. Can be a locale name or id.
+                  type: string
+                  example: abcd1234abcd1234abcd1234abcd1234
+                unverify_new_translations:
+                  description: Indicates that new translations for this locale should be marked as unverified. Part of the [Advanced Workflows](https://support.phrase.com/hc/en-us/articles/5784094755484) feature.
+                  type: boolean
+                  example: null
+                unverify_updated_translations:
+                  description: Indicates that updated translations for this locale should be marked as unverified. Part of the [Advanced Workflows](https://support.phrase.com/hc/en-us/articles/5784094755484) feature.
+                  type: boolean
+                  example: null
+                autotranslate:
+                  description: If set, translations for this locale will be fetched automatically, right after creation.
+                  type: boolean
+                  example: null
+      x-cli-version: '2.5'
+    delete:
+      summary: Delete a locale
+      description: Delete an existing locale.
+      operationId: locale/delete
+      tags:
+      - Locales
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/locale_id_as_id'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/locales/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X DELETE \\\n  -d '{\"branch\":\"my-feature-branch\"}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase locales delete \
+
+          --project_id <project_id> \
+
+          --id <id> \
+
+          --branch my-feature-branch \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+  /projects/{project_id}/locales/{id}/download:
+    get:
+      summary: Download a locale
+      description: Download a locale in a specific file format.
+      operationId: locale/download
+      tags:
+      - Locales
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/If-Modified-Since'
+      - $ref: '#/components/parameters/If-None-Match'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/locale_id_as_id'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      - description: File format name. See the [format guide](https://support.phrase.com/hc/en-us/sections/6111343326364) for all supported file formats.
+        example: yml
+        name: file_format
+        in: query
+        schema:
+          type: string
+      - description: Limit results to keys tagged with a list of comma separated tag names.
+        example: feature1,feature2
+        name: tags
+        in: query
+        schema:
+          type: string
+      - description: Limit download to tagged keys. This parameter is deprecated. Please use the "tags" parameter instead
+        example: feature
+        deprecated: true
+        name: tag
+        in: query
+        schema:
+          type: string
+      - description: Indicates whether keys without translations should be included in the output as well.
+        example: null
+        name: include_empty_translations
+        in: query
+        schema:
+          type: boolean
+      - description: Indicates whether zero forms should be included when empty in pluralized keys.
+        example: null
+        name: exclude_empty_zero_forms
+        in: query
+        schema:
+          type: boolean
+      - description: Include translated keys in the locale file. Use in combination with include_empty_translations to obtain only untranslated keys.
+        example: null
+        name: include_translated_keys
+        in: query
+        schema:
+          type: boolean
+      - description: Indicates whether [NOTRANSLATE] tags should be kept.
+        example: null
+        name: keep_notranslate_tags
+        in: query
+        schema:
+          type: boolean
+      - description: This option is obsolete. Projects that were created on or after Nov 29th 2019 or that did not contain emoji by then will not require this flag any longer since emoji are now supported natively.
+        example: null
+        deprecated: true
+        name: convert_emoji
+        in: query
+        schema:
+          type: boolean
+      - description: 'Additional formatting and render options. See the [format guide](https://support.phrase.com/hc/en-us/sections/6111343326364) for a list of options available for each format. Specify format options like this: `...&format_options[foo]=bar`'
+        example: null
+        name: format_options
+        in: query
+        schema:
+          type: object
+          properties: {}
+        style: deepObject
+        explode: true
+      - description: Enforces a specific encoding on the file contents. Valid options are "UTF-8", "UTF-16" and "ISO-8859-1".
+        example: null
+        name: encoding
+        in: query
+        schema:
+          type: string
+      - description: Indicates whether the locale file should skip all unverified translations. This parameter is deprecated and should be replaced with `include_unverified_translations`.
+        example: null
+        deprecated: true
+        name: skip_unverified_translations
+        in: query
+        schema:
+          type: boolean
+      - description: if set to false unverified translations are excluded
+        example: null
+        name: include_unverified_translations
+        in: query
+        schema:
+          type: boolean
+      - description: If set to true the last reviewed version of a translation is used. This is only available if the review workflow is enabled for the project.
+        example: null
+        name: use_last_reviewed_version
+        in: query
+        schema:
+          type: boolean
+      - name: fallback_locale_id
+        description: 'If a key has no translation in the locale being downloaded, the translation in the fallback locale will be used.
+
+          Provide the ID of the locale that should be used as the fallback.
+
+          Requires `include_empty_translations` to be set to `true`. Mutually exclusive with `use_locale_fallback`.
+
+          '
+        in: query
+        schema:
+          type: string
+        example: null
+      - name: use_locale_fallback
+        description: 'If a key has no translation in the locale being downloaded, the translation in the fallback locale will be used.
+
+          Fallback locale is defined in [locale''s settings](/en/api/strings/locales/update-a-locale#body-fallback-locale-id).
+
+          Requires `include_empty_translations` to be set to `true`. Mutually exclusive with `fallback_locale_id`.
+
+          '
+        in: query
+        schema:
+          type: boolean
+        example: true
+      - description: Provides the source language of a corresponding job as the source language of the generated locale file. This parameter will be ignored unless used in combination with a `tag` parameter indicating a specific job.
+        example: null
+        name: source_locale_id
+        in: query
+        schema:
+          type: string
+      - description: 'Download all translation keys, and remove the specified prefix where possible. Warning: this may create duplicate key names if other keys share the same name after the prefix is removed.'
+        example: prefix_
+        name: translation_key_prefix
+        in: query
+        schema:
+          type: string
+      - description: Only download translation keys containing the specified prefix, and remove the prefix from the generated file.
+        example: null
+        name: filter_by_prefix
+        in: query
+        schema:
+          type: boolean
+      - name: custom_metadata_filters
+        in: query
+        description: 'Custom metadata filters. Provide the name of the metadata field and the value to filter by. Only keys with matching metadata will be included in the download.
+
+          '
+        schema:
+          type: object
+          properties: {}
+        style: deepObject
+        explode: true
+      - name: locale_ids
+        description: Locale IDs or locale names
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - de
+        - en
+      - name: updated_since
+        description: 'Only include translations and keys that have been updated since the given date. The date must be in ISO 8601 format (e.g., `2023-01-01T00:00:00Z`).
+
+          '
+        in: query
+        schema:
+          type: string
+        example: '2023-01-01T00:00:00Z'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*':
+              schema:
+                type: string
+                format: binary
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/locales/:id/download?branch=my-feature-branch&file_format=yml&tags=feature1,feature2&tag=feature&custom_metadata_filters[tone]=friendly\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase locales download \
+
+          --project_id <project_id> \
+
+          --id <id> \
+
+          --branch my-feature-branch \
+
+          --file_format yml \
+
+          --tags feature1,feature2 \
+
+          --tag feature \
+
+          --access_token <token>'
+      x-cli-version: 2.6.4
+components:
+  headers:
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+  parameters:
+    locale_id_as_id:
+      in: path
+      name: id
+      description: Locale ID or locale name
+      required: true
+      schema:
+        type: string
+    If-None-Match:
+      description: ETag condition, see [Conditional GET requests / HTTP Caching](/en/api/strings/pagination#conditional-get-requests-%2F-http-caching) (optional)
+      explode: false
+      in: header
+      name: If-None-Match
+      required: false
+      schema:
+        type: string
+      style: simple
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+    If-Modified-Since:
+      description: Last modified condition, see [Conditional GET requests / HTTP Caching](/en/api/strings/pagination#conditional-get-requests-%2F-http-caching) (optional)
+      explode: false
+      in: header
+      name: If-Modified-Since
+      required: false
+      schema:
+        type: string
+      style: simple
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+  responses:
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '204':
+      description: The resource was deleted successfully.
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  schemas:
+    locale_details:
+      allOf:
+      - $ref: '#/components/schemas/locale'
+      - type: object
+        title: locale_details
+        properties:
+          statistics:
+            $ref: '#/components/schemas/locale_statistics'
+        example:
+          statistics:
+            keys_total_count: 2120
+            keys_untranslated_count: 100
+            words_total_count: 3102102
+            translations_completed_count: 1920
+            translations_unverified_count: 32
+            unverified_words_count: 129
+            missing_words_count: 3920
+    account_locale:
+      type: object
+      title: locale_preview
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+      example:
+        name: English
+        code: en-GB
+    locale:
+      type: object
+      title: locale
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        default:
+          type: boolean
+        main:
+          type: boolean
+        rtl:
+          type: boolean
+        plural_forms:
+          type: array
+          items:
+            type: string
+        ordinal_plural_forms:
+          type: array
+          items:
+            type: string
+        source_locale:
+          $ref: '#/components/schemas/locale_preview'
+        fallback_locale:
+          $ref: '#/components/schemas/locale_preview'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: de
+        code: de-DE
+        default: true
+        main: false
+        rtl: false
+        plural_forms:
+        - zero
+        - one
+        - other
+        ordinal_plural_forms:
+        - zero
+        - other
+        source_locale:
+          id: abcd1234cdef1234abcd1234cdef1234
+          name: en
+          code: en-GB
+        fallback_locale:
+          id: abcd1234cdef1234abcd1234cdef1234
+          name: en
+          code: en-GB
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+    locale_preview:
+      type: object
+      title: locale_preview
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: English
+        code: en-GB
+    locale_statistics:
+      type: object
+      title: locale_statistics
+      properties:
+        keys_total_count:
+          type: integer
+        keys_untranslated_count:
+          type: integer
+        words_total_count:
+          type: integer
+        translations_completed_count:
+          type: integer
+        translations_unverified_count:
+          type: integer
+        unverified_words_count:
+          type: integer
+        missing_words_count:
+          type: integer
+      example: null
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your token in the format `token TOKEN`
+    Basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Core Resources
+  tags:
+  - Projects
+  - Locales
+  - Keys
+  - Translations
+  - Uploads
+  - Tags
+  - Custom Metadata Properties
+  - Blacklisted Keys
+  - Versions / History
+- name: Workflows
+  tags:
+  - Spaces
+  - Jobs
+  - Job Comments
+  - Job Locales
+  - Job Templates
+  - Job Template Locales
+  - Organization Job Templates
+  - Organization Job Template Locales
+  - Comments
+  - Comment Reactions
+  - Comment Replies
+  - Branches
+- name: Quality
+  tags:
+  - Glossaries
+  - Glossary Terms
+  - Glossary Term Translations
+- name: Integrations
+  tags:
+  - Webhooks
+  - Distributions
+  - Releases
+  - Release Triggers
+- name: Ordering
+  tags:
+  - Orders
+  - Style guides
+- name: User management
+  tags:
+  - Authorizations
+  - Users
+  - Accounts
+  - Members
+  - Invitations
+- name: Screenshots
+  tags:
+  - Screenshots
+  - Screenshot Markers
+- name: Misc
+  tags:
+  - Formats
+- name: Figma Attachments
+  tags:
+  - Figma attachments
+  - Key's Figma attachments

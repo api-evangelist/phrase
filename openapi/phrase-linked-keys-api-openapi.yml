@@ -1,0 +1,381 @@
+openapi: 3.0.3
+info:
+  title: Phrase Strings API Reference Accounts Linked Keys API
+  version: 2.0.0
+  description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
+  contact:
+    name: Phrase Support
+    url: https://developers.phrase.com/api/
+    email: support@phrase.com
+  x-logo:
+    url: https://developers.phrase.com/images/phrase-logo.svg
+    backgroundColor: '#03eab3'
+    altText: Phrase Strings
+  termsOfService: https://phrase.com/terms/
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+- url: https://api.phrase.com/v2
+  description: EU production server
+- url: https://api.us.app.phrase.com/v2
+  description: US production server
+security:
+- Token: []
+- Basic: []
+tags:
+- name: Linked Keys
+paths:
+  /projects/{project_id}/keys/{id}/key_links:
+    delete:
+      summary: Batch unlink child keys from a parent key
+      description: Unlinks multiple child keys from a given parent key in a single operation.
+      operationId: key_links/batch_destroy
+      tags:
+      - Linked Keys
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/key_id_as_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+              - child_key_ids
+              type: object
+              title: key_links/batch_destroy/parameters
+              properties:
+                child_key_ids:
+                  description: The IDs of the child keys to unlink from the parent key.
+                  type: array
+                  example:
+                  - child_key_id1
+                  - child_key_id2
+                  items:
+                    type: string
+                unlink_parent:
+                  description: Whether to unlink the parent key as well and unmark it as linked-key.
+                  type: boolean
+                  default: false
+      responses:
+        '200':
+          description: OK
+        '422':
+          $ref: '#/components/responses/422'
+    get:
+      summary: List child keys of a parent key
+      description: Returns detailed information about a parent key, including its linked child keys.
+      operationId: key_links/index
+      tags:
+      - Linked Keys
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/key_id_as_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/key_link'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: Key <parent_key_code> is not a parent key
+    post:
+      summary: Link child keys to a parent key
+      description: Creates links between a given parent key and one or more child keys.
+      operationId: key_links/create
+      tags:
+      - Linked Keys
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/key_id_as_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+              - child_key_ids
+              type: object
+              title: key_links/create/parameters
+              properties:
+                child_key_ids:
+                  description: The IDs of the child keys to link to the parent key. Can be left empty, to only mark the given translation-key as parent
+                  type: array
+                  example:
+                  - child_key_id1
+                  - child_key_id2
+                  items:
+                    type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/key_link'
+        '422':
+          $ref: '#/components/responses/422'
+  /projects/{project_id}/keys/{id}/key_links/{child_key_id}:
+    delete:
+      summary: Unlink a child key from a parent key
+      description: Unlinks a single child key from a given parent key.
+      operationId: key_links/destroy
+      tags:
+      - Linked Keys
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/key_id_as_id'
+      - in: path
+        name: child_key_id
+        required: true
+        description: The ID of the child key to unlink.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '422':
+          $ref: '#/components/responses/422'
+components:
+  schemas:
+    key_link:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          description: The timestamp when the link was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: The timestamp when the link was last updated.
+        created_by:
+          $ref: '#/components/schemas/user_preview'
+          description: The user who created the link.
+        updated_by:
+          $ref: '#/components/schemas/user_preview'
+          description: The user who last updated the link.
+        account:
+          $ref: '#/components/schemas/account'
+          description: The account associated with the link.
+        parent:
+          $ref: '#/components/schemas/key_preview'
+          description: The parent translation key in the link.
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/key_preview'
+          description: The child translation keys linked to the parent.
+    key_preview:
+      type: object
+      title: key_preview
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        plural:
+          type: boolean
+        use_ordinal_rules:
+          type: boolean
+      example: null
+    errors:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              resource:
+                type: string
+              field:
+                type: string
+              message:
+                type: string
+      example:
+        message: Validation Failed
+        errors:
+        - resource: Resource
+          field: name
+          message: can't be blank
+    user_preview:
+      type: object
+      title: user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        gravatar_uid:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: johndoe
+        name: John Doe
+        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+    account:
+      type: object
+      title: account
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        company:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        company_logo_url:
+          type: string
+      example:
+        id: abcd1234
+        name: Company Account
+        slug: company_account
+        company: My Awesome Company
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+        company_logo_url: http://assets.example.com/company_logo.png
+  headers:
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+  parameters:
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    key_id_as_id:
+      in: path
+      name: id
+      description: Parent Translation Key ID
+      required: true
+      schema:
+        type: string
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
+  responses:
+    '422':
+      description: Unprocessable entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errors'
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your token in the format `token TOKEN`
+    Basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Core Resources
+  tags:
+  - Projects
+  - Locales
+  - Keys
+  - Translations
+  - Uploads
+  - Tags
+  - Custom Metadata Properties
+  - Blacklisted Keys
+  - Versions / History
+- name: Workflows
+  tags:
+  - Spaces
+  - Jobs
+  - Job Comments
+  - Job Locales
+  - Job Templates
+  - Job Template Locales
+  - Organization Job Templates
+  - Organization Job Template Locales
+  - Comments
+  - Comment Reactions
+  - Comment Replies
+  - Branches
+- name: Quality
+  tags:
+  - Glossaries
+  - Glossary Terms
+  - Glossary Term Translations
+- name: Integrations
+  tags:
+  - Webhooks
+  - Distributions
+  - Releases
+  - Release Triggers
+- name: Ordering
+  tags:
+  - Orders
+  - Style guides
+- name: User management
+  tags:
+  - Authorizations
+  - Users
+  - Accounts
+  - Members
+  - Invitations
+- name: Screenshots
+  tags:
+  - Screenshots
+  - Screenshot Markers
+- name: Misc
+  tags:
+  - Formats
+- name: Figma Attachments
+  tags:
+  - Figma attachments
+  - Key's Figma attachments

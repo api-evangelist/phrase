@@ -1,0 +1,599 @@
+openapi: 3.0.3
+info:
+  title: Phrase Strings API Reference Accounts Uploads API
+  version: 2.0.0
+  description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
+  contact:
+    name: Phrase Support
+    url: https://developers.phrase.com/api/
+    email: support@phrase.com
+  x-logo:
+    url: https://developers.phrase.com/images/phrase-logo.svg
+    backgroundColor: '#03eab3'
+    altText: Phrase Strings
+  termsOfService: https://phrase.com/terms/
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+- url: https://api.phrase.com/v2
+  description: EU production server
+- url: https://api.us.app.phrase.com/v2
+  description: US production server
+security:
+- Token: []
+- Basic: []
+tags:
+- name: Uploads
+  description: "### Formats\n\nWe support all common localization file formats. For a detailed overview, see our [Format Guide](https://support.phrase.com/hc/en-us/sections/6111343326364).\n\n### Processing\n\nUploads will be processed asynchronously and thus the data might not be imported yet although the upload is completed. Therefore we recommend to evaluate the returned <code>state</code> field for information on the import progress.\n\n#### Available States\n\n<div class=\"table-responsive\">\n  <table class=\"basic-table\">\n    <thead>\n      <tr class=\"basic-table__row basic-table__row--header\">\n        <th class=\"basic-table__cell basic-table__cell--header\">State</th>\n        <th class=\"basic-table__cell basic-table__cell--header\">Description</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td class=\"basic-table__cell\"><code>initialized</code></td>\n        <td class=\"basic-table__cell\">Data received.</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>waiting_for_preview</code></td>\n        <td class=\"basic-table__cell\">Upload is waiting for preview to be finished.</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>waiting</code></td>\n        <td class=\"basic-table__cell\">Upload is waiting for processing.</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>processing</code></td>\n        <td class=\"basic-table__cell\">Upload is being processed, data is currently imported.</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>success</code></td>\n        <td class=\"basic-table__cell\">Upload is complete and all data is imported.</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>error</code></td>\n        <td class=\"basic-table__cell\">Upload or import process failed.</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
+paths:
+  /projects/{project_id}/uploads:
+    post:
+      summary: Upload a new file
+      description: 'Upload a new language file. Creates necessary resources in your project.
+
+
+        Note: be aware of [upload limits](https://support.phrase.com/hc/en-us/articles/8548271212188-Phrase-Strings-Limits#file-size-upload-limits-0-0).
+
+        '
+      operationId: upload/create
+      tags:
+      - Uploads
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/upload'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/uploads\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X POST \\\n  -F branch=my-feature-branch \\\n  -F file=@/path/to/my/file.json \\\n  -F file_format=json \\\n  -F locale_id=abcd1234cdef1234abcd1234cdef1234 \\\n  -F tags=awesome-feature,needs-proofreading \\\n  -F locale_mapping[en]=2 \\\n  -F format_options[foo]=bar"
+      - lang: CLI v2
+        source: 'phrase uploads create \
+
+          --project_id <project_id> \
+
+          --branch my-feature-branch \
+
+          --file /path/to/my/file.json \
+
+          --file_format json \
+
+          --locale_id abcd1234cdef1234abcd1234cdef1234 \
+
+          --tags awesome-feature,needs-proofreading \
+
+          --locale_mapping ''{"en": "2"}'' \
+
+          --format_options ''{"foo": "bar"}'' \
+
+          --access_token <token>'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              title: upload/create/parameters
+              required:
+              - file
+              - file_format
+              - locale_id
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                file:
+                  description: File to be imported
+                  type: string
+                  format: binary
+                  example: /path/to/my/file.json
+                file_format:
+                  description: File format. Auto-detected when possible and not specified.
+                  type: string
+                  example: json
+                locale_id:
+                  description: Locale of the file's content. Can be the name or id of the locale. Preferred is id.
+                  type: string
+                  example: abcd1234cdef1234abcd1234cdef1234
+                tags:
+                  description: List of tags separated by comma to be associated with the new keys contained in the upload.
+                  type: string
+                  example: awesome-feature,needs-proofreading
+                update_translations:
+                  description: Indicates whether existing translations should be updated with the file content.
+                  type: boolean
+                  example: true
+                update_custom_metadata:
+                  description: Determines whether to update custom metadata values when uploading a file. If set to true, existing metadata can be changed or removed. Passing an empty value deletes the corresponding metadata property.
+                  type: boolean
+                  default: true
+                  example: true
+                update_translation_keys:
+                  description: Pass `false` here to prevent new keys from being created and existing keys updated.
+                  type: boolean
+                  default: true
+                  example: true
+                update_translations_on_source_match:
+                  description: Update target translations only if the source translations of the uploaded multilingual file match the stored translations.
+                  type: boolean
+                  default: false
+                  example: true
+                source_locale_id:
+                  description: Specifies the source locale for multilingual files. Can be the name or id of the locale. Preferred is id.
+                  type: string
+                  example: abcd1234cdef1234abcd1234cdef1234
+                update_descriptions:
+                  description: Existing key descriptions will be updated with the file content. Empty descriptions overwrite existing descriptions.
+                  type: boolean
+                  example: true
+                convert_emoji:
+                  description: This option is obsolete. Providing the option will cause a bad request error.
+                  type: boolean
+                  example: true
+                  deprecated: true
+                skip_upload_tags:
+                  description: Indicates whether the upload should not create upload tags.
+                  type: boolean
+                  example: true
+                skip_unverification:
+                  description: Indicates whether the upload should unverify updated translations.
+                  type: boolean
+                  example: true
+                file_encoding:
+                  description: Enforces a specific encoding on the file contents. Valid options are "UTF-8", "UTF-16" and "ISO-8859-1".
+                  type: string
+                  example: UTF-8
+                locale_mapping:
+                  description: Mapping between locale names and translation columns. Required in some formats like CSV or XLSX.
+                  type: object
+                  properties: {}
+                  example: '{"en": "2"}'
+                format_options:
+                  description: Additional options available for specific formats. See our format guide for the [complete list](https://support.phrase.com/hc/en-us/articles/9652464547740-List-of-Supported-File-Types-Strings).
+                  type: object
+                  properties: {}
+                  example: '{"foo": "bar"}'
+                autotranslate:
+                  description: If set, translations for the uploaded language will be fetched automatically.
+                  type: boolean
+                  example: true
+                verify_mentioned_translations:
+                  description: Indicates whether all translations mentioned in the upload should be verified.
+                  type: boolean
+                  default: false
+                  example: true
+                mark_reviewed:
+                  description: Indicated whether the imported translations should be marked as reviewed. This setting is available if the review workflow is enabled for the project.
+                  type: boolean
+                  example: true
+                tag_only_affected_keys:
+                  description: Indicates whether only keys affected (created or updated) by the upload should be tagged. The default is `false`
+                  type: boolean
+                  default: false
+                  example: true
+                translation_key_prefix:
+                  description: This prefix will be added to all uploaded translation key names to prevent collisions. Use a meaningful prefix related to your project or file to keep key names organized.
+                  type: string
+                  example: prefix_
+      x-cli-version: '2.12'
+    get:
+      summary: List uploads
+      description: List all uploads for the given project.
+      operationId: uploads/list
+      tags:
+      - Uploads
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/upload'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Link:
+              $ref: '#/components/headers/Link'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/uploads?branch=my-feature-branch\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase uploads list \
+
+          --project_id <project_id> \
+
+          --branch my-feature-branch \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+  /projects/{project_id}/uploads/{id}:
+    get:
+      summary: Get a single upload
+      description: View details and summary for a single upload.
+      operationId: upload/show
+      tags:
+      - Uploads
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/id'
+      - description: specify the branch to use
+        example: my-feature-branch
+        name: branch
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/upload'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/uploads/:id?branch=my-feature-branch\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase uploads show \
+
+          --project_id <project_id> \
+
+          --id <id> \
+
+          --branch my-feature-branch \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+components:
+  responses:
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  headers:
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+  parameters:
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
+  schemas:
+    upload:
+      type: object
+      title: upload
+      properties:
+        id:
+          type: string
+        filename:
+          type: string
+        format:
+          type: string
+        state:
+          type: string
+        tag:
+          type: string
+          description: 'Unique tag of the upload
+
+            '
+        tags:
+          type: array
+          items:
+            type: string
+          description: 'List of tags that were assigned to the uploaded keys
+
+            '
+        url:
+          type: string
+          description: 'The URL to the upload in Phrase Strings app.
+
+            '
+        user:
+          type: object
+          $ref: '#/components/schemas/user_preview'
+        summary:
+          type: object
+          properties:
+            locales_created:
+              type: integer
+            translation_keys_created:
+              type: integer
+            translation_keys_updated:
+              type: integer
+            translation_keys_unmentioned:
+              description: 'The number of translation keys in the project that were not mentioned in the upload.
+
+
+                Note: this field is not calculated (and shows 0) if the upload contains more than 10,000 keys.
+
+                '
+              type: integer
+            translations_created:
+              type: integer
+            translations_updated:
+              type: integer
+            tags_created:
+              type: integer
+            translation_keys_ignored:
+              type: integer
+            processed_translations:
+              type: integer
+            upload_total_translations:
+              type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        filename: example.json
+        format: json
+        state: success
+        tag: tag
+        summary:
+          locales_created: 2
+          translation_keys_created: 162
+          translation_keys_updated: 10
+          translation_keys_unmentioned: 0
+          translations_created: 291
+          translations_updated: 3
+          tags_created: 2
+          translation_keys_ignored: 0
+        user:
+          id: abcd1234cdef1234abcd1234cdef1234
+          username: johndoe
+          name: John Doe
+          gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+    user_preview:
+      type: object
+      title: user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        gravatar_uid:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: johndoe
+        name: John Doe
+        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your token in the format `token TOKEN`
+    Basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Core Resources
+  tags:
+  - Projects
+  - Locales
+  - Keys
+  - Translations
+  - Uploads
+  - Tags
+  - Custom Metadata Properties
+  - Blacklisted Keys
+  - Versions / History
+- name: Workflows
+  tags:
+  - Spaces
+  - Jobs
+  - Job Comments
+  - Job Locales
+  - Job Templates
+  - Job Template Locales
+  - Organization Job Templates
+  - Organization Job Template Locales
+  - Comments
+  - Comment Reactions
+  - Comment Replies
+  - Branches
+- name: Quality
+  tags:
+  - Glossaries
+  - Glossary Terms
+  - Glossary Term Translations
+- name: Integrations
+  tags:
+  - Webhooks
+  - Distributions
+  - Releases
+  - Release Triggers
+- name: Ordering
+  tags:
+  - Orders
+  - Style guides
+- name: User management
+  tags:
+  - Authorizations
+  - Users
+  - Accounts
+  - Members
+  - Invitations
+- name: Screenshots
+  tags:
+  - Screenshots
+  - Screenshot Markers
+- name: Misc
+  tags:
+  - Formats
+- name: Figma Attachments
+  tags:
+  - Figma attachments
+  - Key's Figma attachments

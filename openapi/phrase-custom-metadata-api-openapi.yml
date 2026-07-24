@@ -1,0 +1,698 @@
+openapi: 3.0.3
+info:
+  title: Phrase Strings API Reference Accounts Custom Metadata API
+  version: 2.0.0
+  description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
+  contact:
+    name: Phrase Support
+    url: https://developers.phrase.com/api/
+    email: support@phrase.com
+  x-logo:
+    url: https://developers.phrase.com/images/phrase-logo.svg
+    backgroundColor: '#03eab3'
+    altText: Phrase Strings
+  termsOfService: https://phrase.com/terms/
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+- url: https://api.phrase.com/v2
+  description: EU production server
+- url: https://api.us.app.phrase.com/v2
+  description: US production server
+security:
+- Token: []
+- Basic: []
+tags:
+- name: Custom Metadata
+paths:
+  /accounts/{account_id}/custom_metadata/properties:
+    get:
+      summary: List properties
+      description: 'List all custom metadata properties for an account.
+
+
+        This endpoint is only available to accounts with advanced plans or above.
+
+        '
+      operationId: custom_metadata_properties/list
+      tags:
+      - Custom Metadata
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      - $ref: '#/components/parameters/custom_metadata_data_type'
+      - description: id of project that the properties belong to
+        example: abcd1234cdef1234abcd1234cdef1234
+        name: project_id
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - description: query to find a property by name
+        example: character_name
+        name: q
+        in: query
+        schema:
+          type: string
+      - description: 'Sort criteria. Can be one of: name, data_type, created_at.'
+        example: updated_at
+        name: sort
+        in: query
+        schema:
+          type: string
+      - description: 'Order direction. Can be one of: asc, desc.'
+        example: desc
+        name: order
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/custom_metadata_property'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Link:
+              $ref: '#/components/headers/Link'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/custom_metadata/properties?data_type=boolean&project_id=1&page=1&per_page=10&sort=created_at&order=desc\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase custom_metadata_properties list \
+
+          --account_id <account_id> \
+
+          --data_type boolean \
+
+          --project_id 1 \
+
+          --page 1 \
+
+          --per_page 10 \
+
+          --sort created_at \
+
+          --order desc \
+
+          --access_token <token>'
+      x-cli-version: '2.9'
+    post:
+      summary: Create a property
+      description: Create a new custom metadata property.
+      operationId: custom_metadata_property/create
+      tags:
+      - Custom Metadata
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+              - name
+              - data_type
+              type: object
+              title: custom_metadata_properties/create/parameters
+              properties:
+                name:
+                  description: name of the property
+                  example: Fruit
+                  type: string
+                data_type:
+                  $ref: '#/components/schemas/data_type'
+                project_ids:
+                  description: ids of projects that the property belongs to
+                  type: array
+                  example:
+                  - abcd1234cdef1234abcd1234cdef1234
+                  - abcd1234cdef1234abcd1234cdef4321
+                  items:
+                    type: string
+                description:
+                  description: description of property
+                  example: A healthy snack for all ages
+                  type: string
+                value_options:
+                  description: value options of property (only applies to single or multi select properties)
+                  example:
+                  - Apple
+                  - Banana
+                  - Coconut
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/custom_metadata_property'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/custom_metadata/properties\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X POST \\\n  -d '{\"name\":\"Fruit\",\"data_type\":\"multi_select\",\"description\":\"A healthy snack for all ages\",\"project_ids\":[\"1\",\"2\",\"3\"],\"value_options\":[\"apple\",\"banana\",\"coconut\"]}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase custom_metadata_properties create \
+
+          --account_id <account_id> \
+
+          --data ''{"name":"Fruit","data_type":"multi_select","description":"A healthy snack for all ages","project_ids":["1","2","3"],"value_options":["apple","banana","coconut"]}'' \
+
+          --access_token <token>'
+      x-cli-version: '2.9'
+  /accounts/{account_id}/custom_metadata/properties/{id}:
+    get:
+      summary: Get a single property
+      description: Get details of a single custom property.
+      operationId: custom_metadata_property/show
+      tags:
+      - Custom Metadata
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/custom_metadata_property'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/custom_metadata/properties/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase custom_metadata_properties show \
+
+          --account_id <account_id> \
+
+          --id <id> \
+
+          --access_token <token>'
+      x-cli-version: '2.9'
+    patch:
+      summary: Update a property
+      description: Update an existing custom metadata property.
+      operationId: custom_metadata_property/update
+      tags:
+      - Custom Metadata
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: custom_metadata_properties/update/parameters
+              properties:
+                name:
+                  description: name of the property
+                  example: Fruit
+                  type: string
+                project_ids:
+                  description: ids of projects that the property belongs to
+                  type: array
+                  example:
+                  - abcd1234cdef1234abcd1234cdef1234
+                  - abcd1234cdef1234abcd1234cdef4321
+                  items:
+                    type: string
+                description:
+                  description: description of property
+                  example: A healthy snack for all ages
+                  type: string
+                value_options:
+                  description: value options of property (only applies to single or multi select properties)
+                  example:
+                  - Apple
+                  - Banana
+                  - Coconut
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/custom_metadata_property'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/custom_metadata/properties/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X PATCH \\\n  -d '{\"name\":\"Fruit\",\"description\":\"A healthy snack for all ages\",\"project_ids\":[\"1\",\"2\",\"3\"],\"value_options\":[\"apple\",\"banana\",\"coconut\"]}' \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase custom_metadata_properties update \
+
+          --account_id <account_id> \
+
+          --id <id> \
+
+          --data ''{"name":"Fruit","description":"A healthy snack for all ages","project_ids":["1","2","3"],"value_options":["apple","banana","coconut"]}'' \
+
+          --access_token <token>'
+      x-cli-version: '2.9'
+    delete:
+      summary: Destroy property
+      description: 'Destroy a custom metadata property of an account.
+
+
+        This endpoint is only available to accounts with advanced plans or above.
+
+        '
+      operationId: custom_metadata_properties/delete
+      tags:
+      - Custom Metadata
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/account_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/accounts/:account_id/custom_metadata/properties/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN\n  -X DELETE\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase custom_metadata_properties delete \
+
+          --account_id <account_id> \
+
+          --id <id> \
+
+          --access_token <token>'
+      x-cli-version: '2.9'
+components:
+  schemas:
+    custom_metadata_property:
+      type: object
+      title: custom_metadata_property
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        data_type:
+          $ref: '#/components/schemas/data_type'
+        user:
+          $ref: '#/components/schemas/user_preview'
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/project_short'
+        value_options:
+          type: array
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: Nuts
+        description: A healthy snack for all ages
+        data_type: multi_select
+        user:
+          id: abcd1234cdef1234abcd1234cdef1234
+          username: joe.doe
+          name: Joe Doe
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+        projects:
+        - id: abcd1234cdef1234abcd1234cdef1234
+          name: My Android Project
+          main_format: xml
+          created_at: '2015-01-28T09:52:53Z'
+          updated_at: '2015-01-28T09:52:53Z'
+        value_options:
+        - apple
+        - banana
+        - coconut
+    project_short:
+      type: object
+      title: project_short
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        main_format:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: My Android Project
+        main_format: xml
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+    errors:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              resource:
+                type: string
+              field:
+                type: string
+              message:
+                type: string
+      example:
+        message: Validation Failed
+        errors:
+        - resource: Resource
+          field: name
+          message: can't be blank
+    data_type:
+      type: string
+      description: data type of the property
+      enum:
+      - boolean
+      - date
+      - link
+      - multi_select
+      - number
+      - single_select
+      - string
+      - text
+      example: string
+    user_preview:
+      type: object
+      title: user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        gravatar_uid:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: johndoe
+        name: John Doe
+        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+  headers:
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+  responses:
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '422':
+      description: Unprocessable entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errors'
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '204':
+      description: The resource was deleted successfully.
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  parameters:
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+    account_id:
+      in: path
+      name: account_id
+      description: Account ID
+      required: true
+      schema:
+        type: string
+    custom_metadata_data_type:
+      in: query
+      name: data_type
+      description: Data Type of Custom Metadata Property
+      required: false
+      schema:
+        $ref: '#/components/schemas/data_type'
+      example: boolean
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your token in the format `token TOKEN`
+    Basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Core Resources
+  tags:
+  - Projects
+  - Locales
+  - Keys
+  - Translations
+  - Uploads
+  - Tags
+  - Custom Metadata Properties
+  - Blacklisted Keys
+  - Versions / History
+- name: Workflows
+  tags:
+  - Spaces
+  - Jobs
+  - Job Comments
+  - Job Locales
+  - Job Templates
+  - Job Template Locales
+  - Organization Job Templates
+  - Organization Job Template Locales
+  - Comments
+  - Comment Reactions
+  - Comment Replies
+  - Branches
+- name: Quality
+  tags:
+  - Glossaries
+  - Glossary Terms
+  - Glossary Term Translations
+- name: Integrations
+  tags:
+  - Webhooks
+  - Distributions
+  - Releases
+  - Release Triggers
+- name: Ordering
+  tags:
+  - Orders
+  - Style guides
+- name: User management
+  tags:
+  - Authorizations
+  - Users
+  - Accounts
+  - Members
+  - Invitations
+- name: Screenshots
+  tags:
+  - Screenshots
+  - Screenshot Markers
+- name: Misc
+  tags:
+  - Formats
+- name: Figma Attachments
+  tags:
+  - Figma attachments
+  - Key's Figma attachments

@@ -1,0 +1,640 @@
+openapi: 3.0.3
+info:
+  title: Phrase Strings API Reference Accounts Notifications API
+  version: 2.0.0
+  description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
+  contact:
+    name: Phrase Support
+    url: https://developers.phrase.com/api/
+    email: support@phrase.com
+  x-logo:
+    url: https://developers.phrase.com/images/phrase-logo.svg
+    backgroundColor: '#03eab3'
+    altText: Phrase Strings
+  termsOfService: https://phrase.com/terms/
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+- url: https://api.phrase.com/v2
+  description: EU production server
+- url: https://api.us.app.phrase.com/v2
+  description: US production server
+security:
+- Token: []
+- Basic: []
+tags:
+- name: Notifications
+paths:
+  /notifications:
+    get:
+      summary: List notifications
+      description: List all notifications from the current user
+      operationId: notifications/list
+      tags:
+      - Notifications
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - description: Include only unseen notifications
+        example: true
+        name: unseen
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/notification'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+            Link:
+              $ref: '#/components/headers/Link'
+            Pagination:
+              $ref: '#/components/headers/Pagination'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/notifications\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase notifications list \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+  /notifications/mark_all_as_read:
+    post:
+      summary: Mark all notifications as read
+      description: Mark all notifications of the current user as read
+      operationId: notifications/mark_all_as_read
+      tags:
+      - Notifications
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/notification'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/notifications/mark_all_as_read\" \\\n  -u USERNAME_OR_ACCESS_TOKEN \\\n  -X POST \\\n  -H 'Content-Type: application/json'"
+      - lang: CLI v2
+        source: 'phrase notifications mark_all_as_read \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+  /notifications/{id}:
+    get:
+      summary: Get a single notification
+      description: Get details on a single notification.
+      operationId: notifications/show
+      tags:
+      - Notifications
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notification'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/notification/:id\" \\\n  -u USERNAME_OR_ACCESS_TOKEN"
+      - lang: CLI v2
+        source: 'phrase notifications show \
+
+          --id <id> \
+
+          --access_token <token>'
+      x-cli-version: '2.5'
+components:
+  schemas:
+    notification:
+      type: object
+      title: notification
+      properties:
+        id:
+          type: string
+        event_name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        delivered_at:
+          type: string
+          format: date-time
+        seen_at:
+          type: string
+          format: date-time
+        data:
+          type: object
+        resource:
+          type: object
+        locale:
+          $ref: '#/components/schemas/locale'
+        user:
+          $ref: '#/components/schemas/user_preview'
+        project:
+          $ref: '#/components/schemas/project'
+        account:
+          $ref: '#/components/schemas/account'
+        group:
+          $ref: '#/components/schemas/notification_group'
+      example:
+        id: abcd1234
+        event_name: keys:create
+        data: object notification data
+        resource: object of notification resource
+        locale:
+          id: abcd1234cdef1234abcd1234cdef1234
+          name: de
+          code: de-DE
+          default: true
+          main: false
+          rtl: false
+          plural_forms:
+          - zero
+          - one
+          - other
+          source_locale:
+            id: abcd1234cdef1234abcd1234cdef1234
+            name: en
+            code: en-GB
+          created_at: '2015-01-28T09:52:53Z'
+          updated_at: '2015-01-28T09:52:53Z'
+        user:
+          id: abcd1234cdef1234abcd1234cdef1234
+          username: joe.doe
+          name: Joe Doe
+        project:
+          id: abcd1234cdef1234abcd1234cdef1234
+          name: My Android Project
+          main_format: xml
+          project_image_url: http://assets.example.com/project.png
+          account:
+            id: abcd1234
+            name: Company Account
+            slug: company_account
+            company: My Awesome Company
+            created_at: '2015-01-28T09:52:53Z'
+            updated_at: '2015-01-28T09:52:53Z'
+            company_logo_url: http://assets.example.com/company_logo.png
+          created_at: '2015-01-28T09:52:53Z'
+          updated_at: '2015-01-28T09:52:53Z'
+        account:
+          id: abcd1234
+          name: Company Account
+          slug: company_account
+          company: My Awesome Company
+          created_at: '2015-01-28T09:52:53Z'
+          updated_at: '2015-01-28T09:52:53Z'
+          company_logo_url: http://assets.example.com/company_logo.png
+        group:
+          id: abcd1234cdef1234abcd1234cdef1234
+          event_name: keys:create
+          created_at: '2015-01-28T09:52:53Z'
+          updated_at: '2015-01-28T09:52:53Z'
+    project:
+      type: object
+      title: project
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        main_format:
+          type: string
+        project_image_url:
+          type: string
+        media:
+          type: string
+        account:
+          $ref: '#/components/schemas/account'
+        space:
+          $ref: '#/components/schemas/space_short'
+        point_of_contact:
+          $ref: '#/components/schemas/user_preview'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: My Android Project
+        slug: android_project
+        main_format: xml
+        project_image_url: http://assets.example.com/project.png
+        account: account
+        space: space
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+    space_short:
+      type: object
+      title: space
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        projects_count:
+          type: integer
+      example:
+        id: 2e7574e8f2372906a03110c2a7cfe671
+        name: My first space
+        created_at: '2020-02-25T12:17:25Z'
+        updated_at: '2020-03-13T14:46:57Z'
+        projects_count: 2
+    account:
+      type: object
+      title: account
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        company:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        company_logo_url:
+          type: string
+      example:
+        id: abcd1234
+        name: Company Account
+        slug: company_account
+        company: My Awesome Company
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+        company_logo_url: http://assets.example.com/company_logo.png
+    notification_group:
+      type: object
+      title: notification_group
+      properties:
+        id:
+          type: string
+        event_name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        event_name: keys:create
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+    locale:
+      type: object
+      title: locale
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        default:
+          type: boolean
+        main:
+          type: boolean
+        rtl:
+          type: boolean
+        plural_forms:
+          type: array
+          items:
+            type: string
+        ordinal_plural_forms:
+          type: array
+          items:
+            type: string
+        source_locale:
+          $ref: '#/components/schemas/locale_preview'
+        fallback_locale:
+          $ref: '#/components/schemas/locale_preview'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: de
+        code: de-DE
+        default: true
+        main: false
+        rtl: false
+        plural_forms:
+        - zero
+        - one
+        - other
+        ordinal_plural_forms:
+        - zero
+        - other
+        source_locale:
+          id: abcd1234cdef1234abcd1234cdef1234
+          name: en
+          code: en-GB
+        fallback_locale:
+          id: abcd1234cdef1234abcd1234cdef1234
+          name: en
+          code: en-GB
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+    locale_preview:
+      type: object
+      title: locale_preview
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: English
+        code: en-GB
+    user_preview:
+      type: object
+      title: user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        gravatar_uid:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: johndoe
+        name: John Doe
+        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+  headers:
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+  responses:
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '403':
+      description: Forbidden
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '401':
+      description: Unauthorized
+  parameters:
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your token in the format `token TOKEN`
+    Basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Core Resources
+  tags:
+  - Projects
+  - Locales
+  - Keys
+  - Translations
+  - Uploads
+  - Tags
+  - Custom Metadata Properties
+  - Blacklisted Keys
+  - Versions / History
+- name: Workflows
+  tags:
+  - Spaces
+  - Jobs
+  - Job Comments
+  - Job Locales
+  - Job Templates
+  - Job Template Locales
+  - Organization Job Templates
+  - Organization Job Template Locales
+  - Comments
+  - Comment Reactions
+  - Comment Replies
+  - Branches
+- name: Quality
+  tags:
+  - Glossaries
+  - Glossary Terms
+  - Glossary Term Translations
+- name: Integrations
+  tags:
+  - Webhooks
+  - Distributions
+  - Releases
+  - Release Triggers
+- name: Ordering
+  tags:
+  - Orders
+  - Style guides
+- name: User management
+  tags:
+  - Authorizations
+  - Users
+  - Accounts
+  - Members
+  - Invitations
+- name: Screenshots
+  tags:
+  - Screenshots
+  - Screenshot Markers
+- name: Misc
+  tags:
+  - Formats
+- name: Figma Attachments
+  tags:
+  - Figma attachments
+  - Key's Figma attachments

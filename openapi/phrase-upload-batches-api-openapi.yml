@@ -1,0 +1,378 @@
+openapi: 3.0.3
+info:
+  title: Phrase Strings API Reference Accounts Upload Batches API
+  version: 2.0.0
+  description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
+  contact:
+    name: Phrase Support
+    url: https://developers.phrase.com/api/
+    email: support@phrase.com
+  x-logo:
+    url: https://developers.phrase.com/images/phrase-logo.svg
+    backgroundColor: '#03eab3'
+    altText: Phrase Strings
+  termsOfService: https://phrase.com/terms/
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+servers:
+- url: https://api.phrase.com/v2
+  description: EU production server
+- url: https://api.us.app.phrase.com/v2
+  description: US production server
+security:
+- Token: []
+- Basic: []
+tags:
+- name: Upload Batches
+paths:
+  /projects/{project_id}/upload_batches:
+    post:
+      summary: Create upload batch
+      description: 'Groups multiple file uploads into a single batch. Optionally, launches the deletion of unmentioned translation keys
+
+        after all uploads in the batch are completed.
+
+        '
+      operationId: upload_batches/create
+      tags:
+      - Upload Batches
+      parameters:
+      - $ref: '#/components/parameters/X-PhraseApp-OTP'
+      - $ref: '#/components/parameters/project_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: upload_batches/create/parameters
+              required:
+              - upload_ids
+              properties:
+                branch:
+                  description: specify the branch to use
+                  type: string
+                  example: my-feature-branch
+                delete_unmentioned_keys:
+                  description: If set to true, after all uploads in the batch are completed, translation keys that were not mentioned in any of the uploaded files will be deleted.
+                  type: boolean
+                  example: true
+                upload_ids:
+                  description: Array of upload IDs to include in the batch
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - abcd1234cdef1234abcd1234cdef1234
+                  - bcde2345defg2345bcde2345defg2345
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/upload_batch'
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X-Rate-Limit-Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X-Rate-Limit-Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X-Rate-Limit-Reset'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      x-code-samples:
+      - lang: Curl
+        source: "curl \"https://api.phrase.com/v2/projects/:project_id/upload_batches\" \\\n-X POST \\\n-H \"Content-Type: application/json\" \\\n-d '{\n  \"branch\": \"my-feature-branch\",\n  \"delete_unmentioned_keys\": true,\n  \"upload_ids\": [\n    \"abcd1234cdef1234abcd1234cdef1234\",\n    \"bcde2345defg2345bcde2345defg2345\"\n  ]\n}' \\\n-u <token>:"
+      - lang: CLI v2
+        source: "phrase upload_batches create --project-id :project_id \\\n--data '{\n  \"branch\": \"my-feature-branch\",\n  \"delete_unmentioned_keys\": true,\n  \"upload_ids\": [\n    \"abcd1234cdef1234abcd1234cdef1234\",\n    \"bcde2345defg2345bcde2345defg2345\"\n  ]\n}' \\\n--access_token <token>"
+components:
+  schemas:
+    project_short:
+      type: object
+      title: project_short
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        main_format:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: My Android Project
+        main_format: xml
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+    upload:
+      type: object
+      title: upload
+      properties:
+        id:
+          type: string
+        filename:
+          type: string
+        format:
+          type: string
+        state:
+          type: string
+        tag:
+          type: string
+          description: 'Unique tag of the upload
+
+            '
+        tags:
+          type: array
+          items:
+            type: string
+          description: 'List of tags that were assigned to the uploaded keys
+
+            '
+        url:
+          type: string
+          description: 'The URL to the upload in Phrase Strings app.
+
+            '
+        user:
+          type: object
+          $ref: '#/components/schemas/user_preview'
+        summary:
+          type: object
+          properties:
+            locales_created:
+              type: integer
+            translation_keys_created:
+              type: integer
+            translation_keys_updated:
+              type: integer
+            translation_keys_unmentioned:
+              description: 'The number of translation keys in the project that were not mentioned in the upload.
+
+
+                Note: this field is not calculated (and shows 0) if the upload contains more than 10,000 keys.
+
+                '
+              type: integer
+            translations_created:
+              type: integer
+            translations_updated:
+              type: integer
+            tags_created:
+              type: integer
+            translation_keys_ignored:
+              type: integer
+            processed_translations:
+              type: integer
+            upload_total_translations:
+              type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        filename: example.json
+        format: json
+        state: success
+        tag: tag
+        summary:
+          locales_created: 2
+          translation_keys_created: 162
+          translation_keys_updated: 10
+          translation_keys_unmentioned: 0
+          translations_created: 291
+          translations_updated: 3
+          tags_created: 2
+          translation_keys_ignored: 0
+        user:
+          id: abcd1234cdef1234abcd1234cdef1234
+          username: johndoe
+          name: John Doe
+          gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+    user_preview:
+      type: object
+      title: user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        gravatar_uid:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: johndoe
+        name: John Doe
+        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+    upload_batch:
+      type: object
+      title: upload_batch
+      properties:
+        state:
+          type: string
+          description: Processing state of the upload batch
+          enum:
+          - started
+          - done
+        delete_unmentioned_keys:
+          type: boolean
+          description: Indicates whether unmentioned keys will be deleted after processing all uploads in the batch
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        project:
+          type: object
+          $ref: '#/components/schemas/project_short'
+        user:
+          type: object
+          $ref: '#/components/schemas/user_preview'
+        uploads:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/upload'
+  headers:
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+  responses:
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  parameters:
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your token in the format `token TOKEN`
+    Basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Core Resources
+  tags:
+  - Projects
+  - Locales
+  - Keys
+  - Translations
+  - Uploads
+  - Tags
+  - Custom Metadata Properties
+  - Blacklisted Keys
+  - Versions / History
+- name: Workflows
+  tags:
+  - Spaces
+  - Jobs
+  - Job Comments
+  - Job Locales
+  - Job Templates
+  - Job Template Locales
+  - Organization Job Templates
+  - Organization Job Template Locales
+  - Comments
+  - Comment Reactions
+  - Comment Replies
+  - Branches
+- name: Quality
+  tags:
+  - Glossaries
+  - Glossary Terms
+  - Glossary Term Translations
+- name: Integrations
+  tags:
+  - Webhooks
+  - Distributions
+  - Releases
+  - Release Triggers
+- name: Ordering
+  tags:
+  - Orders
+  - Style guides
+- name: User management
+  tags:
+  - Authorizations
+  - Users
+  - Accounts
+  - Members
+  - Invitations
+- name: Screenshots
+  tags:
+  - Screenshots
+  - Screenshot Markers
+- name: Misc
+  tags:
+  - Formats
+- name: Figma Attachments
+  tags:
+  - Figma attachments
+  - Key's Figma attachments

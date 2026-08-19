@@ -1,0 +1,946 @@
+{
+  "item": [
+    {
+      "id": "e5453e49-45d0-4caf-b0ef-793246ac3cb2",
+      "name": "Key's Figma attachments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "37961953-d26a-4bac-aec6-dbee1b37162d",
+          "name": "Attach the Figma attachment to a key",
+          "request": {
+            "name": "Attach the Figma attachment to a key",
+            "description": {
+              "content": "Attach the Figma attachment to a key",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "figma_attachments",
+                ":figma_attachment_id",
+                "keys"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "branch",
+                  "value": "<string>",
+                  "description": "specify the branch to use"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "figma_attachment_id",
+                  "description": "(Required) Figma attachment ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b73c4830-a7e5-4fb4-8a4e-cf82dc8404d5",
+              "name": "The resource was deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "figma_attachments",
+                    ":figma_attachment_id",
+                    "keys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "my-feature-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "figma_attachment_id",
+                      "description": "(Required) Figma attachment ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2839"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2839"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2839"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4dac6c54-3a52-4b05-a9e2-34431b5d41fe",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "figma_attachments",
+                    ":figma_attachment_id",
+                    "keys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "my-feature-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "figma_attachment_id",
+                      "description": "(Required) Figma attachment ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2839"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2839"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2839"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "275c0a79-618b-4187-be16-5e63247624fc",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "figma_attachments",
+                    ":figma_attachment_id",
+                    "keys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "my-feature-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "figma_attachment_id",
+                      "description": "(Required) Figma attachment ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2839"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2839"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2839"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d0336449-27b2-4b0a-bb9e-d1438b2ce26b",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "figma_attachments",
+                    ":figma_attachment_id",
+                    "keys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "my-feature-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "figma_attachment_id",
+                      "description": "(Required) Figma attachment ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2839"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2839"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2839"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6461fd80-bbc3-4c35-b3d2-62779eda4e13",
+          "name": "Detach the Figma attachment from a key",
+          "request": {
+            "name": "Detach the Figma attachment from a key",
+            "description": {
+              "content": "Detach the Figma attachment from a key",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "figma_attachments",
+                ":figma_attachment_id",
+                "keys",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "branch",
+                  "value": "<string>",
+                  "description": "specify the branch to use"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "figma_attachment_id",
+                  "description": "(Required) Figma attachment ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7a46333e-e562-4ad1-b4ca-9f983aab64e9",
+              "name": "The resource was deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "figma_attachments",
+                    ":figma_attachment_id",
+                    "keys",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "my-feature-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "figma_attachment_id",
+                      "description": "(Required) Figma attachment ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2839"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2839"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2839"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0e7b225c-8969-47b8-a742-eb687b6e0774",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "figma_attachments",
+                    ":figma_attachment_id",
+                    "keys",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "my-feature-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "figma_attachment_id",
+                      "description": "(Required) Figma attachment ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2839"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2839"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2839"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "50e09f27-e692-4f1b-a911-08294ac51638",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "figma_attachments",
+                    ":figma_attachment_id",
+                    "keys",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "my-feature-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "figma_attachment_id",
+                      "description": "(Required) Figma attachment ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2839"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2839"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2839"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6a5d6b8b-3dd8-4ecc-935b-919a0884504b",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "figma_attachments",
+                    ":figma_attachment_id",
+                    "keys",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "my-feature-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "figma_attachment_id",
+                      "description": "(Required) Figma attachment ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2839"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2839"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2839"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.phrase.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fe4c1066-f874-462e-a89d-7aea8f389752",
+    "name": "Phrase Strings API Reference Accounts Key's Figma attachments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.\n\nContact Support:\n Name: Phrase Support\n Email: support@phrase.com",
+      "type": "text/plain"
+    }
+  }
+}

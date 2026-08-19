@@ -1,0 +1,3922 @@
+{
+  "item": [
+    {
+      "id": "e201c45f-8133-4ada-9121-0343bea88141",
+      "name": "Branches",
+      "description": {
+        "content": "### Branch creation\n\nBranches will be created asynchronously. State of branch creation is returned as state.\n\n#### Available States\n\n<div class=\"table-responsive\">\n  <table class=\"basic-table\">\n    <thead>\n      <tr class=\"basic-table__row basic-table__row--header\">\n        <th class=\"basic-table__cell basic-table__cell--header\">State</th>\n        <th class=\"basic-table__cell basic-table__cell--header\">Description</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td class=\"basic-table__cell\"><code>initialized</code></td>\n        <td class=\"basic-table__cell\">Data received.</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>processing</code></td>\n        <td class=\"basic-table__cell\">Branch is currently creating.</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>success</code></td>\n        <td class=\"basic-table__cell\">Branch was created successfully</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>error</code></td>\n        <td class=\"basic-table__cell\">Branch creation failed.</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "72872782-3314-495e-8d98-25aa09c39054",
+          "name": "List branches",
+          "request": {
+            "name": "List branches",
+            "description": {
+              "content": "List all branches the of the current project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "branches"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) Project ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "63fd7136-6c5a-418a-a8ef-aae2e7ec26b4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Links to related resources, in the format defined by\n[RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).\nThis will include a link with relation type `next` to the\nnext page, if there is a next page.",
+                  "key": "Link",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Pagination details for navigating through a collection of resources, provided in JSON format.",
+                  "key": "Pagination",
+                  "value": "total_count,10,total_pages_count,2,current_page,1,current_per_page,5,previous_page,2721,next_page,2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"new-branch\",\n    \"created_at\": \"2015-01-28T09:52:53Z\",\n    \"updated_at\": \"2015-01-28T09:52:53Z\",\n    \"merged_at\": \"2015-01-28T09:52:53Z\",\n    \"merged_by\": {\n      \"username\": \"joe.doe\",\n      \"name\": \"Joe Doe\"\n    },\n    \"created_by\": {\n      \"username\": \"joe.doe\",\n      \"name\": \"Joe Doe\"\n    },\n    \"state\": \"success\",\n    \"child_branches\": [\n      \"feature_2\",\n      \"feature_3\"\n    ]\n  },\n  {\n    \"name\": \"new-branch\",\n    \"created_at\": \"2015-01-28T09:52:53Z\",\n    \"updated_at\": \"2015-01-28T09:52:53Z\",\n    \"merged_at\": \"2015-01-28T09:52:53Z\",\n    \"merged_by\": {\n      \"username\": \"joe.doe\",\n      \"name\": \"Joe Doe\"\n    },\n    \"created_by\": {\n      \"username\": \"joe.doe\",\n      \"name\": \"Joe Doe\"\n    },\n    \"state\": \"success\",\n    \"child_branches\": [\n      \"feature_2\",\n      \"feature_3\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b53ed29-373a-4d04-81a1-c6eca853e5ff",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ca21a653-4af4-4014-a6ca-970c79bdd5dd",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e835d3f4-ae50-43cd-a5fa-fb26c4764903",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "10da9ec7-d5b7-4b9e-8ce0-9f464ece24f4",
+          "name": "Create a branch",
+          "request": {
+            "name": "Create a branch",
+            "description": {
+              "content": "Create a new branch.\n\n*Note: Creating a new branch may take several minutes depending on the project size.*\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "branches"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) Project ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "63961798-bd10-46c7-9b12-5e99797f2043",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-branch\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"new-branch\",\n  \"created_at\": \"2015-01-28T09:52:53Z\",\n  \"updated_at\": \"2015-01-28T09:52:53Z\",\n  \"merged_at\": \"2015-01-28T09:52:53Z\",\n  \"merged_by\": {\n    \"username\": \"joe.doe\",\n    \"name\": \"Joe Doe\"\n  },\n  \"created_by\": {\n    \"username\": \"joe.doe\",\n    \"name\": \"Joe Doe\"\n  },\n  \"state\": \"success\",\n  \"child_branches\": [\n    \"feature_2\",\n    \"feature_3\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c60a008-1a47-48c2-b3ac-a1a58e8bfd09",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-branch\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cc0cf1fe-7c09-4a63-9be0-40dc30a34c36",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-branch\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e4cc0164-9feb-48ff-a144-ee5b70dfacf0",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-branch\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5975e783-e8da-4f67-8ea2-3825736bb4c1",
+          "name": "Get a single branch",
+          "request": {
+            "name": "Get a single branch",
+            "description": {
+              "content": "Get details on a single branch for a given project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "branches",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f53529ad-7939-4b93-9b00-625fdb657619",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"new-branch\",\n  \"created_at\": \"2015-01-28T09:52:53Z\",\n  \"updated_at\": \"2015-01-28T09:52:53Z\",\n  \"merged_at\": \"2015-01-28T09:52:53Z\",\n  \"merged_by\": {\n    \"username\": \"joe.doe\",\n    \"name\": \"Joe Doe\"\n  },\n  \"created_by\": {\n    \"username\": \"joe.doe\",\n    \"name\": \"Joe Doe\"\n  },\n  \"state\": \"success\",\n  \"child_branches\": [\n    \"feature_2\",\n    \"feature_3\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f5ca5a9-0e25-4f57-ae08-cf53c79ece97",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0bde5c70-8262-41d8-95af-2a03f158b85c",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d5403268-932f-4820-977a-c3e607faad66",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88d70ec2-ba85-4067-ab3f-4aae8e9fdea7",
+          "name": "Update a branch",
+          "request": {
+            "name": "Update a branch",
+            "description": {
+              "content": "Update an existing branch.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "branches",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4e72967e-80a9-4fd3-b289-06a46f050ff4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-branch\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"new-branch\",\n  \"created_at\": \"2015-01-28T09:52:53Z\",\n  \"updated_at\": \"2015-01-28T09:52:53Z\",\n  \"merged_at\": \"2015-01-28T09:52:53Z\",\n  \"merged_by\": {\n    \"username\": \"joe.doe\",\n    \"name\": \"Joe Doe\"\n  },\n  \"created_by\": {\n    \"username\": \"joe.doe\",\n    \"name\": \"Joe Doe\"\n  },\n  \"state\": \"success\",\n  \"child_branches\": [\n    \"feature_2\",\n    \"feature_3\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b88f5aa-746d-43c8-a550-03cad5f15d7f",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-branch\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eba65ea2-4c71-4a13-a85f-e4ec1ead8f75",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-branch\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "260f757a-22d8-4282-a737-2daf1eeec1d4",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-branch\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "303e9890-08f2-4de7-ad0d-d9b1a67cd7e5",
+          "name": "Delete a branch",
+          "request": {
+            "name": "Delete a branch",
+            "description": {
+              "content": "Delete an existing branch.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "branches",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "265c317b-8eba-4d7c-ab4e-3aa083a7d8e0",
+              "name": "The resource was deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "878d33c7-b40c-48ba-80b5-09aad29192c1",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "725973ba-308a-496d-8030-f0f8bf5509e2",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "66dcf40a-50ca-4e90-a4ee-ea401e528cba",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e665dc0-d905-4615-9772-a4ff41b0d27e",
+          "name": "Merge a branch",
+          "request": {
+            "name": "Merge a branch",
+            "description": {
+              "content": "Merge an existing branch.\n\n*Note: Merging a branch may take several minutes depending on diff size.*\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "branches",
+                ":name",
+                "merge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"strategy\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1afbf8e4-289d-4e6f-810d-3850ca2723ed",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "merge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"strategy\": \"use_main\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ce7433d4-75b8-4d91-a776-2ec61e0aaa2b",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "merge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"strategy\": \"use_main\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d572b508-a080-499d-964d-777b54b83ade",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "merge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"strategy\": \"use_main\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "78bc6397-4296-4cff-9427-254b00af79ee",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "merge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"strategy\": \"use_main\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0660245f-6500-4d61-96e5-557774b84fe7",
+          "name": "Sync a branch",
+          "request": {
+            "name": "Sync a branch",
+            "description": {
+              "content": "Sync an existing branch.\n\n*Note: Only available for branches created with new branching.*\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "branches",
+                ":name",
+                "sync"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"strategy\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c751cb76-96ff-4220-87bd-69b95244d284",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"strategy\": \"use_main\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "763603ba-3ce7-4c78-8a91-9c0bb21fcdf0",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"strategy\": \"use_main\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8a00710e-d00f-447a-aea9-e6ed9cf16bdb",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"strategy\": \"use_main\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "52f31596-cbd5-4886-af31-08977bf5c92b",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"strategy\": \"use_main\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4f0b8554-91b2-40e0-99e9-ae93067d815b",
+          "name": "Compare branches",
+          "request": {
+            "name": "Compare branches",
+            "description": {
+              "content": "Compare branch with main branch.\n\n*Note: Comparing a branch may take several minutes depending on the project size. Consider using the `POST /compare` endpoint for creating comparison asynchronously.*\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "branches",
+                ":name",
+                "compare"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name of the branch"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d2183886-148d-410e-aad2-63fa447dde18",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "compare"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "my-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a98fb12c-a9c8-40b2-8b9f-2de996550366",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "compare"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "my-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "43011664-7e22-4d4c-b191-812247e50bdb",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "compare"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "my-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "176b3b6d-caf9-4e94-8fe9-70082c692789",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "compare"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "my-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dc7790b2-b11c-4e0c-9dc7-7ae56b2f161a",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "compare"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "my-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e99cb8f-fe75-464b-ae96-a8b2c8f2e385",
+          "name": "Create comparison (async.)",
+          "request": {
+            "name": "Create comparison (async.)",
+            "description": {
+              "content": "Create a branch comparison asynchronously.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "branches",
+                ":name",
+                "compare"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"direction\": \"merge\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ee1f37e9-d4d4-4b37-80a6-8bce91f8f3fe",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "compare"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"direction\": \"merge\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6047c6ec-f78f-4635-a51a-9a094a0904e6",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "compare"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"direction\": \"merge\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4dd92cea-3491-425f-b5da-2b3ad98af27c",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "compare"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"direction\": \"merge\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8ce1ed83-b719-4f66-9cff-68951b7357bc",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "compare"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"direction\": \"merge\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1d32fa3f-1359-4744-96d4-ead15049484f",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "branches",
+                    ":name",
+                    "compare"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"direction\": \"merge\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5130"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5130"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.phrase.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "74475292-7b87-4664-bef0-a7e389e7db8f",
+    "name": "Phrase Strings API Reference Accounts Branches API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.\n\nContact Support:\n Name: Phrase Support\n Email: support@phrase.com",
+      "type": "text/plain"
+    }
+  }
+}

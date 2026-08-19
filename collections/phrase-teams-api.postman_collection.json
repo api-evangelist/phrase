@@ -1,0 +1,4606 @@
+{
+  "item": [
+    {
+      "id": "b05a1fae-cea1-43e3-8d05-f850750955dd",
+      "name": "Teams",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0b43995e-2ede-4ef2-8000-42d06822108e",
+          "name": "List Teams",
+          "request": {
+            "name": "List Teams",
+            "description": {
+              "content": "List all Teams for the given account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "teams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) Account ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3711e401-1e5a-4090-ba90-3b025098c6fb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Links to related resources, in the format defined by\n[RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).\nThis will include a link with relation type `next` to the\nnext page, if there is a next page.",
+                  "key": "Link",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Pagination details for navigating through a collection of resources, provided in JSON format.",
+                  "key": "Pagination",
+                  "value": "total_count,10,total_pages_count,2,current_page,1,current_per_page,5,previous_page,4361,next_page,2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"My first Team\",\n    \"created_at\": \"2020-02-25T12:17:25Z\",\n    \"updated_at\": \"2020-03-13T14:46:57Z\",\n    \"projects\": [\n      {\n        \"name\": \"My IOS Project\",\n        \"main_format\": \"yml\",\n        \"created_at\": \"2015-01-28T09:52:53Z\",\n        \"updated_at\": \"2015-01-28T09:52:53Z\"\n      }\n    ],\n    \"spaces\": [\n      {\n        \"name\": \"IOS\",\n        \"created_at\": \"2015-01-28T09:52:53Z\",\n        \"updated_at\": \"2015-01-28T09:52:53Z\",\n        \"projects_count\": 3\n      }\n    ],\n    \"users\": [\n      {\n        \"username\": \"Max\",\n        \"name\": \"Max Mustermann\"\n      }\n    ]\n  },\n  {\n    \"name\": \"My first Team\",\n    \"created_at\": \"2020-02-25T12:17:25Z\",\n    \"updated_at\": \"2020-03-13T14:46:57Z\",\n    \"projects\": [\n      {\n        \"name\": \"My IOS Project\",\n        \"main_format\": \"yml\",\n        \"created_at\": \"2015-01-28T09:52:53Z\",\n        \"updated_at\": \"2015-01-28T09:52:53Z\"\n      }\n    ],\n    \"spaces\": [\n      {\n        \"name\": \"IOS\",\n        \"created_at\": \"2015-01-28T09:52:53Z\",\n        \"updated_at\": \"2015-01-28T09:52:53Z\",\n        \"projects_count\": 3\n      }\n    ],\n    \"users\": [\n      {\n        \"username\": \"Max\",\n        \"name\": \"Max Mustermann\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "455a1f87-e2f2-49bf-95c7-72636491f216",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "14ad6b18-9434-4044-846e-cc816f91122b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6b820dd7-49da-4e9f-b079-e9b32964d7af",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "578b1ecc-59ad-4172-a01b-bfbf9a612c63",
+          "name": "Create a Team",
+          "request": {
+            "name": "Create a Team",
+            "description": {
+              "content": "Create a new Team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "teams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) Account ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3d5e65a5-15d2-47d1-a680-bb57eefa042e",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"German Translators\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"My first Team\",\n  \"created_at\": \"2020-02-25T12:17:25Z\",\n  \"updated_at\": \"2020-03-13T14:46:57Z\",\n  \"projects\": [\n    {\n      \"name\": \"My IOS Project\",\n      \"main_format\": \"yml\",\n      \"created_at\": \"2015-01-28T09:52:53Z\",\n      \"updated_at\": \"2015-01-28T09:52:53Z\"\n    }\n  ],\n  \"spaces\": [\n    {\n      \"name\": \"IOS\",\n      \"created_at\": \"2015-01-28T09:52:53Z\",\n      \"updated_at\": \"2015-01-28T09:52:53Z\",\n      \"projects_count\": 3\n    }\n  ],\n  \"users\": [\n    {\n      \"username\": \"Max\",\n      \"name\": \"Max Mustermann\",\n      \"position\": \"Developer\",\n      \"created_at\": \"2015-01-28T09:52:53Z\",\n      \"updated_at\": \"2015-01-28T09:52:53Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "86b7ac69-e6dd-48dc-9e2e-ae3f782328b0",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"German Translators\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c90bd738-f1d4-4632-8f7d-9f4a99756754",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"German Translators\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "79c952e8-41d4-4f3a-bd14-438f691bb83e",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"German Translators\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8e1dd232-33f4-4c64-9120-ff0b4212b296",
+          "name": "Get Team",
+          "request": {
+            "name": "Get Team",
+            "description": {
+              "content": "Show the specified Team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "teams",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) Account ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "24b0f8e7-c4c8-4cf6-8d1d-4f5feb99bbfb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"created_at\": \"1961-01-02T11:46:18.511Z\",\n  \"updated_at\": \"1975-03-12T15:56:40.485Z\",\n  \"projects\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"main_format\": \"string\",\n      \"project_image_url\": \"string\",\n      \"media\": \"string\",\n      \"account\": {\n        \"name\": \"Company Account\",\n        \"slug\": \"company_account\",\n        \"company\": \"My Awesome Company\",\n        \"created_at\": \"2015-01-28T09:52:53Z\",\n        \"updated_at\": \"2015-01-28T09:52:53Z\",\n        \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n      },\n      \"space\": {\n        \"name\": \"My first space\",\n        \"created_at\": \"2020-02-25T12:17:25Z\",\n        \"updated_at\": \"2020-03-13T14:46:57Z\",\n        \"projects_count\": 2\n      },\n      \"point_of_contact\": {\n        \"username\": \"johndoe\",\n        \"name\": \"John Doe\",\n        \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n      },\n      \"created_at\": \"2015-04-02T21:19:05.512Z\",\n      \"updated_at\": \"2008-08-27T03:48:13.229Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"main_format\": \"string\",\n      \"project_image_url\": \"string\",\n      \"media\": \"string\",\n      \"account\": {\n        \"name\": \"Company Account\",\n        \"slug\": \"company_account\",\n        \"company\": \"My Awesome Company\",\n        \"created_at\": \"2015-01-28T09:52:53Z\",\n        \"updated_at\": \"2015-01-28T09:52:53Z\",\n        \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n      },\n      \"space\": {\n        \"name\": \"My first space\",\n        \"created_at\": \"2020-02-25T12:17:25Z\",\n        \"updated_at\": \"2020-03-13T14:46:57Z\",\n        \"projects_count\": 2\n      },\n      \"point_of_contact\": {\n        \"username\": \"johndoe\",\n        \"name\": \"John Doe\",\n        \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n      },\n      \"created_at\": \"1984-10-22T23:19:44.503Z\",\n      \"updated_at\": \"1948-04-14T14:22:57.760Z\"\n    }\n  ],\n  \"spaces\": [\n    {\n      \"name\": \"My first space\",\n      \"created_at\": \"2020-02-25T12:17:25Z\",\n      \"updated_at\": \"2020-03-13T14:46:57Z\",\n      \"projects_count\": 2\n    },\n    {\n      \"name\": \"My first space\",\n      \"created_at\": \"2020-02-25T12:17:25Z\",\n      \"updated_at\": \"2020-03-13T14:46:57Z\",\n      \"projects_count\": 2\n    }\n  ],\n  \"users\": [\n    {\n      \"username\": \"joe.doe\",\n      \"name\": \"Joe Doe\",\n      \"position\": \"Lead Developer\",\n      \"created_at\": \"2015-01-28T09:52:53Z\",\n      \"updated_at\": \"2015-01-28T09:52:53Z\"\n    },\n    {\n      \"username\": \"joe.doe\",\n      \"name\": \"Joe Doe\",\n      \"position\": \"Lead Developer\",\n      \"created_at\": \"2015-01-28T09:52:53Z\",\n      \"updated_at\": \"2015-01-28T09:52:53Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce753eed-6f28-4549-a3fe-5a92baf4d079",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3ff8d1c7-f997-4f11-8fb9-4f90fad3cc5e",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "76bc86de-0ef3-4f49-98bc-0dca524a09c5",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc328af8-0d52-42bb-9a5c-6b16c50d8b4a",
+          "name": "Update Team",
+          "request": {
+            "name": "Update Team",
+            "description": {
+              "content": "Update the specified Team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "teams",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) Account ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3c2aedda-c31f-47b3-ac69-e7694b038071",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"German Translators\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"created_at\": \"1961-01-02T11:46:18.511Z\",\n  \"updated_at\": \"1975-03-12T15:56:40.485Z\",\n  \"projects\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"main_format\": \"string\",\n      \"project_image_url\": \"string\",\n      \"media\": \"string\",\n      \"account\": {\n        \"name\": \"Company Account\",\n        \"slug\": \"company_account\",\n        \"company\": \"My Awesome Company\",\n        \"created_at\": \"2015-01-28T09:52:53Z\",\n        \"updated_at\": \"2015-01-28T09:52:53Z\",\n        \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n      },\n      \"space\": {\n        \"name\": \"My first space\",\n        \"created_at\": \"2020-02-25T12:17:25Z\",\n        \"updated_at\": \"2020-03-13T14:46:57Z\",\n        \"projects_count\": 2\n      },\n      \"point_of_contact\": {\n        \"username\": \"johndoe\",\n        \"name\": \"John Doe\",\n        \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n      },\n      \"created_at\": \"2015-04-02T21:19:05.512Z\",\n      \"updated_at\": \"2008-08-27T03:48:13.229Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"main_format\": \"string\",\n      \"project_image_url\": \"string\",\n      \"media\": \"string\",\n      \"account\": {\n        \"name\": \"Company Account\",\n        \"slug\": \"company_account\",\n        \"company\": \"My Awesome Company\",\n        \"created_at\": \"2015-01-28T09:52:53Z\",\n        \"updated_at\": \"2015-01-28T09:52:53Z\",\n        \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n      },\n      \"space\": {\n        \"name\": \"My first space\",\n        \"created_at\": \"2020-02-25T12:17:25Z\",\n        \"updated_at\": \"2020-03-13T14:46:57Z\",\n        \"projects_count\": 2\n      },\n      \"point_of_contact\": {\n        \"username\": \"johndoe\",\n        \"name\": \"John Doe\",\n        \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n      },\n      \"created_at\": \"1984-10-22T23:19:44.503Z\",\n      \"updated_at\": \"1948-04-14T14:22:57.760Z\"\n    }\n  ],\n  \"spaces\": [\n    {\n      \"name\": \"My first space\",\n      \"created_at\": \"2020-02-25T12:17:25Z\",\n      \"updated_at\": \"2020-03-13T14:46:57Z\",\n      \"projects_count\": 2\n    },\n    {\n      \"name\": \"My first space\",\n      \"created_at\": \"2020-02-25T12:17:25Z\",\n      \"updated_at\": \"2020-03-13T14:46:57Z\",\n      \"projects_count\": 2\n    }\n  ],\n  \"users\": [\n    {\n      \"username\": \"joe.doe\",\n      \"name\": \"Joe Doe\",\n      \"position\": \"Lead Developer\",\n      \"created_at\": \"2015-01-28T09:52:53Z\",\n      \"updated_at\": \"2015-01-28T09:52:53Z\"\n    },\n    {\n      \"username\": \"joe.doe\",\n      \"name\": \"Joe Doe\",\n      \"position\": \"Lead Developer\",\n      \"created_at\": \"2015-01-28T09:52:53Z\",\n      \"updated_at\": \"2015-01-28T09:52:53Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e184efeb-e4ca-4a38-a772-268f4700f2ff",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"German Translators\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "65072ffb-dbf3-4c91-9869-1b2bffbc0c2d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"German Translators\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "63a9024c-3335-4743-b89c-5fddcc0f275a",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"German Translators\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3822f864-1c3b-447b-8834-c0f994e6448d",
+          "name": "Delete Team",
+          "request": {
+            "name": "Delete Team",
+            "description": {
+              "content": "Delete the specified Team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "teams",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) Account ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "622b1d5a-d52a-42cc-86a9-8ec33899cf4c",
+              "name": "The resource was deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7feab8c6-ad8c-4182-bf74-d8417098af20",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4e62c177-0fdb-469a-8e97-f5f4b72ee4be",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d524cc4b-5c13-4ec5-83c7-e7dedd0ec09f",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c35c35aa-3ae5-43c0-97b9-0bf576bdf36e",
+          "name": "Add Project to Team",
+          "request": {
+            "name": "Add Project to Team",
+            "description": {
+              "content": "Adds an existing project to the team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "teams",
+                ":team_id",
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) Account ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "team_id",
+                  "description": "(Required) Team ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3770b111-29b1-417a-b654-ea9f3b3083e4",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"a4b3c2d1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4ac4254b-3ac6-4664-b704-0afb32e58f78",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"a4b3c2d1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1916b2cd-b950-48bd-b404-d5d194caf1d7",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"a4b3c2d1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "514c8730-0e93-4c01-a7bd-8659dcf425cd",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"a4b3c2d1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7003a518-ce7b-404a-86d5-0a99704e8ee9",
+          "name": "Remove Project from Team",
+          "request": {
+            "name": "Remove Project from Team",
+            "description": {
+              "content": "Removes a specified project from the specified team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "teams",
+                ":team_id",
+                "projects",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) Account ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "team_id",
+                  "description": "(Required) Team ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c855ad7d-ea15-4794-9df8-a691b2f468f7",
+              "name": "The resource was deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "projects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fda883a4-90c2-465b-9154-211ef17c6c35",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "projects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "52d79b88-6105-4cd3-b39c-425f712bd23c",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "projects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5acc03cb-ac63-457c-a72a-ad929f9a8522",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "projects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8858a244-d715-4688-bee5-9ad2c39d4e4f",
+          "name": "Add Space",
+          "request": {
+            "name": "Add Space",
+            "description": {
+              "content": "Adds an existing space to the team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "teams",
+                ":team_id",
+                "spaces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) Account ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "team_id",
+                  "description": "(Required) Team ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "82f8bbf5-5bc6-44b8-acb6-0c14ca205dfe",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "spaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"a4b3c2d1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "004e433b-83a2-4bc4-a5b2-d36ad6314700",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "spaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"a4b3c2d1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7f973f1b-ea4c-4125-8e59-ddb63ea22442",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "spaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"a4b3c2d1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "79ab6ef5-63dd-4a99-b3ca-000ebef8ca38",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "spaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"a4b3c2d1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b12ec869-5bc3-4820-b6cc-5db34c56537b",
+          "name": "Remove Space",
+          "request": {
+            "name": "Remove Space",
+            "description": {
+              "content": "Removes a specified space from the specified team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "teams",
+                ":team_id",
+                "spaces",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) Account ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "team_id",
+                  "description": "(Required) Team ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6c69cd72-785b-4db2-8cff-e0c47cb7a4c7",
+              "name": "The resource was deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "spaces",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a34d4f89-226f-44d6-9cd4-a4bc6091767d",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "spaces",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "37b0e459-a57b-4826-b7e9-b3c24dd09cef",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "spaces",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "72996cf6-b6f0-4847-91c1-db69c5f8ede0",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "spaces",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "113b3c22-980f-4e13-bd63-966f07d8aa78",
+          "name": "Add User",
+          "request": {
+            "name": "Add User",
+            "description": {
+              "content": "Adds an existing user to the team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "teams",
+                ":team_id",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) Account ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "team_id",
+                  "description": "(Required) Team ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a7f699e4-c149-49b5-b6ed-35584a4fae54",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"a4b3c2d1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6b5b169a-fdf7-4e4c-9aed-1b53c0844064",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"a4b3c2d1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6103ccf5-9a73-44cf-899f-69121fb9233f",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"a4b3c2d1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "998da3a8-73d7-4221-b444-bf85d716d3f7",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"a4b3c2d1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aa59651a-ba11-4d2e-9d94-470c779bf46f",
+          "name": "Remove User",
+          "request": {
+            "name": "Remove User",
+            "description": {
+              "content": "Removes a specified user from the specified team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "teams",
+                ":team_id",
+                "users",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) Account ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "team_id",
+                  "description": "(Required) Team ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "47956647-df38-450f-8e22-cf78f59b694e",
+              "name": "The resource was deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a5351200-a976-4403-8f9c-0543c0e3a4d0",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "71c4a1d4-46ea-4d02-a26e-678a2046b9c3",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a888f97c-20f6-4b48-b356-a96a051f8088",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "team_id",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2103"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2103"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.phrase.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "93ee8379-c615-403f-b428-128dbb36e650",
+    "name": "Phrase Strings API Reference Accounts Teams API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.\n\nContact Support:\n Name: Phrase Support\n Email: support@phrase.com",
+      "type": "text/plain"
+    }
+  }
+}

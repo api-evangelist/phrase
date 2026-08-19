@@ -1,0 +1,388 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Comments API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Comments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List comments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path",
+                "description": "Translation Key ID"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              },
+              {
+                "name": "query",
+                "value": "Some comment content",
+                "type": "query",
+                "description": "Search query for comment messages"
+              },
+              {
+                "name": "locale_ids",
+                "value": "someId",
+                "type": "query",
+                "description": "Search comments by their assigned locales"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "Specify the filter for the comments"
+              },
+              {
+                "name": "order",
+                "value": "desc",
+                "type": "query",
+                "description": "Order direction. Can be one of: asc, desc."
+              }
+            ]
+          },
+          "docs": "List all comments for a key."
+        },
+        {
+          "info": {
+            "name": "Create a comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path",
+                "description": "Translation Key ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new comment for a key."
+        },
+        {
+          "info": {
+            "name": "Get a single comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path",
+                "description": "Translation Key ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "Get details on a single comment."
+        },
+        {
+          "info": {
+            "name": "Update a comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path",
+                "description": "Translation Key ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing comment."
+        },
+        {
+          "info": {
+            "name": "Delete a comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path",
+                "description": "Translation Key ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "Delete an existing comment."
+        },
+        {
+          "info": {
+            "name": "Check if comment is read",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments/:id/read",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path",
+                "description": "Translation Key ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "Check if comment was marked as read. Returns 204 if read, 404 if unread."
+        },
+        {
+          "info": {
+            "name": "Mark a comment as read",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments/:id/read",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path",
+                "description": "Translation Key ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Mark a comment as read."
+        },
+        {
+          "info": {
+            "name": "Mark a comment as unread",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments/:id/read",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path",
+                "description": "Translation Key ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "Mark a comment as unread."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

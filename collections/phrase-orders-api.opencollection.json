@@ -1,0 +1,207 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Orders API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/orders",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "List all orders for the given project."
+        },
+        {
+          "info": {
+            "name": "Create a new order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.phrase.com/v2/projects/:project_id/orders",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new order. Access token scope must include `orders.create`."
+        },
+        {
+          "info": {
+            "name": "Get a single order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/orders/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "Get details on a single order."
+        },
+        {
+          "info": {
+            "name": "Cancel an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.phrase.com/v2/projects/:project_id/orders/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "Cancel an existing order. Must not yet be confirmed."
+        },
+        {
+          "info": {
+            "name": "Confirm an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/orders/:id/confirm",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Confirm an existing order and send it to the provider for translation. Same constraints as for create."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

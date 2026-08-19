@@ -1,0 +1,346 @@
+{
+  "item": [
+    {
+      "id": "df1b363d-5c93-4218-82a4-807ec7b3b8ee",
+      "name": "Users",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0ed88aae-9082-4074-9235-16565d823730",
+          "name": "Show current User",
+          "request": {
+            "name": "Show current User",
+            "description": {
+              "content": "Show details for current User.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2e115d15-cdc3-4009-a1c1-4036e8af35bc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "9554"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "9554"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "9554"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"username\": \"joe.doe\",\n  \"name\": \"Joe Doe\",\n  \"email\": \"joe@phrase.com\",\n  \"position\": \"Lead Developer\",\n  \"language\": \"de\",\n  \"created_at\": \"2015-01-28T09:52:53Z\",\n  \"updated_at\": \"2015-01-28T09:52:53Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aeed2bf2-07a6-4973-a62e-6b24601a7d45",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "9554"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "9554"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "9554"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "59a7d4c4-a9e9-4abf-b889-18a8fc896ebe",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "9554"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "9554"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "9554"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aa787a86-5757-4b2e-95d8-ea49acac5487",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "9554"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "9554"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "9554"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.phrase.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9023c1eb-f6af-419c-9ea5-657becf1f7e7",
+    "name": "Phrase Strings API Reference Accounts Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.\n\nContact Support:\n Name: Phrase Support\n Email: support@phrase.com",
+      "type": "text/plain"
+    }
+  }
+}

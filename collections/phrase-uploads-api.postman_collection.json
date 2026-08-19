@@ -1,0 +1,2188 @@
+{
+  "item": [
+    {
+      "id": "bfbb57ac-c61b-4cf8-868a-484c5fe3bd1c",
+      "name": "Uploads",
+      "description": {
+        "content": "### Formats\n\nWe support all common localization file formats. For a detailed overview, see our [Format Guide](https://support.phrase.com/hc/en-us/sections/6111343326364).\n\n### Processing\n\nUploads will be processed asynchronously and thus the data might not be imported yet although the upload is completed. Therefore we recommend to evaluate the returned <code>state</code> field for information on the import progress.\n\n#### Available States\n\n<div class=\"table-responsive\">\n  <table class=\"basic-table\">\n    <thead>\n      <tr class=\"basic-table__row basic-table__row--header\">\n        <th class=\"basic-table__cell basic-table__cell--header\">State</th>\n        <th class=\"basic-table__cell basic-table__cell--header\">Description</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td class=\"basic-table__cell\"><code>initialized</code></td>\n        <td class=\"basic-table__cell\">Data received.</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>waiting_for_preview</code></td>\n        <td class=\"basic-table__cell\">Upload is waiting for preview to be finished.</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>waiting</code></td>\n        <td class=\"basic-table__cell\">Upload is waiting for processing.</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>processing</code></td>\n        <td class=\"basic-table__cell\">Upload is being processed, data is currently imported.</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>success</code></td>\n        <td class=\"basic-table__cell\">Upload is complete and all data is imported.</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>error</code></td>\n        <td class=\"basic-table__cell\">Upload or import process failed.</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "526afd9a-d094-4914-906a-b52ec6aa53c4",
+          "name": "Upload a new file",
+          "request": {
+            "name": "Upload a new file",
+            "description": {
+              "content": "Upload a new language file. Creates necessary resources in your project.\n\nNote: be aware of [upload limits](https://support.phrase.com/hc/en-us/articles/8548271212188-Phrase-Strings-Limits#file-size-upload-limits-0-0).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "uploads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) Project ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) File to be imported"
+                },
+                {
+                  "key": "file_format",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) File format. Auto-detected when possible and not specified."
+                },
+                {
+                  "key": "locale_id",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Locale of the file's content. Can be the name or id of the locale. Preferred is id."
+                },
+                {
+                  "key": "branch",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "specify the branch to use"
+                },
+                {
+                  "key": "tags",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "List of tags separated by comma to be associated with the new keys contained in the upload."
+                },
+                {
+                  "key": "update_translations",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": "Indicates whether existing translations should be updated with the file content."
+                },
+                {
+                  "key": "update_custom_metadata",
+                  "value": "true",
+                  "type": "text",
+                  "description": "Determines whether to update custom metadata values when uploading a file. If set to true, existing metadata can be changed or removed. Passing an empty value deletes the corresponding metadata property."
+                },
+                {
+                  "key": "update_translation_keys",
+                  "value": "true",
+                  "type": "text",
+                  "description": "Pass `false` here to prevent new keys from being created and existing keys updated."
+                },
+                {
+                  "key": "update_translations_on_source_match",
+                  "value": "false",
+                  "type": "text",
+                  "description": "Update target translations only if the source translations of the uploaded multilingual file match the stored translations."
+                },
+                {
+                  "key": "source_locale_id",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Specifies the source locale for multilingual files. Can be the name or id of the locale. Preferred is id."
+                },
+                {
+                  "key": "update_descriptions",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": "Existing key descriptions will be updated with the file content. Empty descriptions overwrite existing descriptions."
+                },
+                {
+                  "key": "convert_emoji",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": "This option is obsolete. Providing the option will cause a bad request error."
+                },
+                {
+                  "key": "skip_upload_tags",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": "Indicates whether the upload should not create upload tags."
+                },
+                {
+                  "key": "skip_unverification",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": "Indicates whether the upload should unverify updated translations."
+                },
+                {
+                  "key": "file_encoding",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Enforces a specific encoding on the file contents. Valid options are \"UTF-8\", \"UTF-16\" and \"ISO-8859-1\"."
+                },
+                {
+                  "key": "locale_mapping",
+                  "value": "{}",
+                  "type": "text",
+                  "description": "Mapping between locale names and translation columns. Required in some formats like CSV or XLSX."
+                },
+                {
+                  "key": "format_options",
+                  "value": "{}",
+                  "type": "text",
+                  "description": "Additional options available for specific formats. See our format guide for the [complete list](https://support.phrase.com/hc/en-us/articles/9652464547740-List-of-Supported-File-Types-Strings)."
+                },
+                {
+                  "key": "autotranslate",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": "If set, translations for the uploaded language will be fetched automatically."
+                },
+                {
+                  "key": "verify_mentioned_translations",
+                  "value": "false",
+                  "type": "text",
+                  "description": "Indicates whether all translations mentioned in the upload should be verified."
+                },
+                {
+                  "key": "mark_reviewed",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": "Indicated whether the imported translations should be marked as reviewed. This setting is available if the review workflow is enabled for the project."
+                },
+                {
+                  "key": "tag_only_affected_keys",
+                  "value": "false",
+                  "type": "text",
+                  "description": "Indicates whether only keys affected (created or updated) by the upload should be tagged. The default is `false`"
+                },
+                {
+                  "key": "translation_key_prefix",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "This prefix will be added to all uploaded translation key names to prevent collisions. Use a meaningful prefix related to your project or file to keep key names organized."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2d98135b-b2f2-442f-8442-1923cac7b613",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "uploads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) File to be imported",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "/path/to/my/file.json",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) File format. Auto-detected when possible and not specified.",
+                        "type": "text/plain"
+                      },
+                      "key": "file_format",
+                      "value": "json",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Locale of the file's content. Can be the name or id of the locale. Preferred is id.",
+                        "type": "text/plain"
+                      },
+                      "key": "locale_id",
+                      "value": "abcd1234cdef1234abcd1234cdef1234",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "specify the branch to use",
+                        "type": "text/plain"
+                      },
+                      "key": "branch",
+                      "value": "my-feature-branch",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "List of tags separated by comma to be associated with the new keys contained in the upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "tags",
+                      "value": "awesome-feature,needs-proofreading",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether existing translations should be updated with the file content.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_translations",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Determines whether to update custom metadata values when uploading a file. If set to true, existing metadata can be changed or removed. Passing an empty value deletes the corresponding metadata property.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_custom_metadata",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Pass `false` here to prevent new keys from being created and existing keys updated.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_translation_keys",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Update target translations only if the source translations of the uploaded multilingual file match the stored translations.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_translations_on_source_match",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Specifies the source locale for multilingual files. Can be the name or id of the locale. Preferred is id.",
+                        "type": "text/plain"
+                      },
+                      "key": "source_locale_id",
+                      "value": "abcd1234cdef1234abcd1234cdef1234",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Existing key descriptions will be updated with the file content. Empty descriptions overwrite existing descriptions.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_descriptions",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "This option is obsolete. Providing the option will cause a bad request error.",
+                        "type": "text/plain"
+                      },
+                      "key": "convert_emoji",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether the upload should not create upload tags.",
+                        "type": "text/plain"
+                      },
+                      "key": "skip_upload_tags",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether the upload should unverify updated translations.",
+                        "type": "text/plain"
+                      },
+                      "key": "skip_unverification",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Enforces a specific encoding on the file contents. Valid options are \"UTF-8\", \"UTF-16\" and \"ISO-8859-1\".",
+                        "type": "text/plain"
+                      },
+                      "key": "file_encoding",
+                      "value": "UTF-8",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Mapping between locale names and translation columns. Required in some formats like CSV or XLSX.",
+                        "type": "text/plain"
+                      },
+                      "key": "locale_mapping",
+                      "value": "{}",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Additional options available for specific formats. See our format guide for the [complete list](https://support.phrase.com/hc/en-us/articles/9652464547740-List-of-Supported-File-Types-Strings).",
+                        "type": "text/plain"
+                      },
+                      "key": "format_options",
+                      "value": "{}",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "If set, translations for the uploaded language will be fetched automatically.",
+                        "type": "text/plain"
+                      },
+                      "key": "autotranslate",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether all translations mentioned in the upload should be verified.",
+                        "type": "text/plain"
+                      },
+                      "key": "verify_mentioned_translations",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicated whether the imported translations should be marked as reviewed. This setting is available if the review workflow is enabled for the project.",
+                        "type": "text/plain"
+                      },
+                      "key": "mark_reviewed",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether only keys affected (created or updated) by the upload should be tagged. The default is `false`",
+                        "type": "text/plain"
+                      },
+                      "key": "tag_only_affected_keys",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "This prefix will be added to all uploaded translation key names to prevent collisions. Use a meaningful prefix related to your project or file to keep key names organized.",
+                        "type": "text/plain"
+                      },
+                      "key": "translation_key_prefix",
+                      "value": "prefix_",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "4185"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"filename\": \"example.json\",\n  \"format\": \"json\",\n  \"state\": \"success\",\n  \"tag\": \"tag\",\n  \"summary\": {\n    \"locales_created\": 2,\n    \"translation_keys_created\": 162,\n    \"translation_keys_updated\": 10,\n    \"translation_keys_unmentioned\": 0,\n    \"translations_created\": 291,\n    \"translations_updated\": 3,\n    \"tags_created\": 2,\n    \"translation_keys_ignored\": 0\n  },\n  \"user\": {\n    \"username\": \"johndoe\",\n    \"name\": \"John Doe\",\n    \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n  },\n  \"created_at\": \"2015-01-28T09:52:53Z\",\n  \"updated_at\": \"2015-01-28T09:52:53Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6036eb93-5ee4-4c9c-97a6-292200168a29",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "uploads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) File to be imported",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "/path/to/my/file.json",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) File format. Auto-detected when possible and not specified.",
+                        "type": "text/plain"
+                      },
+                      "key": "file_format",
+                      "value": "json",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Locale of the file's content. Can be the name or id of the locale. Preferred is id.",
+                        "type": "text/plain"
+                      },
+                      "key": "locale_id",
+                      "value": "abcd1234cdef1234abcd1234cdef1234",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "specify the branch to use",
+                        "type": "text/plain"
+                      },
+                      "key": "branch",
+                      "value": "my-feature-branch",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "List of tags separated by comma to be associated with the new keys contained in the upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "tags",
+                      "value": "awesome-feature,needs-proofreading",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether existing translations should be updated with the file content.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_translations",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Determines whether to update custom metadata values when uploading a file. If set to true, existing metadata can be changed or removed. Passing an empty value deletes the corresponding metadata property.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_custom_metadata",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Pass `false` here to prevent new keys from being created and existing keys updated.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_translation_keys",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Update target translations only if the source translations of the uploaded multilingual file match the stored translations.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_translations_on_source_match",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Specifies the source locale for multilingual files. Can be the name or id of the locale. Preferred is id.",
+                        "type": "text/plain"
+                      },
+                      "key": "source_locale_id",
+                      "value": "abcd1234cdef1234abcd1234cdef1234",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Existing key descriptions will be updated with the file content. Empty descriptions overwrite existing descriptions.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_descriptions",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "This option is obsolete. Providing the option will cause a bad request error.",
+                        "type": "text/plain"
+                      },
+                      "key": "convert_emoji",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether the upload should not create upload tags.",
+                        "type": "text/plain"
+                      },
+                      "key": "skip_upload_tags",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether the upload should unverify updated translations.",
+                        "type": "text/plain"
+                      },
+                      "key": "skip_unverification",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Enforces a specific encoding on the file contents. Valid options are \"UTF-8\", \"UTF-16\" and \"ISO-8859-1\".",
+                        "type": "text/plain"
+                      },
+                      "key": "file_encoding",
+                      "value": "UTF-8",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Mapping between locale names and translation columns. Required in some formats like CSV or XLSX.",
+                        "type": "text/plain"
+                      },
+                      "key": "locale_mapping",
+                      "value": "{}",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Additional options available for specific formats. See our format guide for the [complete list](https://support.phrase.com/hc/en-us/articles/9652464547740-List-of-Supported-File-Types-Strings).",
+                        "type": "text/plain"
+                      },
+                      "key": "format_options",
+                      "value": "{}",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "If set, translations for the uploaded language will be fetched automatically.",
+                        "type": "text/plain"
+                      },
+                      "key": "autotranslate",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether all translations mentioned in the upload should be verified.",
+                        "type": "text/plain"
+                      },
+                      "key": "verify_mentioned_translations",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicated whether the imported translations should be marked as reviewed. This setting is available if the review workflow is enabled for the project.",
+                        "type": "text/plain"
+                      },
+                      "key": "mark_reviewed",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether only keys affected (created or updated) by the upload should be tagged. The default is `false`",
+                        "type": "text/plain"
+                      },
+                      "key": "tag_only_affected_keys",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "This prefix will be added to all uploaded translation key names to prevent collisions. Use a meaningful prefix related to your project or file to keep key names organized.",
+                        "type": "text/plain"
+                      },
+                      "key": "translation_key_prefix",
+                      "value": "prefix_",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "4185"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d9a8ead8-e549-4ac7-a112-f0976494af83",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "uploads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) File to be imported",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "/path/to/my/file.json",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) File format. Auto-detected when possible and not specified.",
+                        "type": "text/plain"
+                      },
+                      "key": "file_format",
+                      "value": "json",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Locale of the file's content. Can be the name or id of the locale. Preferred is id.",
+                        "type": "text/plain"
+                      },
+                      "key": "locale_id",
+                      "value": "abcd1234cdef1234abcd1234cdef1234",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "specify the branch to use",
+                        "type": "text/plain"
+                      },
+                      "key": "branch",
+                      "value": "my-feature-branch",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "List of tags separated by comma to be associated with the new keys contained in the upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "tags",
+                      "value": "awesome-feature,needs-proofreading",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether existing translations should be updated with the file content.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_translations",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Determines whether to update custom metadata values when uploading a file. If set to true, existing metadata can be changed or removed. Passing an empty value deletes the corresponding metadata property.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_custom_metadata",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Pass `false` here to prevent new keys from being created and existing keys updated.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_translation_keys",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Update target translations only if the source translations of the uploaded multilingual file match the stored translations.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_translations_on_source_match",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Specifies the source locale for multilingual files. Can be the name or id of the locale. Preferred is id.",
+                        "type": "text/plain"
+                      },
+                      "key": "source_locale_id",
+                      "value": "abcd1234cdef1234abcd1234cdef1234",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Existing key descriptions will be updated with the file content. Empty descriptions overwrite existing descriptions.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_descriptions",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "This option is obsolete. Providing the option will cause a bad request error.",
+                        "type": "text/plain"
+                      },
+                      "key": "convert_emoji",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether the upload should not create upload tags.",
+                        "type": "text/plain"
+                      },
+                      "key": "skip_upload_tags",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether the upload should unverify updated translations.",
+                        "type": "text/plain"
+                      },
+                      "key": "skip_unverification",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Enforces a specific encoding on the file contents. Valid options are \"UTF-8\", \"UTF-16\" and \"ISO-8859-1\".",
+                        "type": "text/plain"
+                      },
+                      "key": "file_encoding",
+                      "value": "UTF-8",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Mapping between locale names and translation columns. Required in some formats like CSV or XLSX.",
+                        "type": "text/plain"
+                      },
+                      "key": "locale_mapping",
+                      "value": "{}",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Additional options available for specific formats. See our format guide for the [complete list](https://support.phrase.com/hc/en-us/articles/9652464547740-List-of-Supported-File-Types-Strings).",
+                        "type": "text/plain"
+                      },
+                      "key": "format_options",
+                      "value": "{}",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "If set, translations for the uploaded language will be fetched automatically.",
+                        "type": "text/plain"
+                      },
+                      "key": "autotranslate",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether all translations mentioned in the upload should be verified.",
+                        "type": "text/plain"
+                      },
+                      "key": "verify_mentioned_translations",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicated whether the imported translations should be marked as reviewed. This setting is available if the review workflow is enabled for the project.",
+                        "type": "text/plain"
+                      },
+                      "key": "mark_reviewed",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether only keys affected (created or updated) by the upload should be tagged. The default is `false`",
+                        "type": "text/plain"
+                      },
+                      "key": "tag_only_affected_keys",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "This prefix will be added to all uploaded translation key names to prevent collisions. Use a meaningful prefix related to your project or file to keep key names organized.",
+                        "type": "text/plain"
+                      },
+                      "key": "translation_key_prefix",
+                      "value": "prefix_",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "4185"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "18cd8d4f-bc1c-4c19-955b-c45c61f2e77e",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "uploads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) File to be imported",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "/path/to/my/file.json",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) File format. Auto-detected when possible and not specified.",
+                        "type": "text/plain"
+                      },
+                      "key": "file_format",
+                      "value": "json",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Locale of the file's content. Can be the name or id of the locale. Preferred is id.",
+                        "type": "text/plain"
+                      },
+                      "key": "locale_id",
+                      "value": "abcd1234cdef1234abcd1234cdef1234",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "specify the branch to use",
+                        "type": "text/plain"
+                      },
+                      "key": "branch",
+                      "value": "my-feature-branch",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "List of tags separated by comma to be associated with the new keys contained in the upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "tags",
+                      "value": "awesome-feature,needs-proofreading",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether existing translations should be updated with the file content.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_translations",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Determines whether to update custom metadata values when uploading a file. If set to true, existing metadata can be changed or removed. Passing an empty value deletes the corresponding metadata property.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_custom_metadata",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Pass `false` here to prevent new keys from being created and existing keys updated.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_translation_keys",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Update target translations only if the source translations of the uploaded multilingual file match the stored translations.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_translations_on_source_match",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Specifies the source locale for multilingual files. Can be the name or id of the locale. Preferred is id.",
+                        "type": "text/plain"
+                      },
+                      "key": "source_locale_id",
+                      "value": "abcd1234cdef1234abcd1234cdef1234",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Existing key descriptions will be updated with the file content. Empty descriptions overwrite existing descriptions.",
+                        "type": "text/plain"
+                      },
+                      "key": "update_descriptions",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "This option is obsolete. Providing the option will cause a bad request error.",
+                        "type": "text/plain"
+                      },
+                      "key": "convert_emoji",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether the upload should not create upload tags.",
+                        "type": "text/plain"
+                      },
+                      "key": "skip_upload_tags",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether the upload should unverify updated translations.",
+                        "type": "text/plain"
+                      },
+                      "key": "skip_unverification",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Enforces a specific encoding on the file contents. Valid options are \"UTF-8\", \"UTF-16\" and \"ISO-8859-1\".",
+                        "type": "text/plain"
+                      },
+                      "key": "file_encoding",
+                      "value": "UTF-8",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Mapping between locale names and translation columns. Required in some formats like CSV or XLSX.",
+                        "type": "text/plain"
+                      },
+                      "key": "locale_mapping",
+                      "value": "{}",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Additional options available for specific formats. See our format guide for the [complete list](https://support.phrase.com/hc/en-us/articles/9652464547740-List-of-Supported-File-Types-Strings).",
+                        "type": "text/plain"
+                      },
+                      "key": "format_options",
+                      "value": "{}",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "If set, translations for the uploaded language will be fetched automatically.",
+                        "type": "text/plain"
+                      },
+                      "key": "autotranslate",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether all translations mentioned in the upload should be verified.",
+                        "type": "text/plain"
+                      },
+                      "key": "verify_mentioned_translations",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicated whether the imported translations should be marked as reviewed. This setting is available if the review workflow is enabled for the project.",
+                        "type": "text/plain"
+                      },
+                      "key": "mark_reviewed",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Indicates whether only keys affected (created or updated) by the upload should be tagged. The default is `false`",
+                        "type": "text/plain"
+                      },
+                      "key": "tag_only_affected_keys",
+                      "value": "true",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "This prefix will be added to all uploaded translation key names to prevent collisions. Use a meaningful prefix related to your project or file to keep key names organized.",
+                        "type": "text/plain"
+                      },
+                      "key": "translation_key_prefix",
+                      "value": "prefix_",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "4185"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a75ad7a8-9f5a-407b-a7d4-40cf1b11b627",
+          "name": "List uploads",
+          "request": {
+            "name": "List uploads",
+            "description": {
+              "content": "List all uploads for the given project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "uploads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+                },
+                {
+                  "disabled": false,
+                  "key": "branch",
+                  "value": "<string>",
+                  "description": "specify the branch to use"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) Project ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "89ff9a89-278c-4dcd-863c-27f4b679b8a6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "uploads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "branch",
+                      "value": "my-feature-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "Links to related resources, in the format defined by\n[RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).\nThis will include a link with relation type `next` to the\nnext page, if there is a next page.",
+                  "key": "Link",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Pagination details for navigating through a collection of resources, provided in JSON format.",
+                  "key": "Pagination",
+                  "value": "total_count,10,total_pages_count,2,current_page,1,current_per_page,5,previous_page,8581,next_page,2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"filename\": \"example.json\",\n    \"format\": \"json\",\n    \"state\": \"success\",\n    \"tag\": \"tag\",\n    \"summary\": {\n      \"locales_created\": 2,\n      \"translation_keys_created\": 162,\n      \"translation_keys_updated\": 10,\n      \"translation_keys_unmentioned\": 0,\n      \"translations_created\": 291,\n      \"translations_updated\": 3,\n      \"tags_created\": 2,\n      \"translation_keys_ignored\": 0\n    },\n    \"user\": {\n      \"username\": \"johndoe\",\n      \"name\": \"John Doe\",\n      \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n    },\n    \"created_at\": \"2015-01-28T09:52:53Z\",\n    \"updated_at\": \"2015-01-28T09:52:53Z\"\n  },\n  {\n    \"filename\": \"example.json\",\n    \"format\": \"json\",\n    \"state\": \"success\",\n    \"tag\": \"tag\",\n    \"summary\": {\n      \"locales_created\": 2,\n      \"translation_keys_created\": 162,\n      \"translation_keys_updated\": 10,\n      \"translation_keys_unmentioned\": 0,\n      \"translations_created\": 291,\n      \"translations_updated\": 3,\n      \"tags_created\": 2,\n      \"translation_keys_ignored\": 0\n    },\n    \"user\": {\n      \"username\": \"johndoe\",\n      \"name\": \"John Doe\",\n      \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n    },\n    \"created_at\": \"2015-01-28T09:52:53Z\",\n    \"updated_at\": \"2015-01-28T09:52:53Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1c623c9-0e13-4263-a96c-6ecd979ac070",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "uploads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "branch",
+                      "value": "my-feature-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "4185"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0ac5d919-edf3-42b0-9633-fcba64857c80",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "uploads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "branch",
+                      "value": "my-feature-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "4185"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "299b83ad-005f-4e2a-9b08-356e8c61a837",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "uploads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "branch",
+                      "value": "my-feature-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "4185"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88843450-d58e-43cc-af8a-7f399b69512f",
+          "name": "Get a single upload",
+          "request": {
+            "name": "Get a single upload",
+            "description": {
+              "content": "View details and summary for a single upload.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "uploads",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "branch",
+                  "value": "<string>",
+                  "description": "specify the branch to use"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f157b065-438b-460a-a86f-2b05bf9feddf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "uploads",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "my-feature-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "4185"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"filename\": \"example.json\",\n  \"format\": \"json\",\n  \"state\": \"success\",\n  \"tag\": \"tag\",\n  \"summary\": {\n    \"locales_created\": 2,\n    \"translation_keys_created\": 162,\n    \"translation_keys_updated\": 10,\n    \"translation_keys_unmentioned\": 0,\n    \"translations_created\": 291,\n    \"translations_updated\": 3,\n    \"tags_created\": 2,\n    \"translation_keys_ignored\": 0\n  },\n  \"user\": {\n    \"username\": \"johndoe\",\n    \"name\": \"John Doe\",\n    \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n  },\n  \"created_at\": \"2015-01-28T09:52:53Z\",\n  \"updated_at\": \"2015-01-28T09:52:53Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01d3b5a1-d3ff-4f64-bb9e-8ab444c0e5d0",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "uploads",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "my-feature-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "4185"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2e50dd45-6ba1-4ef2-9a0e-2ab80d2bac75",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "uploads",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "my-feature-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "4185"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0918bd3f-fd3f-409b-ab66-b598f563fdb0",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "uploads",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "my-feature-branch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "4185"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "4185"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.phrase.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cd22bca5-1bdf-4372-b1fa-c3503ba6017e",
+    "name": "Phrase Strings API Reference Accounts Uploads API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.\n\nContact Support:\n Name: Phrase Support\n Email: support@phrase.com",
+      "type": "text/plain"
+    }
+  }
+}

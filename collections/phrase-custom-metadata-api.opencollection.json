@@ -1,0 +1,219 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Custom Metadata API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Custom Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/custom_metadata/properties",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "data_type",
+                "value": "boolean",
+                "type": "query",
+                "description": "Data Type of Custom Metadata Property"
+              },
+              {
+                "name": "project_id",
+                "value": "abcd1234cdef1234abcd1234cdef1234",
+                "type": "query",
+                "description": "id of project that the properties belong to"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+              },
+              {
+                "name": "q",
+                "value": "character_name",
+                "type": "query",
+                "description": "query to find a property by name"
+              },
+              {
+                "name": "sort",
+                "value": "updated_at",
+                "type": "query",
+                "description": "Sort criteria. Can be one of: name, data_type, created_at."
+              },
+              {
+                "name": "order",
+                "value": "desc",
+                "type": "query",
+                "description": "Order direction. Can be one of: asc, desc."
+              }
+            ]
+          },
+          "docs": "List all custom metadata properties for an account.\n\nThis endpoint is only available to accounts with advanced plans or above.\n"
+        },
+        {
+          "info": {
+            "name": "Create a property",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/custom_metadata/properties",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new custom metadata property."
+        },
+        {
+          "info": {
+            "name": "Get a single property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/custom_metadata/properties/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ]
+          },
+          "docs": "Get details of a single custom property."
+        },
+        {
+          "info": {
+            "name": "Update a property",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/custom_metadata/properties/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing custom metadata property."
+        },
+        {
+          "info": {
+            "name": "Destroy property",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/custom_metadata/properties/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ]
+          },
+          "docs": "Destroy a custom metadata property of an account.\n\nThis endpoint is only available to accounts with advanced plans or above.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

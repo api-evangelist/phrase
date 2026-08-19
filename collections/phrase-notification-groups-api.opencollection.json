@@ -1,0 +1,99 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Notification Groups API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Notification Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List notification groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/notification_groups",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+              }
+            ]
+          },
+          "docs": "List all notification groups from the current user"
+        },
+        {
+          "info": {
+            "name": "Mark all notification groups as read",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/notification_groups/mark_all_as_read",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Mark all notification groups of the current user as read"
+        },
+        {
+          "info": {
+            "name": "Mark a notification group as read",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/notification_groups/:id/mark_as_read",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ]
+          },
+          "docs": "Mark a notifications group of the current user as read"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

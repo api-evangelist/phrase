@@ -1,0 +1,447 @@
+{
+  "item": [
+    {
+      "id": "6e8ef25f-364f-4144-b121-eb27eb0afd3b",
+      "name": "Search",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "31fd781f-ba45-41bf-8d4f-de448a869ef7",
+          "name": "Search across projects",
+          "request": {
+            "name": "Search across projects",
+            "description": {
+              "content": "Search for keys and translations in all account projects\n\n*Note: Search is limited to 10000 results and may not include recently updated data depending on the project sizes.*\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) Account ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"locale_code\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"per_page\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cb3e46b2-e3de-4592-a2bf-410dd782ba5c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"keyword\",\n  \"locale_code\": \"de_DE\",\n  \"page\": 1,\n  \"per_page\": 25\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "4027"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "4027"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "4027"
+                },
+                {
+                  "disabled": false,
+                  "description": "Pagination details for navigating through a collection of resources, provided in JSON format.",
+                  "key": "Pagination",
+                  "value": "total_count,10,total_pages_count,2,current_page,1,current_per_page,5,previous_page,3302,next_page,2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"query\": \"string\",\n  \"excerpt\": \"string\",\n  \"key\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"plural\": false,\n    \"use_ordinal_rules\": false\n  },\n  \"locale\": {\n    \"name\": \"English\",\n    \"code\": \"en-GB\"\n  },\n  \"project\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"slug\": \"string\",\n    \"main_format\": \"string\",\n    \"project_image_url\": \"string\",\n    \"media\": \"string\",\n    \"account\": {\n      \"name\": \"Company Account\",\n      \"slug\": \"company_account\",\n      \"company\": \"My Awesome Company\",\n      \"created_at\": \"2015-01-28T09:52:53Z\",\n      \"updated_at\": \"2015-01-28T09:52:53Z\",\n      \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n    },\n    \"space\": {\n      \"name\": \"My first space\",\n      \"created_at\": \"2020-02-25T12:17:25Z\",\n      \"updated_at\": \"2020-03-13T14:46:57Z\",\n      \"projects_count\": 2\n    },\n    \"point_of_contact\": {\n      \"username\": \"johndoe\",\n      \"name\": \"John Doe\",\n      \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n    },\n    \"created_at\": \"1991-04-20T11:44:53.082Z\",\n    \"updated_at\": \"2004-10-19T22:45:53.430Z\"\n  },\n  \"translation\": {\n    \"content\": \"My translation\",\n    \"unverified\": false,\n    \"excluded\": false,\n    \"plural_suffix\": \"\",\n    \"key\": {\n      \"name\": \"home.index.headline\",\n      \"plural\": false,\n      \"use_ordinal_rules\": false\n    },\n    \"locale\": {\n      \"name\": \"de\",\n      \"code\": \"de-DE\"\n    },\n    \"placeholders\": [\n      \"%{count}\"\n    ],\n    \"state\": \"translated\",\n    \"created_at\": \"2015-01-28T09:52:53Z\",\n    \"updated_at\": \"2015-01-28T09:52:53Z\"\n  },\n  \"other_translations\": [\n    {\n      \"id\": \"string\",\n      \"content\": \"string\",\n      \"unverified\": false,\n      \"excluded\": false,\n      \"plural_suffix\": \"string\",\n      \"key\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"plural\": true,\n        \"use_ordinal_rules\": false\n      },\n      \"locale\": {\n        \"name\": \"English\",\n        \"code\": \"en-GB\"\n      },\n      \"placeholders\": [\n        \"string\",\n        \"string\"\n      ],\n      \"state\": \"string\",\n      \"created_at\": \"1949-12-08T12:48:57.708Z\",\n      \"updated_at\": \"2014-09-09T19:38:07.894Z\",\n      \"linked_translation\": {\n        \"content\": \"My parent translation\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"content\": \"string\",\n      \"unverified\": false,\n      \"excluded\": true,\n      \"plural_suffix\": \"string\",\n      \"key\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"plural\": false,\n        \"use_ordinal_rules\": false\n      },\n      \"locale\": {\n        \"name\": \"English\",\n        \"code\": \"en-GB\"\n      },\n      \"placeholders\": [\n        \"string\",\n        \"string\"\n      ],\n      \"state\": \"string\",\n      \"created_at\": \"1995-08-21T10:25:58.543Z\",\n      \"updated_at\": \"2018-09-24T22:37:15.274Z\",\n      \"linked_translation\": {\n        \"content\": \"My parent translation\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bed3d313-ba37-4c24-b716-e962ab603808",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"keyword\",\n  \"locale_code\": \"de_DE\",\n  \"page\": 1,\n  \"per_page\": 25\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "4027"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "4027"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "4027"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cff4b635-47fc-4213-a77b-bc4efa509247",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"keyword\",\n  \"locale_code\": \"de_DE\",\n  \"page\": 1,\n  \"per_page\": 25\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "4027"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "4027"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "4027"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "07ab3cc4-66ad-4292-98d4-bd36d16d9637",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"keyword\",\n  \"locale_code\": \"de_DE\",\n  \"page\": 1,\n  \"per_page\": 25\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "4027"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "4027"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "4027"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.phrase.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "70ca6062-a2fb-4a52-b9a7-e923b893c157",
+    "name": "Phrase Strings API Reference Accounts Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.\n\nContact Support:\n Name: Phrase Support\n Email: support@phrase.com",
+      "type": "text/plain"
+    }
+  }
+}

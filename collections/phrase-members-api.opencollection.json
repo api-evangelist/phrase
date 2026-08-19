@@ -1,0 +1,195 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Members API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Members",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/members",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+              }
+            ]
+          },
+          "docs": "Get all users active in the account. It also lists resources like projects and locales the member has access to. In case nothing is shown the default access from the role is used. Access token scope must include `team.manage`."
+        },
+        {
+          "info": {
+            "name": "Get single member",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/members/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ]
+          },
+          "docs": "Get details on a single user in the account. Access token scope must include `team.manage`."
+        },
+        {
+          "info": {
+            "name": "Update a member",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/members/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update user permissions in the account. Developers and translators need `project_ids` and `locale_ids` assigned to access them. Access token scope must include `team.manage`."
+        },
+        {
+          "info": {
+            "name": "Remove a user from the account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/members/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ]
+          },
+          "docs": "Remove a user from the account. The user will be removed from the account but not deleted from Phrase. Access token scope must include `team.manage`."
+        },
+        {
+          "info": {
+            "name": "Update a member's project settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/members/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update user settings in the project. Access token scope must include `team.manage`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

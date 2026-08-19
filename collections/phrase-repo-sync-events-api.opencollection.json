@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Repo Sync Events API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Repo Sync Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Repository Syncs History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/repo_syncs/:id/events",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ]
+          },
+          "docs": "Get the history of a single Repo Sync. The history includes all imports and exports\nperformed by the Repo Sync."
+        },
+        {
+          "info": {
+            "name": "Get a single Repo Sync Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/repo_syncs/:repo_sync_id/events/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "repo_sync_id",
+                "value": "",
+                "type": "path",
+                "description": "Repo Sync ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ]
+          },
+          "docs": "Shows a single Repo Sync event."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

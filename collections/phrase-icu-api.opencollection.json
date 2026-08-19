@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts ICU API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ICU",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Build ICU skeletons",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.phrase.com/v2/icu/skeleton",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns ICU skeletons for multiple locale codes based on a source content."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,304 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Spaces API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Spaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Spaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/spaces",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+              }
+            ]
+          },
+          "docs": "List all Spaces for the given account."
+        },
+        {
+          "info": {
+            "name": "Create a Space",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/spaces",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Space."
+        },
+        {
+          "info": {
+            "name": "Get Space",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/spaces/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ]
+          },
+          "docs": "Show the specified Space."
+        },
+        {
+          "info": {
+            "name": "Update Space",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/spaces/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the specified Space."
+        },
+        {
+          "info": {
+            "name": "Delete Space",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/spaces/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ]
+          },
+          "docs": "Delete the specified Space."
+        },
+        {
+          "info": {
+            "name": "List Projects in Space",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/spaces/:space_id/projects",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "space_id",
+                "value": "",
+                "type": "path",
+                "description": "Space ID"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+              }
+            ]
+          },
+          "docs": "List all projects for the specified Space."
+        },
+        {
+          "info": {
+            "name": "Add Project to Space",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/spaces/:space_id/projects",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "space_id",
+                "value": "",
+                "type": "path",
+                "description": "Space ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an existing project to the space."
+        },
+        {
+          "info": {
+            "name": "Remove Project from Space",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/spaces/:space_id/projects/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "space_id",
+                "value": "",
+                "type": "path",
+                "description": "Space ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ]
+          },
+          "docs": "Removes a specified project from the specified space."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

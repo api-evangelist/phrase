@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Glossary Term Translations API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Glossary Term Translations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a translation for a term",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/glossaries/:glossary_id/terms/:term_id/translations",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "glossary_id",
+                "value": "",
+                "type": "path",
+                "description": "Glossary ID"
+              },
+              {
+                "name": "term_id",
+                "value": "",
+                "type": "path",
+                "description": "Term ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new translation for a term in a term base (previously: glossary)."
+        },
+        {
+          "info": {
+            "name": "Update a translation for a term",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/glossaries/:glossary_id/terms/:term_id/translations/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "glossary_id",
+                "value": "",
+                "type": "path",
+                "description": "Glossary ID"
+              },
+              {
+                "name": "term_id",
+                "value": "",
+                "type": "path",
+                "description": "Term ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing translation for a term in a term base (previously: glossary)."
+        },
+        {
+          "info": {
+            "name": "Delete a translation for a term",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/glossaries/:glossary_id/terms/:term_id/translations/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "glossary_id",
+                "value": "",
+                "type": "path",
+                "description": "Glossary ID"
+              },
+              {
+                "name": "term_id",
+                "value": "",
+                "type": "path",
+                "description": "Term ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ]
+          },
+          "docs": "Delete an existing translation of a term in a term base (previously: glossary)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

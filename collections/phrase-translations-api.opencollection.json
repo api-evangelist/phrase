@@ -1,0 +1,755 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Translations API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Translations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all translations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/translations",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              },
+              {
+                "name": "If-Modified-Since",
+                "value": ""
+              },
+              {
+                "name": "If-None-Match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              },
+              {
+                "name": "sort",
+                "value": "updated_at",
+                "type": "query",
+                "description": "Sort criteria. Can be one of: key_name, created_at, updated_at."
+              },
+              {
+                "name": "order",
+                "value": "desc",
+                "type": "query",
+                "description": "Order direction. Can be one of: asc, desc."
+              },
+              {
+                "name": "q",
+                "value": "PhraseApp*%20unverified:true%20excluded:true%20tags:feature,center",
+                "type": "query",
+                "description": "Specify a query to find translations by content (including wildcards).\n\n*Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).*\n\nThe following qualifiers are supported in the query:\n\n* `id:translation_id,...` for queries on a comma-separated list of ids\n* `tags:XYZ` for tags on the translation\n* `unverified:{true|false}` for verification status\n* `excluded:{true|false}` for exclusion status\n* `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries\n* `reviewed_after:2013-02-21T00:00:00Z` for fetching translations that were reviewed after the given timestamp\n\nFind more examples [here](/en/api/strings/usage-examples).\n"
+              }
+            ]
+          },
+          "docs": "List translations for the given project. If you want to download all translations for one locale we recommend to use the `locales#download` endpoint.\n"
+        },
+        {
+          "info": {
+            "name": "Create a translation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.phrase.com/v2/projects/:project_id/translations",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a translation."
+        },
+        {
+          "info": {
+            "name": "List translations by locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/locales/:locale_id/translations",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "locale_id",
+                "value": "",
+                "type": "path",
+                "description": "Locale ID"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              },
+              {
+                "name": "sort",
+                "value": "updated_at",
+                "type": "query",
+                "description": "Sort criteria. Can be one of: key_name, created_at, updated_at."
+              },
+              {
+                "name": "order",
+                "value": "desc",
+                "type": "query",
+                "description": "Order direction. Can be one of: asc, desc."
+              },
+              {
+                "name": "q",
+                "value": "PhraseApp*%20unverified:true%20excluded:true%20tags:feature,center",
+                "type": "query",
+                "description": "Specify a query to find translations by content (including wildcards).\n\n*Note: Search is limited to 10000 results and may not include recently updated data (depending on the project size).*\n\nThe following qualifiers are supported in the query:\n- `id:translation_id,...` for queries on a comma-separated list of ids\n- `unverified:{true|false}` for verification status\n- `tags:XYZ` for tags on the translation\n- `excluded:{true|false}` for exclusion status\n- `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries\n\nFind more examples [here](/en/api/strings/usage-examples).\n"
+              }
+            ]
+          },
+          "docs": "List translations for a specific locale. If you want to download all translations for one locale we recommend to use the `locales#download` endpoint.\n"
+        },
+        {
+          "info": {
+            "name": "List translations by key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/keys/:key_id/translations",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path",
+                "description": "Translation Key ID"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              },
+              {
+                "name": "sort",
+                "value": "updated_at",
+                "type": "query",
+                "description": "Sort criteria. Can be one of: key_name, created_at, updated_at."
+              },
+              {
+                "name": "order",
+                "value": "desc",
+                "type": "query",
+                "description": "Order direction. Can be one of: asc, desc."
+              },
+              {
+                "name": "q",
+                "value": "PhraseApp*%20unverified:true%20excluded:true%20tags:feature,center",
+                "type": "query",
+                "description": "Specify a query to find translations by content (including wildcards).\n\nThe following qualifiers are supported in the query:\n\n* `id:translation_id,...` for queries on a comma-separated list of ids\n* `unverified:{true|false}` for verification status\n* `tags:XYZ` for tags on the translation\n* `excluded:{true|false}` for exclusion status\n* `updated_at:{>=|<=}2013-02-21T00:00:00Z` for date range queries\n\nFind more examples [here](/en/api/strings/usage-examples).\n"
+              }
+            ]
+          },
+          "docs": "List translations for a specific key."
+        },
+        {
+          "info": {
+            "name": "Search translations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.phrase.com/v2/projects/:project_id/translations/search",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search translations for the given project. Provides the same search interface as `translations#index` but allows POST requests to avoid limitations imposed by GET requests. If you want to download all translations for one locale we recommend to use the `locales#download` endpoint."
+        },
+        {
+          "info": {
+            "name": "Get a single translation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/translations/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "Get details on a single translation."
+        },
+        {
+          "info": {
+            "name": "Update a translation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/translations/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing translation."
+        },
+        {
+          "info": {
+            "name": "Verify a translation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/translations/:id/verify",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify an existing translation."
+        },
+        {
+          "info": {
+            "name": "Mark a translation as unverified",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/translations/:id/unverify",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Mark an existing translation as unverified."
+        },
+        {
+          "info": {
+            "name": "Review a translation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/translations/:id/review",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Mark an existing translation as reviewed."
+        },
+        {
+          "info": {
+            "name": "Unreview a translation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/translations/:id/unreview",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Mark a reviewed translation as translated."
+        },
+        {
+          "info": {
+            "name": "Exclude a translation from export",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/translations/:id/exclude",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set exclude from export flag on an existing translation."
+        },
+        {
+          "info": {
+            "name": "Include a translation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/translations/:id/include",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove exclude from export flag from an existing translation."
+        },
+        {
+          "info": {
+            "name": "Verify translations by query",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/translations/verify",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify translations matching query."
+        },
+        {
+          "info": {
+            "name": "Unverify translations by query",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/translations/unverify",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Mark translations matching query as unverified."
+        },
+        {
+          "info": {
+            "name": "Review translations selected by query",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/translations/review",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Review translations matching query."
+        },
+        {
+          "info": {
+            "name": "Unreview translations selected by query",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/translations/unreview",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unreview translations matching query."
+        },
+        {
+          "info": {
+            "name": "Exclude translations by query",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/translations/exclude",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exclude translations matching query from locale export."
+        },
+        {
+          "info": {
+            "name": "Include translations by query",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/translations/include",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Include translations matching query in locale export."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

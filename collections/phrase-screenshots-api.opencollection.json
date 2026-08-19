@@ -1,0 +1,234 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Screenshots API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Screenshots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List screenshots",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/screenshots",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              },
+              {
+                "name": "key_id",
+                "value": "abcd1234cdef1234abcd1234cdef1234",
+                "type": "query",
+                "description": "filter by key"
+              }
+            ]
+          },
+          "docs": "List all screenshots for the given project."
+        },
+        {
+          "info": {
+            "name": "Create a screenshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.phrase.com/v2/projects/:project_id/screenshots",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "branch",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "description",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "filename",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Create a new screenshot."
+        },
+        {
+          "info": {
+            "name": "Get a single screenshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/screenshots/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "Get details on a single screenshot for a given project."
+        },
+        {
+          "info": {
+            "name": "Update a screenshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/screenshots/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing screenshot."
+        },
+        {
+          "info": {
+            "name": "Delete a screenshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.phrase.com/v2/projects/:project_id/screenshots/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "Delete an existing screenshot."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

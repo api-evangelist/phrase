@@ -1,0 +1,137 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Webhook Deliveries API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhook Deliveries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhook deliveries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/webhooks/:webhook_id/deliveries",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Webhook ID"
+              },
+              {
+                "name": "response_status_codes",
+                "value": "",
+                "type": "query",
+                "description": "List of Response Status Codes"
+              }
+            ]
+          },
+          "docs": "List all webhook deliveries for the given webhook_id."
+        },
+        {
+          "info": {
+            "name": "Get a single webhook delivery",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/webhooks/:webhook_id/deliveries/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Webhook ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ]
+          },
+          "docs": "Get all information about a single webhook delivery for the given ID."
+        },
+        {
+          "info": {
+            "name": "Redeliver a single webhook delivery",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.phrase.com/v2/projects/:project_id/webhooks/:webhook_id/deliveries/:id/redeliver",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Webhook ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ]
+          },
+          "docs": "Trigger an individual webhook delivery to be redelivered."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

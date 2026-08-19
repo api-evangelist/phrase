@@ -1,0 +1,184 @@
+{
+  "item": [
+    {
+      "id": "4a79552f-7951-401a-86df-94e27364fcaa",
+      "name": "Formats",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4396d41f-6b46-49d1-998d-5e1d20f182af",
+          "name": "List formats",
+          "request": {
+            "name": "List formats",
+            "description": {
+              "content": "Get a handy list of all localization file formats supported in Phrase.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "formats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dd9e18c2-c02f-49cf-8f40-21b6460a6d27",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "formats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"Ruby/Rails YAML\",\n    \"api_name\": \"yml\",\n    \"description\": \"YAML file format for use with Ruby/Rails applications\",\n    \"extension\": \"yml\",\n    \"default_encoding\": \"UTF-8\",\n    \"importable\": true,\n    \"exportable\": true,\n    \"default_file\": \"./config/locales/<locale_name>.yml\",\n    \"renders_default_locale\": false,\n    \"includes_locale_information\": true\n  },\n  {\n    \"name\": \"Ruby/Rails YAML\",\n    \"api_name\": \"yml\",\n    \"description\": \"YAML file format for use with Ruby/Rails applications\",\n    \"extension\": \"yml\",\n    \"default_encoding\": \"UTF-8\",\n    \"importable\": true,\n    \"exportable\": true,\n    \"default_file\": \"./config/locales/<locale_name>.yml\",\n    \"renders_default_locale\": false,\n    \"includes_locale_information\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22b1bc8f-1dc0-45f8-91c9-94cb7da7426a",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "formats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "2990"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "2990"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "2990"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.phrase.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c283a579-514e-44e5-8289-89a9d207857a",
+    "name": "Phrase Strings API Reference Accounts Formats API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.\n\nContact Support:\n Name: Phrase Support\n Email: support@phrase.com",
+      "type": "text/plain"
+    }
+  }
+}

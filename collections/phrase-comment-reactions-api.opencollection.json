@@ -1,0 +1,228 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Comment Reactions API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Comment Reactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List reactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments/:comment_id/reactions",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path",
+                "description": "Translation Key ID"
+              },
+              {
+                "name": "comment_id",
+                "value": "",
+                "type": "path",
+                "description": "Comment ID"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "List all reactions for a comment."
+        },
+        {
+          "info": {
+            "name": "Create a reaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments/:comment_id/reactions",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path",
+                "description": "Translation Key ID"
+              },
+              {
+                "name": "comment_id",
+                "value": "",
+                "type": "path",
+                "description": "Comment ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              },
+              {
+                "name": "emoji",
+                "value": "👍",
+                "type": "query",
+                "description": "specify the emoji for the reaction"
+              }
+            ]
+          },
+          "docs": "Create a new reaction for a comment."
+        },
+        {
+          "info": {
+            "name": "Get a single reaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments/:comment_id/reactions/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path",
+                "description": "Translation Key ID"
+              },
+              {
+                "name": "comment_id",
+                "value": "",
+                "type": "path",
+                "description": "Comment ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "Get details on a single reaction."
+        },
+        {
+          "info": {
+            "name": "Delete a reaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.phrase.com/v2/projects/:project_id/keys/:key_id/comments/:comment_id/reactions/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path",
+                "description": "Translation Key ID"
+              },
+              {
+                "name": "comment_id",
+                "value": "",
+                "type": "path",
+                "description": "Comment ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "Delete an existing reaction."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

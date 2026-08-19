@@ -1,0 +1,42 @@
+# Phrase
+> Phrase is a language intelligence platform that automates, manages, and delivers multilingual content for deeper customer connections and faster business growth.
+
+Phrase helps global teams streamline localization workflows, improve translation quality, and scale multilingual content across products, marketing, and customer experiences.
+
+## Products
+- [Phrase Platform] (https://phrase.com/platform/): The Phrase Platform unifies translation management, software localization, and content workflows in one place.
+- [Phrase Strings](https://phrase.com/platform/strings/): Localization solution for developers to manage and automate software translations.
+- [Phrase TMS] (https://phrase.com/platform/tms/): Translation management system for enterprises to manage localization at scale.
+- [Phrase Orchestrator] (https://phrase.com/platform/orchestrator/): Automation layer to orchestrate localization workflows across systems and teams.
+- [Phrase Analytics] (https://phrase.com/platform/analytics/): Provides insights into localization performance, costs, and efficiency.
+- [Phrase Studio] (https://phrase.com/platform/phrase-studio/): Capture, translate or convert video or audio into global content
+
+## Pricing
+- [Phrase Pricing] (https://phrase.com/pricing/): Phrase pricing plans
+
+## Solutions
+- [Phrase Solutions] (https://phrase.com/solutions/): Overview of solutions by use case and business need.
+- [Marketing localization solutions] (https://phrase.com/solutions/marketing/): Multilingual marketing content at scale.
+- [Localization solutions for developers] (https://phrase.com/solutions/developers/): Localization workflows tailored for engineering teams.
+
+## Integrations
+- [Integrations with the Phrase platform] (https://phrase.com/integrations/): Explore integrations with CMSs, developer tools, and marketing platforms. Phrase integrates with leading tools across content, development, and design workflows.
+
+## Resources
+- [Phrase Resources] (https://phrase.com/resources/): Central hub for guides, reports, and educational content.
+- [Phrase blog] (https://phrase.com/blog/): Insights on localization, AI, and global growth.
+- [Phrase webinars] (https://phrase.com/resources/webinars/): On-demand and upcoming Phrase webinars.
+- [Phrase case studies] (https://phrase.com/resources/case-studies/: Customer success stories.
+- [Reports] (https://phrase.com/resources/the-global-content-disconnect-report/): Global content disconnect report.
+
+## Developers & Documentation
+- [Phrase Developer Hub] (https://developers.phrase.com/): API documentation and developer resources.
+- [Phrase support center] (https://support.phrase.com/): Help center and product documentation.
+
+## Trust & Security
+- [Phrase Trust Center] (https://trust.phrase.com/): Security, compliance, and reliability information for Phrase.
+
+## About & Legal
+- [About Phrase] (https://phrase.com/about/): Company information and mission.
+- [Careers at Phrase] (https://phrase.com/careers/): Open roles and hiring information.
+- [Legal documentation] (https://phrase.com/legal/): Legal documentation and policies.

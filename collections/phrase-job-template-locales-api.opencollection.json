@@ -1,0 +1,237 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Job Template Locales API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Job Template Locales",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List job template locales",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/job_templates/:job_template_id/locales",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "job_template_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Template ID"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "List all job template locales for a given job template."
+        },
+        {
+          "info": {
+            "name": "Create a job template locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.phrase.com/v2/projects/:project_id/job_templates/:job_template_id/locales",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "job_template_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Template ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new job template locale."
+        },
+        {
+          "info": {
+            "name": "Get a single job template locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/job_templates/:job_template_id/locales/:job_template_locale_id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "job_template_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Template ID"
+              },
+              {
+                "name": "job_template_locale_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Template Locale ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "Get a single job template locale for a given job template."
+        },
+        {
+          "info": {
+            "name": "Update a job template locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/job_templates/:job_template_id/locales/:job_template_locale_id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "job_template_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Template ID"
+              },
+              {
+                "name": "job_template_locale_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Template Locale ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing job template locale."
+        },
+        {
+          "info": {
+            "name": "Delete a job template locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.phrase.com/v2/projects/:project_id/job_templates/:job_template_id/locales/:job_template_locale_id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "job_template_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Template ID"
+              },
+              {
+                "name": "job_template_locale_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Template Locale ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "Delete an existing job template locale."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

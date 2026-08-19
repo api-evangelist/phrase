@@ -1,0 +1,409 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Locales API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Locales",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List locales used in account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/accounts/:id/locales",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ]
+          },
+          "docs": "List all locales unique by locale code used across all projects within an account."
+        },
+        {
+          "info": {
+            "name": "List locales",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/locales",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+              },
+              {
+                "name": "sort_by",
+                "value": "null",
+                "type": "query",
+                "description": "Sort locales. Valid options are \"name_asc\", \"name_desc\", \"default_asc\", \"default_desc\"."
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "List all locales for the given project."
+        },
+        {
+          "info": {
+            "name": "Create a locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.phrase.com/v2/projects/:project_id/locales",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new locale."
+        },
+        {
+          "info": {
+            "name": "Get a single locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/locales/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Locale ID or locale name"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "Get details on a single locale for a given project."
+        },
+        {
+          "info": {
+            "name": "Update a locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/locales/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Locale ID or locale name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing locale."
+        },
+        {
+          "info": {
+            "name": "Delete a locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.phrase.com/v2/projects/:project_id/locales/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Locale ID or locale name"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "Delete an existing locale."
+        },
+        {
+          "info": {
+            "name": "Download a locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/locales/:id/download",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              },
+              {
+                "name": "If-Modified-Since",
+                "value": ""
+              },
+              {
+                "name": "If-None-Match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Locale ID or locale name"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              },
+              {
+                "name": "file_format",
+                "value": "yml",
+                "type": "query",
+                "description": "File format name. See the [format guide](https://support.phrase.com/hc/en-us/sections/6111343326364) for all supported file formats."
+              },
+              {
+                "name": "tags",
+                "value": "feature1,feature2",
+                "type": "query",
+                "description": "Limit results to keys tagged with a list of comma separated tag names."
+              },
+              {
+                "name": "tag",
+                "value": "feature",
+                "type": "query",
+                "description": "Limit download to tagged keys. This parameter is deprecated. Please use the \"tags\" parameter instead"
+              },
+              {
+                "name": "include_empty_translations",
+                "value": "null",
+                "type": "query",
+                "description": "Indicates whether keys without translations should be included in the output as well."
+              },
+              {
+                "name": "exclude_empty_zero_forms",
+                "value": "null",
+                "type": "query",
+                "description": "Indicates whether zero forms should be included when empty in pluralized keys."
+              },
+              {
+                "name": "include_translated_keys",
+                "value": "null",
+                "type": "query",
+                "description": "Include translated keys in the locale file. Use in combination with include_empty_translations to obtain only untranslated keys."
+              },
+              {
+                "name": "keep_notranslate_tags",
+                "value": "null",
+                "type": "query",
+                "description": "Indicates whether [NOTRANSLATE] tags should be kept."
+              },
+              {
+                "name": "convert_emoji",
+                "value": "null",
+                "type": "query",
+                "description": "This option is obsolete. Projects that were created on or after Nov 29th 2019 or that did not contain emoji by then will not require this flag any longer since emoji are now supported natively."
+              },
+              {
+                "name": "format_options",
+                "value": "null",
+                "type": "query",
+                "description": "Additional formatting and render options. See the [format guide](https://support.phrase.com/hc/en-us/sections/6111343326364) for a list of options available for each format. Specify format options like this: `...&format_options[foo]=bar`"
+              },
+              {
+                "name": "encoding",
+                "value": "null",
+                "type": "query",
+                "description": "Enforces a specific encoding on the file contents. Valid options are \"UTF-8\", \"UTF-16\" and \"ISO-8859-1\"."
+              },
+              {
+                "name": "skip_unverified_translations",
+                "value": "null",
+                "type": "query",
+                "description": "Indicates whether the locale file should skip all unverified translations. This parameter is deprecated and should be replaced with `include_unverified_translations`."
+              },
+              {
+                "name": "include_unverified_translations",
+                "value": "null",
+                "type": "query",
+                "description": "if set to false unverified translations are excluded"
+              },
+              {
+                "name": "use_last_reviewed_version",
+                "value": "null",
+                "type": "query",
+                "description": "If set to true the last reviewed version of a translation is used. This is only available if the review workflow is enabled for the project."
+              },
+              {
+                "name": "fallback_locale_id",
+                "value": "null",
+                "type": "query",
+                "description": "If a key has no translation in the locale being downloaded, the translation in the fallback locale will be used.\nProvide the ID of the locale that should be used as the fallback.\nRequires `include_empty_translations` to be set to `true`. Mutually exclusive with `use_locale_fallback`.\n"
+              },
+              {
+                "name": "use_locale_fallback",
+                "value": "true",
+                "type": "query",
+                "description": "If a key has no translation in the locale being downloaded, the translation in the fallback locale will be used.\nFallback locale is defined in [locale's settings](/en/api/strings/locales/update-a-locale#body-fallback-locale-id).\nRequires `include_empty_translations` to be set to `true`. Mutually exclusive with `fallback_locale_id`.\n"
+              },
+              {
+                "name": "source_locale_id",
+                "value": "null",
+                "type": "query",
+                "description": "Provides the source language of a corresponding job as the source language of the generated locale file. This parameter will be ignored unless used in combination with a `tag` parameter indicating a specific job."
+              },
+              {
+                "name": "translation_key_prefix",
+                "value": "prefix_",
+                "type": "query",
+                "description": "Download all translation keys, and remove the specified prefix where possible. Warning: this may create duplicate key names if other keys share the same name after the prefix is removed."
+              },
+              {
+                "name": "filter_by_prefix",
+                "value": "null",
+                "type": "query",
+                "description": "Only download translation keys containing the specified prefix, and remove the prefix from the generated file."
+              },
+              {
+                "name": "custom_metadata_filters",
+                "value": "",
+                "type": "query",
+                "description": "Custom metadata filters. Provide the name of the metadata field and the value to filter by. Only keys with matching metadata will be included in the download.\n"
+              },
+              {
+                "name": "locale_ids",
+                "value": "de,en",
+                "type": "query",
+                "description": "Locale IDs or locale names"
+              },
+              {
+                "name": "updated_since",
+                "value": "2023-01-01T00:00:00Z",
+                "type": "query",
+                "description": "Only include translations and keys that have been updated since the given date. The date must be in ISO 8601 format (e.g., `2023-01-01T00:00:00Z`).\n"
+              }
+            ]
+          },
+          "docs": "Download a locale in a specific file format."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

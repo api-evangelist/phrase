@@ -1,0 +1,1900 @@
+{
+  "item": [
+    {
+      "id": "4d3b1d7c-4bfd-4348-ac75-3476af9e3853",
+      "name": "Projects",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "95859c0b-0c51-4ab7-9271-8460ec0f944b",
+          "name": "List projects",
+          "request": {
+            "name": "List projects",
+            "description": {
+              "content": "List all projects the current user has access to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+                },
+                {
+                  "disabled": false,
+                  "key": "account_id",
+                  "value": "<string>",
+                  "description": "Filter by Account ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "Sort projects. Valid options are \"name_asc\", \"name_desc\", \"updated_at_asc\", \"updated_at_desc\", \"space_asc\" and \"space_desc\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>",
+                  "description": "Filter projects. Valid options are [\"favorites\"]."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>",
+                  "description": "Filter projects. Valid options are [\"favorites\"]."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "05bc09e1-b2a8-4b38-a7a7-59e762c9735b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "account_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Links to related resources, in the format defined by\n[RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).\nThis will include a link with relation type `next` to the\nnext page, if there is a next page.",
+                  "key": "Link",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Pagination details for navigating through a collection of resources, provided in JSON format.",
+                  "key": "Pagination",
+                  "value": "total_count,10,total_pages_count,2,current_page,1,current_per_page,5,previous_page,5320,next_page,2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"slug\": \"string\",\n    \"main_format\": \"string\",\n    \"project_image_url\": \"string\",\n    \"media\": \"string\",\n    \"account\": {\n      \"name\": \"Company Account\",\n      \"slug\": \"company_account\",\n      \"company\": \"My Awesome Company\",\n      \"created_at\": \"2015-01-28T09:52:53Z\",\n      \"updated_at\": \"2015-01-28T09:52:53Z\",\n      \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n    },\n    \"space\": {\n      \"name\": \"My first space\",\n      \"created_at\": \"2020-02-25T12:17:25Z\",\n      \"updated_at\": \"2020-03-13T14:46:57Z\",\n      \"projects_count\": 2\n    },\n    \"point_of_contact\": {\n      \"username\": \"johndoe\",\n      \"name\": \"John Doe\",\n      \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n    },\n    \"created_at\": \"1985-01-22T09:57:52.586Z\",\n    \"updated_at\": \"1992-06-18T07:59:24.423Z\"\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"slug\": \"string\",\n    \"main_format\": \"string\",\n    \"project_image_url\": \"string\",\n    \"media\": \"string\",\n    \"account\": {\n      \"name\": \"Company Account\",\n      \"slug\": \"company_account\",\n      \"company\": \"My Awesome Company\",\n      \"created_at\": \"2015-01-28T09:52:53Z\",\n      \"updated_at\": \"2015-01-28T09:52:53Z\",\n      \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n    },\n    \"space\": {\n      \"name\": \"My first space\",\n      \"created_at\": \"2020-02-25T12:17:25Z\",\n      \"updated_at\": \"2020-03-13T14:46:57Z\",\n      \"projects_count\": 2\n    },\n    \"point_of_contact\": {\n      \"username\": \"johndoe\",\n      \"name\": \"John Doe\",\n      \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n    },\n    \"created_at\": \"1967-07-04T19:24:57.025Z\",\n    \"updated_at\": \"1953-01-08T23:21:10.533Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8dd3ed90-7ac2-4a1b-8952-35ef1af36505",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "account_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d16a4711-47d0-4c6a-9e59-aeb6629d4dcc",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "account_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "955c6eef-4ece-4fd9-a164-be4aa59d9f82",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "account_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0a1654dd-cfa6-4eac-9428-9834078bbedf",
+          "name": "Create a project",
+          "request": {
+            "name": "Create a project",
+            "description": {
+              "content": "Create a new project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"main_format\": \"<string>\",\n  \"media\": \"<string>\",\n  \"shares_translation_memory\": \"<boolean>\",\n  \"project_image\": \"<binary>\",\n  \"remove_project_image\": \"<boolean>\",\n  \"account_id\": \"<string>\",\n  \"point_of_contact\": \"<string>\",\n  \"source_project_id\": \"<string>\",\n  \"workflow\": \"<string>\",\n  \"machine_translation_enabled\": \"<boolean>\",\n  \"enable_branching\": \"<boolean>\",\n  \"protect_master_branch\": \"<boolean>\",\n  \"enable_all_data_type_translation_keys_for_translators\": \"<boolean>\",\n  \"enable_icu_message_format\": \"<boolean>\",\n  \"zero_plural_form_enabled\": \"<boolean>\",\n  \"autotranslate_enabled\": \"<boolean>\",\n  \"autotranslate_check_new_translation_keys\": \"<boolean>\",\n  \"autotranslate_check_new_uploads\": \"<boolean>\",\n  \"autotranslate_check_new_locales\": \"<boolean>\",\n  \"autotranslate_mark_as_unverified\": \"<boolean>\",\n  \"autotranslate_use_machine_translation\": \"<boolean>\",\n  \"autotranslate_use_translation_memory\": \"<boolean>\",\n  \"autotranslate_overwrite_unverified_translations\": \"<boolean>\",\n  \"placeholder_styles\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f0d64c7b-dcee-4050-b649-00462127bf21",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Android Project\",\n  \"main_format\": \"yml\",\n  \"media\": \"Python\",\n  \"shares_translation_memory\": true,\n  \"project_image\": \"/path/to/my/project-screenshot.png\",\n  \"remove_project_image\": \"<boolean>\",\n  \"account_id\": \"abcd1234\",\n  \"point_of_contact\": \"abcd1234\",\n  \"source_project_id\": \"abcd1234\",\n  \"workflow\": \"review\",\n  \"machine_translation_enabled\": true,\n  \"enable_branching\": true,\n  \"protect_master_branch\": true,\n  \"enable_all_data_type_translation_keys_for_translators\": true,\n  \"enable_icu_message_format\": true,\n  \"zero_plural_form_enabled\": true,\n  \"autotranslate_enabled\": true,\n  \"autotranslate_check_new_translation_keys\": true,\n  \"autotranslate_check_new_uploads\": true,\n  \"autotranslate_check_new_locales\": true,\n  \"autotranslate_mark_as_unverified\": true,\n  \"autotranslate_use_machine_translation\": true,\n  \"autotranslate_use_translation_memory\": true,\n  \"autotranslate_overwrite_unverified_translations\": true,\n  \"placeholder_styles\": [\n    \"angular\",\n    \"iOS\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"slug\": \"string\",\n  \"main_format\": \"string\",\n  \"project_image_url\": \"string\",\n  \"media\": \"string\",\n  \"account\": {\n    \"name\": \"Company Account\",\n    \"slug\": \"company_account\",\n    \"company\": \"My Awesome Company\",\n    \"created_at\": \"2015-01-28T09:52:53Z\",\n    \"updated_at\": \"2015-01-28T09:52:53Z\",\n    \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n  },\n  \"space\": {\n    \"name\": \"My first space\",\n    \"created_at\": \"2020-02-25T12:17:25Z\",\n    \"updated_at\": \"2020-03-13T14:46:57Z\",\n    \"projects_count\": 2\n  },\n  \"point_of_contact\": {\n    \"username\": \"johndoe\",\n    \"name\": \"John Doe\",\n    \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n  },\n  \"created_at\": \"2006-11-04T16:41:29.623Z\",\n  \"updated_at\": \"2003-02-03T01:57:54.438Z\",\n  \"shares_translation_memory\": true,\n  \"machine_translation_enabled\": true,\n  \"zero_plural_form_enabled\": true,\n  \"enable_all_data_type_translation_keys_for_translators\": false,\n  \"enable_icu_message_format\": false,\n  \"enable_branching\": false,\n  \"protect_master_branch\": false,\n  \"autotranslate_enabled\": false,\n  \"autotranslate_check_new_translation_keys\": false,\n  \"autotranslate_check_new_uploads\": false,\n  \"autotranslate_check_new_locales\": false,\n  \"autotranslate_mark_as_unverified\": false,\n  \"autotranslate_use_machine_translation\": false,\n  \"autotranslate_use_translation_memory\": true,\n  \"default_encoding\": \"UTF-8\",\n  \"cldr_version\": \"legacy\",\n  \"job_locking_enabled\": false,\n  \"placeholder_styles\": [\n    \"angular\",\n    \"iOS\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "07ad61fc-9c62-4f05-80d0-ac73ddc30bb8",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Android Project\",\n  \"main_format\": \"yml\",\n  \"media\": \"Python\",\n  \"shares_translation_memory\": true,\n  \"project_image\": \"/path/to/my/project-screenshot.png\",\n  \"remove_project_image\": \"<boolean>\",\n  \"account_id\": \"abcd1234\",\n  \"point_of_contact\": \"abcd1234\",\n  \"source_project_id\": \"abcd1234\",\n  \"workflow\": \"review\",\n  \"machine_translation_enabled\": true,\n  \"enable_branching\": true,\n  \"protect_master_branch\": true,\n  \"enable_all_data_type_translation_keys_for_translators\": true,\n  \"enable_icu_message_format\": true,\n  \"zero_plural_form_enabled\": true,\n  \"autotranslate_enabled\": true,\n  \"autotranslate_check_new_translation_keys\": true,\n  \"autotranslate_check_new_uploads\": true,\n  \"autotranslate_check_new_locales\": true,\n  \"autotranslate_mark_as_unverified\": true,\n  \"autotranslate_use_machine_translation\": true,\n  \"autotranslate_use_translation_memory\": true,\n  \"autotranslate_overwrite_unverified_translations\": true,\n  \"placeholder_styles\": [\n    \"angular\",\n    \"iOS\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "369e84af-1d18-4d31-abae-3064739a2be4",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Android Project\",\n  \"main_format\": \"yml\",\n  \"media\": \"Python\",\n  \"shares_translation_memory\": true,\n  \"project_image\": \"/path/to/my/project-screenshot.png\",\n  \"remove_project_image\": \"<boolean>\",\n  \"account_id\": \"abcd1234\",\n  \"point_of_contact\": \"abcd1234\",\n  \"source_project_id\": \"abcd1234\",\n  \"workflow\": \"review\",\n  \"machine_translation_enabled\": true,\n  \"enable_branching\": true,\n  \"protect_master_branch\": true,\n  \"enable_all_data_type_translation_keys_for_translators\": true,\n  \"enable_icu_message_format\": true,\n  \"zero_plural_form_enabled\": true,\n  \"autotranslate_enabled\": true,\n  \"autotranslate_check_new_translation_keys\": true,\n  \"autotranslate_check_new_uploads\": true,\n  \"autotranslate_check_new_locales\": true,\n  \"autotranslate_mark_as_unverified\": true,\n  \"autotranslate_use_machine_translation\": true,\n  \"autotranslate_use_translation_memory\": true,\n  \"autotranslate_overwrite_unverified_translations\": true,\n  \"placeholder_styles\": [\n    \"angular\",\n    \"iOS\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e9c1a4ed-5cc6-4520-8488-1157e9d1021e",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Android Project\",\n  \"main_format\": \"yml\",\n  \"media\": \"Python\",\n  \"shares_translation_memory\": true,\n  \"project_image\": \"/path/to/my/project-screenshot.png\",\n  \"remove_project_image\": \"<boolean>\",\n  \"account_id\": \"abcd1234\",\n  \"point_of_contact\": \"abcd1234\",\n  \"source_project_id\": \"abcd1234\",\n  \"workflow\": \"review\",\n  \"machine_translation_enabled\": true,\n  \"enable_branching\": true,\n  \"protect_master_branch\": true,\n  \"enable_all_data_type_translation_keys_for_translators\": true,\n  \"enable_icu_message_format\": true,\n  \"zero_plural_form_enabled\": true,\n  \"autotranslate_enabled\": true,\n  \"autotranslate_check_new_translation_keys\": true,\n  \"autotranslate_check_new_uploads\": true,\n  \"autotranslate_check_new_locales\": true,\n  \"autotranslate_mark_as_unverified\": true,\n  \"autotranslate_use_machine_translation\": true,\n  \"autotranslate_use_translation_memory\": true,\n  \"autotranslate_overwrite_unverified_translations\": true,\n  \"placeholder_styles\": [\n    \"angular\",\n    \"iOS\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed21e6d8-8e37-4959-bb26-3a007ab64fc8",
+          "name": "Get a single project",
+          "request": {
+            "name": "Get a single project",
+            "description": {
+              "content": "Get details on a single project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81a46fa0-46a2-415c-ae1b-6d27dcce01eb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"slug\": \"string\",\n  \"main_format\": \"string\",\n  \"project_image_url\": \"string\",\n  \"media\": \"string\",\n  \"account\": {\n    \"name\": \"Company Account\",\n    \"slug\": \"company_account\",\n    \"company\": \"My Awesome Company\",\n    \"created_at\": \"2015-01-28T09:52:53Z\",\n    \"updated_at\": \"2015-01-28T09:52:53Z\",\n    \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n  },\n  \"space\": {\n    \"name\": \"My first space\",\n    \"created_at\": \"2020-02-25T12:17:25Z\",\n    \"updated_at\": \"2020-03-13T14:46:57Z\",\n    \"projects_count\": 2\n  },\n  \"point_of_contact\": {\n    \"username\": \"johndoe\",\n    \"name\": \"John Doe\",\n    \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n  },\n  \"created_at\": \"2014-11-07T04:09:02.158Z\",\n  \"updated_at\": \"1982-02-23T08:10:11.191Z\",\n  \"shares_translation_memory\": false,\n  \"machine_translation_enabled\": true,\n  \"zero_plural_form_enabled\": true,\n  \"enable_all_data_type_translation_keys_for_translators\": false,\n  \"enable_icu_message_format\": false,\n  \"enable_branching\": false,\n  \"protect_master_branch\": false,\n  \"autotranslate_enabled\": false,\n  \"autotranslate_check_new_translation_keys\": false,\n  \"autotranslate_check_new_uploads\": false,\n  \"autotranslate_check_new_locales\": false,\n  \"autotranslate_mark_as_unverified\": false,\n  \"autotranslate_use_machine_translation\": false,\n  \"autotranslate_use_translation_memory\": true,\n  \"default_encoding\": \"UTF-8\",\n  \"cldr_version\": \"legacy\",\n  \"job_locking_enabled\": false,\n  \"placeholder_styles\": [\n    \"angular\",\n    \"iOS\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ccd8c334-0380-473c-9e04-2a2bf702ac82",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "74008f4e-f455-48ad-87e0-34a5f580da6f",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aa1d02f9-31d1-4095-9877-ae7d20daca3f",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47636723-774b-42e5-8e26-8eb03985759b",
+          "name": "Update a project",
+          "request": {
+            "name": "Update a project",
+            "description": {
+              "content": "Update an existing project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"point_of_contact\": \"<string>\",\n  \"main_format\": \"<string>\",\n  \"media\": \"<string>\",\n  \"shares_translation_memory\": \"<boolean>\",\n  \"project_image\": \"<binary>\",\n  \"remove_project_image\": \"<boolean>\",\n  \"workflow\": \"<string>\",\n  \"machine_translation_enabled\": \"<boolean>\",\n  \"enable_branching\": \"<boolean>\",\n  \"protect_master_branch\": \"<boolean>\",\n  \"enable_all_data_type_translation_keys_for_translators\": \"<boolean>\",\n  \"enable_icu_message_format\": \"<boolean>\",\n  \"zero_plural_form_enabled\": \"<boolean>\",\n  \"autotranslate_enabled\": \"<boolean>\",\n  \"autotranslate_check_new_translation_keys\": \"<boolean>\",\n  \"autotranslate_check_new_uploads\": \"<boolean>\",\n  \"autotranslate_check_new_locales\": \"<boolean>\",\n  \"autotranslate_mark_as_unverified\": \"<boolean>\",\n  \"autotranslate_use_machine_translation\": \"<boolean>\",\n  \"autotranslate_use_translation_memory\": \"<boolean>\",\n  \"autotranslate_overwrite_unverified_translations\": \"<boolean>\",\n  \"default_encoding\": \"<string>\",\n  \"placeholder_styles\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dfa59e4c-2688-4937-bca1-0624f2f16c63",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"abcd1234\",\n  \"name\": \"My Android Project\",\n  \"point_of_contact\": \"abcd1234\",\n  \"main_format\": \"yml\",\n  \"media\": \"Python\",\n  \"shares_translation_memory\": true,\n  \"project_image\": \"/path/to/my/project-screenshot.png\",\n  \"remove_project_image\": false,\n  \"workflow\": \"review\",\n  \"machine_translation_enabled\": true,\n  \"enable_branching\": true,\n  \"protect_master_branch\": true,\n  \"enable_all_data_type_translation_keys_for_translators\": true,\n  \"enable_icu_message_format\": true,\n  \"zero_plural_form_enabled\": true,\n  \"autotranslate_enabled\": true,\n  \"autotranslate_check_new_translation_keys\": true,\n  \"autotranslate_check_new_uploads\": true,\n  \"autotranslate_check_new_locales\": true,\n  \"autotranslate_mark_as_unverified\": true,\n  \"autotranslate_use_machine_translation\": true,\n  \"autotranslate_use_translation_memory\": true,\n  \"autotranslate_overwrite_unverified_translations\": true,\n  \"default_encoding\": \"UTF-8\",\n  \"placeholder_styles\": [\n    \"angular\",\n    \"iOS\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"slug\": \"string\",\n  \"main_format\": \"string\",\n  \"project_image_url\": \"string\",\n  \"media\": \"string\",\n  \"account\": {\n    \"name\": \"Company Account\",\n    \"slug\": \"company_account\",\n    \"company\": \"My Awesome Company\",\n    \"created_at\": \"2015-01-28T09:52:53Z\",\n    \"updated_at\": \"2015-01-28T09:52:53Z\",\n    \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n  },\n  \"space\": {\n    \"name\": \"My first space\",\n    \"created_at\": \"2020-02-25T12:17:25Z\",\n    \"updated_at\": \"2020-03-13T14:46:57Z\",\n    \"projects_count\": 2\n  },\n  \"point_of_contact\": {\n    \"username\": \"johndoe\",\n    \"name\": \"John Doe\",\n    \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n  },\n  \"created_at\": \"2014-11-07T04:09:02.158Z\",\n  \"updated_at\": \"1982-02-23T08:10:11.191Z\",\n  \"shares_translation_memory\": false,\n  \"machine_translation_enabled\": true,\n  \"zero_plural_form_enabled\": true,\n  \"enable_all_data_type_translation_keys_for_translators\": false,\n  \"enable_icu_message_format\": false,\n  \"enable_branching\": false,\n  \"protect_master_branch\": false,\n  \"autotranslate_enabled\": false,\n  \"autotranslate_check_new_translation_keys\": false,\n  \"autotranslate_check_new_uploads\": false,\n  \"autotranslate_check_new_locales\": false,\n  \"autotranslate_mark_as_unverified\": false,\n  \"autotranslate_use_machine_translation\": false,\n  \"autotranslate_use_translation_memory\": true,\n  \"default_encoding\": \"UTF-8\",\n  \"cldr_version\": \"legacy\",\n  \"job_locking_enabled\": false,\n  \"placeholder_styles\": [\n    \"angular\",\n    \"iOS\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "069c44ea-0ee1-460f-a304-e02f49c86f75",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"abcd1234\",\n  \"name\": \"My Android Project\",\n  \"point_of_contact\": \"abcd1234\",\n  \"main_format\": \"yml\",\n  \"media\": \"Python\",\n  \"shares_translation_memory\": true,\n  \"project_image\": \"/path/to/my/project-screenshot.png\",\n  \"remove_project_image\": false,\n  \"workflow\": \"review\",\n  \"machine_translation_enabled\": true,\n  \"enable_branching\": true,\n  \"protect_master_branch\": true,\n  \"enable_all_data_type_translation_keys_for_translators\": true,\n  \"enable_icu_message_format\": true,\n  \"zero_plural_form_enabled\": true,\n  \"autotranslate_enabled\": true,\n  \"autotranslate_check_new_translation_keys\": true,\n  \"autotranslate_check_new_uploads\": true,\n  \"autotranslate_check_new_locales\": true,\n  \"autotranslate_mark_as_unverified\": true,\n  \"autotranslate_use_machine_translation\": true,\n  \"autotranslate_use_translation_memory\": true,\n  \"autotranslate_overwrite_unverified_translations\": true,\n  \"default_encoding\": \"UTF-8\",\n  \"placeholder_styles\": [\n    \"angular\",\n    \"iOS\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "790b2af1-ef84-435f-beba-2ded34314c44",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"abcd1234\",\n  \"name\": \"My Android Project\",\n  \"point_of_contact\": \"abcd1234\",\n  \"main_format\": \"yml\",\n  \"media\": \"Python\",\n  \"shares_translation_memory\": true,\n  \"project_image\": \"/path/to/my/project-screenshot.png\",\n  \"remove_project_image\": false,\n  \"workflow\": \"review\",\n  \"machine_translation_enabled\": true,\n  \"enable_branching\": true,\n  \"protect_master_branch\": true,\n  \"enable_all_data_type_translation_keys_for_translators\": true,\n  \"enable_icu_message_format\": true,\n  \"zero_plural_form_enabled\": true,\n  \"autotranslate_enabled\": true,\n  \"autotranslate_check_new_translation_keys\": true,\n  \"autotranslate_check_new_uploads\": true,\n  \"autotranslate_check_new_locales\": true,\n  \"autotranslate_mark_as_unverified\": true,\n  \"autotranslate_use_machine_translation\": true,\n  \"autotranslate_use_translation_memory\": true,\n  \"autotranslate_overwrite_unverified_translations\": true,\n  \"default_encoding\": \"UTF-8\",\n  \"placeholder_styles\": [\n    \"angular\",\n    \"iOS\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9f4ac553-173d-4a9e-b31d-dbe52cdd01a2",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"abcd1234\",\n  \"name\": \"My Android Project\",\n  \"point_of_contact\": \"abcd1234\",\n  \"main_format\": \"yml\",\n  \"media\": \"Python\",\n  \"shares_translation_memory\": true,\n  \"project_image\": \"/path/to/my/project-screenshot.png\",\n  \"remove_project_image\": false,\n  \"workflow\": \"review\",\n  \"machine_translation_enabled\": true,\n  \"enable_branching\": true,\n  \"protect_master_branch\": true,\n  \"enable_all_data_type_translation_keys_for_translators\": true,\n  \"enable_icu_message_format\": true,\n  \"zero_plural_form_enabled\": true,\n  \"autotranslate_enabled\": true,\n  \"autotranslate_check_new_translation_keys\": true,\n  \"autotranslate_check_new_uploads\": true,\n  \"autotranslate_check_new_locales\": true,\n  \"autotranslate_mark_as_unverified\": true,\n  \"autotranslate_use_machine_translation\": true,\n  \"autotranslate_use_translation_memory\": true,\n  \"autotranslate_overwrite_unverified_translations\": true,\n  \"default_encoding\": \"UTF-8\",\n  \"placeholder_styles\": [\n    \"angular\",\n    \"iOS\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9636c72-de06-473d-8d7f-ef9254a526e0",
+          "name": "Delete a project",
+          "request": {
+            "name": "Delete a project",
+            "description": {
+              "content": "Delete an existing project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "12566078-49f1-4726-b4a3-89c705d0a429",
+              "name": "The resource was deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "efb5c5f7-993e-40db-b758-b5ccf7d88541",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "72e81e55-21cb-4c7c-a8da-2f61acf72d53",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8fcd2c0b-5e3e-4ec3-b8ac-644d6294a231",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "1888"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "1888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.phrase.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fe2e5fd2-f0e4-46c7-8b60-08eab398e861",
+    "name": "Phrase Strings API Reference Accounts Projects API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.\n\nContact Support:\n Name: Phrase Support\n Email: support@phrase.com",
+      "type": "text/plain"
+    }
+  }
+}

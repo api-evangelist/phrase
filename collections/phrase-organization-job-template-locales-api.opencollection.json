@@ -1,0 +1,219 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Organization Job Template Locales API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organization Job Template Locales",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List organization job template locales",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/job_templates/:job_template_id/locales",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "job_template_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Template ID"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+              }
+            ]
+          },
+          "docs": "List all job template locales for a given organization job template."
+        },
+        {
+          "info": {
+            "name": "Create an organization job template locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/job_templates/:job_template_id/locales",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "job_template_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Template ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new organization job template locale."
+        },
+        {
+          "info": {
+            "name": "Get a single organization job template locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/job_templates/:job_template_id/locales/:job_template_locale_id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "job_template_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Template ID"
+              },
+              {
+                "name": "job_template_locale_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Template Locale ID"
+              }
+            ]
+          },
+          "docs": "Get a single job template locale for a given organization job template."
+        },
+        {
+          "info": {
+            "name": "Update an organization job template locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/job_templates/:job_template_id/locales/:job_template_locale_id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "job_template_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Template ID"
+              },
+              {
+                "name": "job_template_locale_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Template Locale ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing organization job template locale."
+        },
+        {
+          "info": {
+            "name": "Delete an organization job template locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.phrase.com/v2/accounts/:account_id/job_templates/:job_template_id/locales/:job_template_locale_id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "job_template_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Template ID"
+              },
+              {
+                "name": "job_template_locale_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Template Locale ID"
+              }
+            ]
+          },
+          "docs": "Delete an existing organization job template locale."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

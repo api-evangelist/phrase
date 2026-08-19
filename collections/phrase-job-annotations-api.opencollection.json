@@ -1,0 +1,286 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Job Annotations API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Job Annotations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List job annotations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/jobs/:job_id/annotations",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "Branch to use"
+              },
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "Job ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of annotations for a job."
+        },
+        {
+          "info": {
+            "name": "Create/Update a job annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/jobs/:job_id/annotations/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "Job ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Name of the annotation to set or update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or update an annotation for a job. If the annotation already exists, it will be updated; otherwise, a new annotation will be created."
+        },
+        {
+          "info": {
+            "name": "Delete a job annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.phrase.com/v2/projects/:project_id/jobs/:job_id/annotations/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "Branch to use"
+              },
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "Job ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Name of the annotation to delete."
+              }
+            ]
+          },
+          "docs": "Delete an annotation for a job."
+        },
+        {
+          "info": {
+            "name": "List job locale annotations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/jobs/:job_id/locales/:job_locale_id/annotations",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "Branch to use"
+              },
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "Job ID"
+              },
+              {
+                "name": "job_locale_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Locale ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of annotations for a job locale."
+        },
+        {
+          "info": {
+            "name": "Create/Update a job locale annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.phrase.com/v2/projects/:project_id/jobs/:job_id/locales/:job_locale_id/annotations/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "Job ID"
+              },
+              {
+                "name": "job_locale_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Locale ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Name of the annotation to set or update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or update an annotation for a job locale. If the annotation already exists, it will be updated; otherwise, a new annotation will be created."
+        },
+        {
+          "info": {
+            "name": "Delete a job locale annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.phrase.com/v2/projects/:project_id/jobs/:job_id/locales/:job_locale_id/annotations/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "Branch to use"
+              },
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "Job ID"
+              },
+              {
+                "name": "job_locale_id",
+                "value": "",
+                "type": "path",
+                "description": "Job Locale ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Name of the annotation to delete."
+              }
+            ]
+          },
+          "docs": "Delete an annotation for a job locale."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

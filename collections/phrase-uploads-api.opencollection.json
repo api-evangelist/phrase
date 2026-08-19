@@ -1,0 +1,246 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Uploads API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Uploads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List uploads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/uploads",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "List all uploads for the given project."
+        },
+        {
+          "info": {
+            "name": "Upload a new file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.phrase.com/v2/projects/:project_id/uploads",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "branch",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file_format",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "locale_id",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "tags",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "update_translations",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "update_custom_metadata",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "update_translation_keys",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "update_translations_on_source_match",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "source_locale_id",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "update_descriptions",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "convert_emoji",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "skip_upload_tags",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "skip_unverification",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file_encoding",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "locale_mapping",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "format_options",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "autotranslate",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "verify_mentioned_translations",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "mark_reviewed",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "tag_only_affected_keys",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "translation_key_prefix",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload a new language file. Creates necessary resources in your project.\n\nNote: be aware of [upload limits](https://support.phrase.com/hc/en-us/articles/8548271212188-Phrase-Strings-Limits#file-size-upload-limits-0-0).\n"
+        },
+        {
+          "info": {
+            "name": "Get a single upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/uploads/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              },
+              {
+                "name": "branch",
+                "value": "my-feature-branch",
+                "type": "query",
+                "description": "specify the branch to use"
+              }
+            ]
+          },
+          "docs": "View details and summary for a single upload."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

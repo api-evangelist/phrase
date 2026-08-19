@@ -1,0 +1,1056 @@
+{
+  "item": [
+    {
+      "id": "a16a600b-3b40-44d3-a838-4cfd40e86db6",
+      "name": "Notification Groups",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2d860bdf-c498-48cd-b187-31e53b53d020",
+          "name": "List notification groups",
+          "request": {
+            "name": "List notification groups",
+            "description": {
+              "content": "List all notification groups from the current user",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "notification_groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Limit on the number of objects to be returned, between 1 and 100. 25 by default"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "24a6b09c-195d-483d-be54-e67bbc6ab4e3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification_groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "Links to related resources, in the format defined by\n[RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).\nThis will include a link with relation type `next` to the\nnext page, if there is a next page.",
+                  "key": "Link",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Pagination details for navigating through a collection of resources, provided in JSON format.",
+                  "key": "Pagination",
+                  "value": "total_count,10,total_pages_count,2,current_page,1,current_per_page,5,previous_page,6735,next_page,2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"event_name\": \"string\",\n    \"created_at\": \"1959-07-04T22:51:24.502Z\",\n    \"updated_at\": \"1958-03-19T11:57:48.681Z\",\n    \"notifications_count\": 7098,\n    \"latest_notification\": {\n      \"id\": \"string\",\n      \"event_name\": \"string\",\n      \"created_at\": \"2023-10-05T19:41:01.912Z\",\n      \"updated_at\": \"1977-10-25T03:53:49.553Z\",\n      \"delivered_at\": \"2012-04-18T05:49:00.389Z\",\n      \"seen_at\": \"1998-10-27T03:16:04.945Z\",\n      \"data\": {},\n      \"resource\": {},\n      \"locale\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"code\": \"string\",\n        \"default\": false,\n        \"main\": true,\n        \"rtl\": false,\n        \"plural_forms\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ordinal_plural_forms\": [\n          \"string\",\n          \"string\"\n        ],\n        \"source_locale\": {\n          \"name\": \"English\",\n          \"code\": \"en-GB\"\n        },\n        \"fallback_locale\": {\n          \"name\": \"English\",\n          \"code\": \"en-GB\"\n        },\n        \"created_at\": \"2022-11-22T06:49:39.456Z\",\n        \"updated_at\": \"1952-01-12T01:03:31.577Z\"\n      },\n      \"user\": {\n        \"username\": \"johndoe\",\n        \"name\": \"John Doe\",\n        \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n      },\n      \"project\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"main_format\": \"string\",\n        \"project_image_url\": \"string\",\n        \"media\": \"string\",\n        \"account\": {\n          \"name\": \"Company Account\",\n          \"slug\": \"company_account\",\n          \"company\": \"My Awesome Company\",\n          \"created_at\": \"2015-01-28T09:52:53Z\",\n          \"updated_at\": \"2015-01-28T09:52:53Z\",\n          \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n        },\n        \"space\": {\n          \"name\": \"My first space\",\n          \"created_at\": \"2020-02-25T12:17:25Z\",\n          \"updated_at\": \"2020-03-13T14:46:57Z\",\n          \"projects_count\": 2\n        },\n        \"point_of_contact\": {\n          \"username\": \"johndoe\",\n          \"name\": \"John Doe\",\n          \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n        },\n        \"created_at\": \"1958-05-19T03:00:32.743Z\",\n        \"updated_at\": \"1987-01-20T16:56:46.889Z\"\n      },\n      \"account\": {\n        \"name\": \"Company Account\",\n        \"slug\": \"company_account\",\n        \"company\": \"My Awesome Company\",\n        \"created_at\": \"2015-01-28T09:52:53Z\",\n        \"updated_at\": \"2015-01-28T09:52:53Z\",\n        \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n      },\n      \"group\": {\n        \"event_name\": \"keys:create\",\n        \"created_at\": \"2015-01-28T09:52:53Z\",\n        \"updated_at\": \"2015-01-28T09:52:53Z\"\n      }\n    }\n  },\n  {\n    \"id\": \"string\",\n    \"event_name\": \"string\",\n    \"created_at\": \"1994-12-21T20:57:06.085Z\",\n    \"updated_at\": \"1980-04-06T03:14:50.704Z\",\n    \"notifications_count\": 7269,\n    \"latest_notification\": {\n      \"id\": \"string\",\n      \"event_name\": \"string\",\n      \"created_at\": \"2010-05-31T22:47:56.156Z\",\n      \"updated_at\": \"1977-04-04T22:47:05.555Z\",\n      \"delivered_at\": \"1979-05-16T19:22:31.925Z\",\n      \"seen_at\": \"1954-09-09T19:42:29.624Z\",\n      \"data\": {},\n      \"resource\": {},\n      \"locale\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"code\": \"string\",\n        \"default\": false,\n        \"main\": false,\n        \"rtl\": false,\n        \"plural_forms\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ordinal_plural_forms\": [\n          \"string\",\n          \"string\"\n        ],\n        \"source_locale\": {\n          \"name\": \"English\",\n          \"code\": \"en-GB\"\n        },\n        \"fallback_locale\": {\n          \"name\": \"English\",\n          \"code\": \"en-GB\"\n        },\n        \"created_at\": \"1990-11-12T10:02:25.686Z\",\n        \"updated_at\": \"1969-01-07T22:12:20.797Z\"\n      },\n      \"user\": {\n        \"username\": \"johndoe\",\n        \"name\": \"John Doe\",\n        \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n      },\n      \"project\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"main_format\": \"string\",\n        \"project_image_url\": \"string\",\n        \"media\": \"string\",\n        \"account\": {\n          \"name\": \"Company Account\",\n          \"slug\": \"company_account\",\n          \"company\": \"My Awesome Company\",\n          \"created_at\": \"2015-01-28T09:52:53Z\",\n          \"updated_at\": \"2015-01-28T09:52:53Z\",\n          \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n        },\n        \"space\": {\n          \"name\": \"My first space\",\n          \"created_at\": \"2020-02-25T12:17:25Z\",\n          \"updated_at\": \"2020-03-13T14:46:57Z\",\n          \"projects_count\": 2\n        },\n        \"point_of_contact\": {\n          \"username\": \"johndoe\",\n          \"name\": \"John Doe\",\n          \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n        },\n        \"created_at\": \"1948-09-27T04:10:34.795Z\",\n        \"updated_at\": \"1962-09-27T10:42:28.203Z\"\n      },\n      \"account\": {\n        \"name\": \"Company Account\",\n        \"slug\": \"company_account\",\n        \"company\": \"My Awesome Company\",\n        \"created_at\": \"2015-01-28T09:52:53Z\",\n        \"updated_at\": \"2015-01-28T09:52:53Z\",\n        \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n      },\n      \"group\": {\n        \"event_name\": \"keys:create\",\n        \"created_at\": \"2015-01-28T09:52:53Z\",\n        \"updated_at\": \"2015-01-28T09:52:53Z\"\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77e0579b-ea53-406e-937c-a459f19e3c1e",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification_groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5276"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6d1a239a-02ce-4e9d-b690-08637d6b30bc",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification_groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5276"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "72000af1-ddcc-4589-ad81-f409f06f704e",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification_groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5276"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fee7d4b3-fe31-40e7-bc4e-4a77a4994694",
+          "name": "Mark all notification groups as read",
+          "request": {
+            "name": "Mark all notification groups as read",
+            "description": {
+              "content": "Mark all notification groups of the current user as read",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "notification_groups",
+                "mark_all_as_read"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ecb71de7-95b4-4c69-8ba7-5e066348a9b5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification_groups",
+                    "mark_all_as_read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5276"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"event_name\": \"string\",\n    \"created_at\": \"1978-07-07T10:46:55.401Z\",\n    \"updated_at\": \"1986-08-23T11:12:46.709Z\",\n    \"notifications_count\": 1373,\n    \"latest_notification\": {\n      \"id\": \"string\",\n      \"event_name\": \"string\",\n      \"created_at\": \"1999-06-08T08:42:46.176Z\",\n      \"updated_at\": \"1956-09-02T18:54:08.106Z\",\n      \"delivered_at\": \"2001-02-06T12:54:04.793Z\",\n      \"seen_at\": \"1965-11-12T11:51:54.070Z\",\n      \"data\": {},\n      \"resource\": {},\n      \"locale\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"code\": \"string\",\n        \"default\": true,\n        \"main\": true,\n        \"rtl\": false,\n        \"plural_forms\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ordinal_plural_forms\": [\n          \"string\",\n          \"string\"\n        ],\n        \"source_locale\": {\n          \"name\": \"English\",\n          \"code\": \"en-GB\"\n        },\n        \"fallback_locale\": {\n          \"name\": \"English\",\n          \"code\": \"en-GB\"\n        },\n        \"created_at\": \"1960-04-15T04:49:29.540Z\",\n        \"updated_at\": \"2014-12-25T08:02:15.429Z\"\n      },\n      \"user\": {\n        \"username\": \"johndoe\",\n        \"name\": \"John Doe\",\n        \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n      },\n      \"project\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"main_format\": \"string\",\n        \"project_image_url\": \"string\",\n        \"media\": \"string\",\n        \"account\": {\n          \"name\": \"Company Account\",\n          \"slug\": \"company_account\",\n          \"company\": \"My Awesome Company\",\n          \"created_at\": \"2015-01-28T09:52:53Z\",\n          \"updated_at\": \"2015-01-28T09:52:53Z\",\n          \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n        },\n        \"space\": {\n          \"name\": \"My first space\",\n          \"created_at\": \"2020-02-25T12:17:25Z\",\n          \"updated_at\": \"2020-03-13T14:46:57Z\",\n          \"projects_count\": 2\n        },\n        \"point_of_contact\": {\n          \"username\": \"johndoe\",\n          \"name\": \"John Doe\",\n          \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n        },\n        \"created_at\": \"1976-05-08T02:21:23.871Z\",\n        \"updated_at\": \"1983-07-12T07:08:11.952Z\"\n      },\n      \"account\": {\n        \"name\": \"Company Account\",\n        \"slug\": \"company_account\",\n        \"company\": \"My Awesome Company\",\n        \"created_at\": \"2015-01-28T09:52:53Z\",\n        \"updated_at\": \"2015-01-28T09:52:53Z\",\n        \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n      },\n      \"group\": {\n        \"event_name\": \"keys:create\",\n        \"created_at\": \"2015-01-28T09:52:53Z\",\n        \"updated_at\": \"2015-01-28T09:52:53Z\"\n      }\n    }\n  },\n  {\n    \"id\": \"string\",\n    \"event_name\": \"string\",\n    \"created_at\": \"1977-11-30T08:24:03.721Z\",\n    \"updated_at\": \"1971-05-13T20:30:27.172Z\",\n    \"notifications_count\": 62,\n    \"latest_notification\": {\n      \"id\": \"string\",\n      \"event_name\": \"string\",\n      \"created_at\": \"2003-09-30T15:26:20.227Z\",\n      \"updated_at\": \"1968-10-04T05:11:20.515Z\",\n      \"delivered_at\": \"1993-11-27T19:21:47.916Z\",\n      \"seen_at\": \"2019-04-08T01:34:43.408Z\",\n      \"data\": {},\n      \"resource\": {},\n      \"locale\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"code\": \"string\",\n        \"default\": true,\n        \"main\": true,\n        \"rtl\": false,\n        \"plural_forms\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ordinal_plural_forms\": [\n          \"string\",\n          \"string\"\n        ],\n        \"source_locale\": {\n          \"name\": \"English\",\n          \"code\": \"en-GB\"\n        },\n        \"fallback_locale\": {\n          \"name\": \"English\",\n          \"code\": \"en-GB\"\n        },\n        \"created_at\": \"2020-05-10T08:13:45.301Z\",\n        \"updated_at\": \"1986-05-06T03:30:57.835Z\"\n      },\n      \"user\": {\n        \"username\": \"johndoe\",\n        \"name\": \"John Doe\",\n        \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n      },\n      \"project\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"main_format\": \"string\",\n        \"project_image_url\": \"string\",\n        \"media\": \"string\",\n        \"account\": {\n          \"name\": \"Company Account\",\n          \"slug\": \"company_account\",\n          \"company\": \"My Awesome Company\",\n          \"created_at\": \"2015-01-28T09:52:53Z\",\n          \"updated_at\": \"2015-01-28T09:52:53Z\",\n          \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n        },\n        \"space\": {\n          \"name\": \"My first space\",\n          \"created_at\": \"2020-02-25T12:17:25Z\",\n          \"updated_at\": \"2020-03-13T14:46:57Z\",\n          \"projects_count\": 2\n        },\n        \"point_of_contact\": {\n          \"username\": \"johndoe\",\n          \"name\": \"John Doe\",\n          \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n        },\n        \"created_at\": \"2001-05-05T02:15:12.736Z\",\n        \"updated_at\": \"1951-09-01T06:19:55.936Z\"\n      },\n      \"account\": {\n        \"name\": \"Company Account\",\n        \"slug\": \"company_account\",\n        \"company\": \"My Awesome Company\",\n        \"created_at\": \"2015-01-28T09:52:53Z\",\n        \"updated_at\": \"2015-01-28T09:52:53Z\",\n        \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n      },\n      \"group\": {\n        \"event_name\": \"keys:create\",\n        \"created_at\": \"2015-01-28T09:52:53Z\",\n        \"updated_at\": \"2015-01-28T09:52:53Z\"\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a09004e6-b567-45f0-949b-0408be5f5048",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification_groups",
+                    "mark_all_as_read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5276"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2a2ecd10-0763-4a03-bf56-f5b5ddbde506",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification_groups",
+                    "mark_all_as_read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5276"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8a335f9e-85ac-4ec4-ad56-cbc5b08af4fe",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification_groups",
+                    "mark_all_as_read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5276"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18299376-1a59-46ee-aac9-dc5e4bf09921",
+          "name": "Mark a notification group as read",
+          "request": {
+            "name": "Mark a notification group as read",
+            "description": {
+              "content": "Mark a notifications group of the current user as read",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "notification_groups",
+                ":id",
+                "mark_as_read"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Two-Factor-Authentication token (optional)",
+                "key": "X-PhraseApp-OTP",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b9d61de2-1d5e-422a-9691-282310261535",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification_groups",
+                    ":id",
+                    "mark_as_read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5276"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"event_name\": \"string\",\n  \"created_at\": \"1954-09-24T16:39:40.969Z\",\n  \"updated_at\": \"1993-03-19T10:23:16.060Z\",\n  \"notifications_count\": 3728,\n  \"latest_notification\": {\n    \"id\": \"string\",\n    \"event_name\": \"string\",\n    \"created_at\": \"1970-12-19T07:28:36.854Z\",\n    \"updated_at\": \"2004-08-13T14:31:05.803Z\",\n    \"delivered_at\": \"1955-10-05T05:49:22.852Z\",\n    \"seen_at\": \"2020-03-26T15:00:47.771Z\",\n    \"data\": {},\n    \"resource\": {},\n    \"locale\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"default\": false,\n      \"main\": true,\n      \"rtl\": true,\n      \"plural_forms\": [\n        \"string\",\n        \"string\"\n      ],\n      \"ordinal_plural_forms\": [\n        \"string\",\n        \"string\"\n      ],\n      \"source_locale\": {\n        \"name\": \"English\",\n        \"code\": \"en-GB\"\n      },\n      \"fallback_locale\": {\n        \"name\": \"English\",\n        \"code\": \"en-GB\"\n      },\n      \"created_at\": \"1972-04-15T07:57:44.618Z\",\n      \"updated_at\": \"1956-06-17T19:58:53.641Z\"\n    },\n    \"user\": {\n      \"username\": \"johndoe\",\n      \"name\": \"John Doe\",\n      \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n    },\n    \"project\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"main_format\": \"string\",\n      \"project_image_url\": \"string\",\n      \"media\": \"string\",\n      \"account\": {\n        \"name\": \"Company Account\",\n        \"slug\": \"company_account\",\n        \"company\": \"My Awesome Company\",\n        \"created_at\": \"2015-01-28T09:52:53Z\",\n        \"updated_at\": \"2015-01-28T09:52:53Z\",\n        \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n      },\n      \"space\": {\n        \"name\": \"My first space\",\n        \"created_at\": \"2020-02-25T12:17:25Z\",\n        \"updated_at\": \"2020-03-13T14:46:57Z\",\n        \"projects_count\": 2\n      },\n      \"point_of_contact\": {\n        \"username\": \"johndoe\",\n        \"name\": \"John Doe\",\n        \"gravatar_uid\": \"205e460b479e2e5b48aec07710c08d50\"\n      },\n      \"created_at\": \"1997-10-05T07:09:20.822Z\",\n      \"updated_at\": \"1975-09-07T01:58:55.173Z\"\n    },\n    \"account\": {\n      \"name\": \"Company Account\",\n      \"slug\": \"company_account\",\n      \"company\": \"My Awesome Company\",\n      \"created_at\": \"2015-01-28T09:52:53Z\",\n      \"updated_at\": \"2015-01-28T09:52:53Z\",\n      \"company_logo_url\": \"http://assets.example.com/company_logo.png\"\n    },\n    \"group\": {\n      \"event_name\": \"keys:create\",\n      \"created_at\": \"2015-01-28T09:52:53Z\",\n      \"updated_at\": \"2015-01-28T09:52:53Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6fd42c36-e7a7-4bb0-b13d-cb7ceaf96e34",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification_groups",
+                    ":id",
+                    "mark_as_read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5276"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a268b870-a6ca-416b-bbe7-13c35ece03a7",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification_groups",
+                    ":id",
+                    "mark_as_read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5276"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "99889fde-3335-419d-ad1e-92da895addb0",
+              "name": "Rate Limiting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification_groups",
+                    ":id",
+                    "mark_as_read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Two-Factor-Authentication token (optional)",
+                    "key": "X-PhraseApp-OTP",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-Rate-Limit-Limit",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-Rate-Limit-Remaining",
+                  "value": "5276"
+                },
+                {
+                  "disabled": false,
+                  "description": "Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)",
+                  "key": "X-Rate-Limit-Reset",
+                  "value": "5276"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.phrase.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "55bb5d23-7753-4e62-90c5-b7169b07672b",
+    "name": "Phrase Strings API Reference Accounts Notification Groups API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.\n\nContact Support:\n Name: Phrase Support\n Email: support@phrase.com",
+      "type": "text/plain"
+    }
+  }
+}

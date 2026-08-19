@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Phrase Strings API Reference Accounts Locale Downloads API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Locale Downloads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initiate async download of a locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.phrase.com/v2/projects/:project_id/locales/:locale_id/downloads",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              },
+              {
+                "name": "If-Modified-Since",
+                "value": ""
+              },
+              {
+                "name": "If-None-Match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "locale_id",
+                "value": "",
+                "type": "path",
+                "description": "Locale ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Prepare a locale for download in a specific file format."
+        },
+        {
+          "info": {
+            "name": "Show status of an async locale download",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.phrase.com/v2/projects/:project_id/locales/:locale_id/downloads/:id",
+            "headers": [
+              {
+                "name": "X-PhraseApp-OTP",
+                "value": ""
+              },
+              {
+                "name": "If-Modified-Since",
+                "value": ""
+              },
+              {
+                "name": "If-None-Match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "locale_id",
+                "value": "",
+                "type": "path",
+                "description": "Locale ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID"
+              }
+            ]
+          },
+          "docs": "Show status of already started async locale download. If the download is finished, the download link will be returned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -38,6 +38,8 @@ apis:
   humanURL: https://developers.phrase.com/api/
   baseURL: https://api.phrase.com/v2
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -360,6 +362,8 @@ apis:
   humanURL: https://developers.phrase.com/api/
   baseURL: https://api.phrase.com/v2
   tags:
+  - Glossary
+  tags_raw:
   - Glossaries
   properties:
   - type: OpenAPI
@@ -547,6 +551,8 @@ apis:
   humanURL: https://developers.phrase.com/api/
   baseURL: https://api.phrase.com/v2
   tags:
+  - Job
+  tags_raw:
   - Jobs
   properties:
   - type: OpenAPI
@@ -695,6 +701,8 @@ apis:
   humanURL: https://developers.phrase.com/api/
   baseURL: https://api.phrase.com/v2
   tags:
+  - Notification
+  tags_raw:
   - Notifications
   properties:
   - type: OpenAPI
@@ -766,6 +774,8 @@ apis:
   humanURL: https://developers.phrase.com/api/
   baseURL: https://api.phrase.com/v2
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -823,6 +833,8 @@ apis:
   humanURL: https://developers.phrase.com/api/
   baseURL: https://api.phrase.com/v2
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -1026,6 +1038,8 @@ apis:
   humanURL: https://developers.phrase.com/api/
   baseURL: https://api.phrase.com/v2
   tags:
+  - Style Guides
+  tags_raw:
   - Style guides
   properties:
   - type: OpenAPI
@@ -1062,6 +1076,8 @@ apis:
   humanURL: https://developers.phrase.com/api/
   baseURL: https://api.phrase.com/v2
   tags:
+  - Team
+  tags_raw:
   - Teams
   properties:
   - type: OpenAPI
@@ -1187,6 +1203,8 @@ apis:
   humanURL: https://developers.phrase.com/api/
   baseURL: https://api.phrase.com/v2
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -1259,6 +1277,8 @@ apis:
   humanURL: https://developers.phrase.com/api/
   baseURL: https://api.phrase.com/v2
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI

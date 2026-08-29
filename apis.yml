@@ -5,6 +5,18 @@ description: Phrase automates, manages, and translates content for deeper custom
   access to translation management, localization workflows, and language automation,
   including projects, keys, locales, jobs, glossaries, and webhooks.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -1292,6 +1304,9 @@ apis:
   - type: GraphQL
     url: graphql/phrase-graphql.md
 common:
+- type: CapabilityMap
+  url: capabilities/phrase-capability-edges.yml
+  name: Phrase Business Capability Map
 - type: AgenticAccess
   url: agentic-access/phrase-agentic-access.yml
 - type: DomainSecurity

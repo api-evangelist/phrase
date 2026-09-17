@@ -1045,26 +1045,6 @@ apis:
     url: https://help.phrase.com/help/phrase-in-your-coding-workflow
   - type: GraphQL
     url: graphql/phrase-graphql.md
-- aid: phrase:phrase-style-guides-api
-  name: Phrase Style guides API
-  description: The Style guides API from Phrase — 2 operation(s) for style guides.
-  humanURL: https://developers.phrase.com/api/
-  baseURL: https://api.phrase.com/v2
-  tags:
-  - Style Guides
-  tags_raw:
-  - Style guides
-  properties:
-  - type: OpenAPI
-    url: openapi/phrase-style-guides-api-openapi.yml
-  - type: Documentation
-    url: https://developers.phrase.com/api/
-  - type: Authentication
-    url: https://developers.phrase.com/api/#section/Authentication
-  - type: GettingStarted
-    url: https://help.phrase.com/help/phrase-in-your-coding-workflow
-  - type: GraphQL
-    url: graphql/phrase-graphql.md
 - aid: phrase:phrase-tags-api
   name: Phrase Tags API
   description: The Tags API from Phrase — 2 operation(s) for tags.
@@ -1296,6 +1276,24 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/phrase-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://developers.phrase.com/api/
+  - type: Authentication
+    url: https://developers.phrase.com/api/#section/Authentication
+  - type: GettingStarted
+    url: https://help.phrase.com/help/phrase-in-your-coding-workflow
+  - type: GraphQL
+    url: graphql/phrase-graphql.md
+- aid: phrase:phrase-styleguides-api
+  name: Phrase Styleguides API
+  description: The Styleguides API from Phrase — 2 operation(s) for styleguides.
+  humanURL: https://developers.phrase.com/api/
+  baseURL: https://api.phrase.com/v2
+  tags:
+  - Styleguides
+  properties:
+  - type: OpenAPI
+    url: openapi/phrase-styleguides-api-openapi.yml
   - type: Documentation
     url: https://developers.phrase.com/api/
   - type: Authentication

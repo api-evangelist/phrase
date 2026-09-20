@@ -1313,6 +1313,8 @@ apis:
   - type: GraphQL
     url: graphql/phrase-graphql.md
 common:
+- type: Plans
+  url: plans/phrase-plans-pricing.yml
 - type: CapabilityMap
   url: capabilities/phrase-capability-edges.yml
   name: Phrase Business Capability Map

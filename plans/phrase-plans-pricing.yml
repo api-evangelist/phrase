@@ -1,151 +1,66 @@
-specification: API Commons Plans
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: Phrase
-providerId: phrase
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Content Management
-  - Localization
-  - Translation
-  - Strings
-  - Internationalization
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://phrase.com/pricing/
+sources:
+- https://phrase.com/pricing/
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: tiered-subscription
+published: true
+note: Localization platform pricing with three plan families (Business, Developer & Designer, Freelancer
+  & LSP); currency selector offers USD/EUR/GBP/CZK — USD assumed default but not explicitly labeled in
+  price text. FAQ notes professional translation rates 'start at US$0.06 per word'.
+plan_count: 8
+currency: USD
 plans:
-  - id: phrase-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Phrase API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.phrase.com/v2
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.phrase.com/v2
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Phrase Strings API
-  - id: phrase-pro
-    name: Professional
-    type: paid
-    description: Production tier for Phrase. Provides higher quotas, priority support, and access to the
-      broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.phrase.com/v2
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.phrase.com/v2
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.phrase.com/v2
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Phrase Strings API
-  - id: phrase-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Phrase. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://api.phrase.com/v2
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://api.phrase.com/v2
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Phrase Strings API
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- name: Team
+  price_text: 1,245 per month billed annually
+  price: 1245
+  currency: USD
+  period: month
+  included_quota: Unlimited TMS Seats, 20 Strings Seats, All Phrase Products, Standard product capacities
+- name: Business
+  price_text: Custom
+  period: none
+  included_quota: Unlimited TMS Seats, 150 Strings Seats, All Phrase Products, High product capacities
+- name: Enterprise
+  price_text: Custom
+  period: none
+  included_quota: Unlimited TMS Seats, 150+ Strings Seats, Customized product capacities
+- name: Software UI/UX (Developer & Designer)
+  price_text: 525 per month billed annually
+  price: 525
+  currency: USD
+  period: month
+  included_quota: 15 Strings seats, 1M Strings Managed Words, Unlimited languages
+- name: Freelancer
+  price_text: 27 per month billed annually
+  price: 27
+  currency: USD
+  period: month
+  included_quota: 1 TMS Seat, No Strings Seats, 6 Phrase Products, Basic product capacities
+- name: Professional
+  price_text: 525 per month billed annually
+  price: 525
+  currency: USD
+  period: month
+  included_quota: Unlimited TMS Seats, 15 Strings Seats, All Phrase Products
+- name: Business (Freelancer & LSP)
+  price_text: Custom
+  period: none
+  included_quota: Unlimited TMS Seats, 150 Strings Seats
+- name: Enterprise (Freelancer & LSP)
+  price_text: Custom
+  period: none
+  included_quota: 150+ Strings Seats, Customized product capacities
+rate_limit_statements:
+- API async requests Phrase TMS 200 500 Custom
+- API requests Phrase Strings 500 1,000 Custom
+- OTA (over-the-air) requests for native SDK & web Phrase Strings 2,500,000 25,000,000 Custom
+- OTA (Over-the-air) MAU for mobile Phrase Strings 50,000 500,000 Custom
+- MT characters Phrase Strings 1,000,000 1,000,000 Custom
+- Executed Workflow Actions Phrase Orchestrator 30,000 100,000 Custom

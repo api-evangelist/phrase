@@ -1,0 +1,36 @@
+slug: phrase
+provider: Phrase
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Webhooks
+  spec_file: phrase-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.82
+  evidence: POST /projects/{project_id}/webhooks  webhook/create  Create a webhook; POST .../webhooks/{id}/test  Test
+    a webhook
+  reason: Operations are full CRUD plus test on outbound webhook subscriptions exposed to API consumers
+    of the Phrase platform, which is exactly lifecycle management of outbound webhook/event subscriptions
+    in a developer/API ecosystem. Not a business-domain capability of localization itself.
+- tag: Webhook Deliveries
+  spec_file: phrase-webhook-deliveries-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.78
+  evidence: POST /projects/{project_id}/webhooks/{webhook_id}/deliveries/{id}/redeliver  webhook_deliveries/redeliver  Redeliver
+    a single webhook delivery
+  reason: Inspection and redelivery of outbound webhook events maps directly to Webhook & Event Subscription
+    Management (event delivery reliability) in the SaaS developer-platform capability.

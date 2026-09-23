@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Phrase Strings API Reference Accounts Upload Batches API
+  title: Phrase Strings API Reference Upload Batches API
   version: 2.0.0
   description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
   contact:
@@ -31,9 +31,7 @@ paths:
       summary: Create upload batch
       description: 'Groups multiple file uploads into a single batch. Optionally, launches the deletion of unmentioned translation keys
 
-        after all uploads in the batch are completed.
-
-        '
+        after all uploads in the batch are completed.'
       operationId: upload_batches/create
       tags:
       - Upload Batches
@@ -93,28 +91,6 @@ paths:
         source: "phrase upload_batches create --project-id :project_id \\\n--data '{\n  \"branch\": \"my-feature-branch\",\n  \"delete_unmentioned_keys\": true,\n  \"upload_ids\": [\n    \"abcd1234cdef1234abcd1234cdef1234\",\n    \"bcde2345defg2345bcde2345defg2345\"\n  ]\n}' \\\n--access_token <token>"
 components:
   schemas:
-    project_short:
-      type: object
-      title: project_short
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        main_format:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        name: My Android Project
-        main_format: xml
-        created_at: '2015-01-28T09:52:53Z'
-        updated_at: '2015-01-28T09:52:53Z'
     upload:
       type: object
       title: upload
@@ -221,6 +197,28 @@ components:
         username: johndoe
         name: John Doe
         gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+    project_short:
+      type: object
+      title: project_short
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        main_format:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: My Android Project
+        main_format: xml
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
     upload_batch:
       type: object
       title: upload_batch
@@ -252,10 +250,6 @@ components:
             type: object
             $ref: '#/components/schemas/upload'
   headers:
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
     X-Rate-Limit-Remaining:
       description: The number of remaining requests in the current period
       schema:
@@ -264,16 +258,11 @@ components:
       description: The number of allowed requests in the current period
       schema:
         type: integer
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
   responses:
-    '429':
-      description: Rate Limiting
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
     '404':
       description: Not Found
       headers:
@@ -285,6 +274,15 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
     '400':
       description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '429':
+      description: Rate Limiting
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'

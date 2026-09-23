@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Phrase Strings API Reference Accounts Key's Figma attachments API
+  title: Phrase Strings API Reference Key's Figma attachments API
   version: 2.0.0
   description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
   contact:
@@ -29,7 +29,6 @@ paths:
   /projects/{project_id}/figma_attachments/{figma_attachment_id}/keys:
     post:
       summary: Attach the Figma attachment to a key
-      description: Attach the Figma attachment to a key
       operationId: figma_attachment/attach_to_key
       tags:
       - Key's Figma attachments
@@ -72,7 +71,6 @@ paths:
   /projects/{project_id}/figma_attachments/{figma_attachment_id}/keys/{id}:
     delete:
       summary: Detach the Figma attachment from a key
-      description: Detach the Figma attachment from a key
       operationId: figma_attachment/detach_from_key
       tags:
       - Key's Figma attachments
@@ -113,9 +111,39 @@ paths:
           --access_token <token>'
       x-cli-version: '2.13'
 components:
+  parameters:
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    figma_attachment_id:
+      in: path
+      name: figma_attachment_id
+      description: Figma attachment ID
+      required: true
+      schema:
+        type: string
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
   responses:
-    '429':
-      description: Rate Limiting
+    '204':
+      description: The resource was deleted successfully.
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'
@@ -141,8 +169,8 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Remaining'
         X-Rate-Limit-Reset:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '204':
-      description: The resource was deleted successfully.
+    '429':
+      description: Rate Limiting
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'
@@ -151,10 +179,6 @@ components:
         X-Rate-Limit-Reset:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
   headers:
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
     X-Rate-Limit-Remaining:
       description: The number of remaining requests in the current period
       schema:
@@ -163,36 +187,10 @@ components:
       description: The number of allowed requests in the current period
       schema:
         type: integer
-  parameters:
-    X-PhraseApp-OTP:
-      in: header
-      name: X-PhraseApp-OTP
-      description: Two-Factor-Authentication token (optional)
-      required: false
-      allowEmptyValue: false
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
       schema:
-        type: string
-    figma_attachment_id:
-      in: path
-      name: figma_attachment_id
-      description: Figma attachment ID
-      required: true
-      schema:
-        type: string
-    project_id:
-      in: path
-      name: project_id
-      description: Project ID
-      required: true
-      schema:
-        type: string
-    id:
-      in: path
-      name: id
-      description: ID
-      required: true
-      schema:
-        type: string
+        type: integer
   securitySchemes:
     Token:
       type: apiKey

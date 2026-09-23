@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Phrase Strings API Reference Accounts Repo Syncs API
+  title: Phrase Strings API Reference Repo Syncs API
   version: 2.0.0
   description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
   contact:
@@ -27,9 +27,7 @@ tags:
 - name: Repo Syncs
   description: 'The Repo Syncs API allows you to synchronize your Phrase projects with your code repositories.
 
-    You can import translations from your repository to Phrase and export translations from Phrase to your repository.
-
-    '
+    You can import translations from your repository to Phrase and export translations from Phrase to your repository.'
 paths:
   /accounts/{account_id}/repo_syncs:
     get:
@@ -444,46 +442,144 @@ paths:
           --access_token <token>'
       x-cli-version: '2.24'
 components:
+  responses:
+    '422':
+      description: Unprocessable entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errors'
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  headers:
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+  parameters:
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+    account_id:
+      in: path
+      name: account_id
+      description: Account ID
+      required: true
+      schema:
+        type: string
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
   schemas:
-    repo_sync_event:
+    errors:
       type: object
-      title: repo_sync_event
       properties:
-        id:
+        message:
           type: string
-        type:
-          type: string
-          enum:
-          - import
-          - export
-        created_at:
-          type: string
-          format: date-time
-        status:
-          type: string
-          enum:
-          - running
-          - success
-          - failure
-        pull_request_url:
-          type: string
-          description: URL of the pull request created on export
-        auto_import:
-          type: boolean
-          description: Whether the import was triggered by the repo push event
         errors:
-          description: List of error messages, in case of failure
           type: array
           items:
-            type: string
+            type: object
+            properties:
+              resource:
+                type: string
+              field:
+                type: string
+              message:
+                type: string
       example:
-        type: import
-        created_at: '2015-01-28T09:52:53Z'
-        status: failure
-        auto_import: true
+        message: Validation Failed
         errors:
-        - Error message 1
-        - Error message 2
+        - resource: Resource
+          field: name
+          message: can't be blank
     project_short:
       type: object
       title: project_short
@@ -546,143 +642,45 @@ components:
         created_at: '2015-01-28T09:52:53Z'
         last_import_at: '2015-01-28T09:52:53Z'
         last_export_at: '2015-01-28T09:52:53Z'
-    errors:
+    repo_sync_event:
       type: object
+      title: repo_sync_event
       properties:
-        message:
+        id:
           type: string
+        type:
+          type: string
+          enum:
+          - import
+          - export
+        created_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+          - running
+          - success
+          - failure
+        pull_request_url:
+          type: string
+          description: URL of the pull request created on export
+        auto_import:
+          type: boolean
+          description: Whether the import was triggered by the repo push event
         errors:
+          description: List of error messages, in case of failure
           type: array
           items:
-            type: object
-            properties:
-              resource:
-                type: string
-              field:
-                type: string
-              message:
-                type: string
+            type: string
       example:
-        message: Validation Failed
+        type: import
+        created_at: '2015-01-28T09:52:53Z'
+        status: failure
+        auto_import: true
         errors:
-        - resource: Resource
-          field: name
-          message: can't be blank
-  headers:
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
-    X-Rate-Limit-Remaining:
-      description: The number of remaining requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
-      schema:
-        type: integer
-    Link:
-      description: 'Links to related resources, in the format defined by
-
-        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
-
-        This will include a link with relation type `next` to the
-
-        next page, if there is a next page.'
-      schema:
-        type: string
-    Pagination:
-      description: Pagination details for navigating through a collection of resources, provided in JSON format.
-      schema:
-        type: object
-        properties:
-          total_count:
-            description: Total count of items in the collection.
-            type: integer
-            example: 10
-          total_pages_count:
-            description: Total number of pages available for the collection.
-            type: integer
-            example: 2
-          current_page:
-            description: The current page number.
-            type: integer
-            example: 1
-          current_per_page:
-            description: Number of items currently displayed per page.
-            type: integer
-            example: 5
-          previous_page:
-            description: Page number of the previous page, if available.
-            type: integer
-          next_page:
-            description: Page number of the next page, if available.
-            type: integer
-            example: 2
-  parameters:
-    id:
-      in: path
-      name: id
-      description: ID
-      required: true
-      schema:
-        type: string
-    X-PhraseApp-OTP:
-      in: header
-      name: X-PhraseApp-OTP
-      description: Two-Factor-Authentication token (optional)
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: string
-    account_id:
-      in: path
-      name: account_id
-      description: Account ID
-      required: true
-      schema:
-        type: string
-  responses:
-    '429':
-      description: Rate Limiting
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '422':
-      description: Unprocessable entity
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errors'
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '404':
-      description: Not Found
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '400':
-      description: Bad request
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
+        - Error message 1
+        - Error message 2
   securitySchemes:
     Token:
       type: apiKey

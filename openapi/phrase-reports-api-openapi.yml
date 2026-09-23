@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Phrase Strings API Reference Accounts Reports API
+  title: Phrase Strings API Reference Reports API
   version: 2.0.0
   description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
   contact:
@@ -135,49 +135,55 @@ paths:
           --access_token <token>'
       x-cli-version: '2.13'
 components:
+  parameters:
+    locale_codes:
+      in: query
+      name: locale_codes
+      description: Locale Code
+      required: false
+      schema:
+        type: string
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+    tag:
+      in: query
+      name: tag
+      description: tag
+      required: false
+      schema:
+        type: string
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
   schemas:
-    project_short:
-      type: object
-      title: project_short
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        main_format:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        name: My Android Project
-        main_format: xml
-        created_at: '2015-01-28T09:52:53Z'
-        updated_at: '2015-01-28T09:52:53Z'
-    project_report:
-      type: object
-      title: project report
-      properties:
-        locales_count:
-          type: integer
-        keys_count:
-          type: integer
-        translations_count:
-          type: integer
-        untranslated_keys_count:
-          type: integer
-        unverified_translations_count:
-          type: integer
-        reviewed_translations_count:
-          type: integer
-        managed_words_count:
-          type: integer
-        project:
-          $ref: '#/components/schemas/project_short'
     locale_report:
       type: object
       title: locale report
@@ -210,6 +216,28 @@ components:
           type: integer
         locale:
           $ref: '#/components/schemas/locale_preview'
+    project_short:
+      type: object
+      title: project_short
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        main_format:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: My Android Project
+        main_format: xml
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
     locale_preview:
       type: object
       title: locale_preview
@@ -224,11 +252,27 @@ components:
         id: abcd1234cdef1234abcd1234cdef1234
         name: English
         code: en-GB
+    project_report:
+      type: object
+      title: project report
+      properties:
+        locales_count:
+          type: integer
+        keys_count:
+          type: integer
+        translations_count:
+          type: integer
+        untranslated_keys_count:
+          type: integer
+        unverified_translations_count:
+          type: integer
+        reviewed_translations_count:
+          type: integer
+        managed_words_count:
+          type: integer
+        project:
+          $ref: '#/components/schemas/project_short'
   headers:
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
     X-Rate-Limit-Remaining:
       description: The number of remaining requests in the current period
       schema:
@@ -247,16 +291,11 @@ components:
         next page, if there is a next page.'
       schema:
         type: string
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
   responses:
-    '429':
-      description: Rate Limiting
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
     '404':
       description: Not Found
       headers:
@@ -275,54 +314,15 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Remaining'
         X-Rate-Limit-Reset:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
-  parameters:
-    X-PhraseApp-OTP:
-      in: header
-      name: X-PhraseApp-OTP
-      description: Two-Factor-Authentication token (optional)
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: string
-    tag:
-      in: query
-      name: tag
-      description: tag
-      required: false
-      schema:
-        type: string
-    locale_codes:
-      in: query
-      name: locale_codes
-      description: Locale Code
-      required: false
-      schema:
-        type: string
-    page:
-      in: query
-      name: page
-      description: Page number
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 1
-    per_page:
-      in: query
-      name: per_page
-      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 25
-    project_id:
-      in: path
-      name: project_id
-      description: Project ID
-      required: true
-      schema:
-        type: string
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
   securitySchemes:
     Token:
       type: apiKey

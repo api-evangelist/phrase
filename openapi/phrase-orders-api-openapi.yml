@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Phrase Strings API Reference Accounts Orders API
+  title: Phrase Strings API Reference Orders API
   version: 2.0.0
   description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
   contact:
@@ -25,7 +25,10 @@ security:
 - Basic: []
 tags:
 - name: Orders
-  description: "### List of categories [TextMaster]\n\nWhen ordering translations from TextMaster, you need to specify a category ID along with your order. See this list for information on the category ID and their equivalent description.\n\n<div class=\"table-responsive\">\n  <table class=\"basic-table\">\n    <thead>\n      <tr class=\"basic-table__row basic-table__row--header\">\n        <th class=\"basic-table__cell basic-table__cell--header\">Category ID</th>\n        <th class=\"basic-table__cell basic-table__cell--header\">Description</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr><td class=\"basic-table__cell\">C001</td><td class=\"basic-table__cell\">Agriculture</td></tr>\n      <tr><td class=\"basic-table__cell\">C002</td><td class=\"basic-table__cell\">Aerospace</td></tr>\n      <tr><td class=\"basic-table__cell\">C003</td><td class=\"basic-table__cell\">Animals/Pets/Plants</td></tr>\n      <tr><td class=\"basic-table__cell\">C004</td><td class=\"basic-table__cell\">Arts/Culture/Literature</td></tr>\n      <tr><td class=\"basic-table__cell\">C005</td><td class=\"basic-table__cell\">Automotive/Transportation</td></tr>\n      <tr><td class=\"basic-table__cell\">C006</td><td class=\"basic-table__cell\">Computers/Technology/Software</td></tr>\n      <tr><td class=\"basic-table__cell\">C007</td><td class=\"basic-table__cell\">Telecom</td></tr>\n      <tr><td class=\"basic-table__cell\">C008</td><td class=\"basic-table__cell\">Real Estate/Construction/Building</td></tr>\n      <tr><td class=\"basic-table__cell\">C009</td><td class=\"basic-table__cell\">Consumer Goods</td></tr>\n      <tr><td class=\"basic-table__cell\">C010</td><td class=\"basic-table__cell\">Education</td></tr>\n      <tr><td class=\"basic-table__cell\">C011</td><td class=\"basic-table__cell\">Entertainment</td></tr>\n      <tr><td class=\"basic-table__cell\">C012</td><td class=\"basic-table__cell\">Ecology/Environment</td></tr>\n      <tr><td class=\"basic-table__cell\">C013</td><td class=\"basic-table__cell\">Health/Biotechnology/Pharma</td></tr>\n      <tr><td class=\"basic-table__cell\">C014</td><td class=\"basic-table__cell\">Internet</td></tr>\n      <tr><td class=\"basic-table__cell\">C015</td><td class=\"basic-table__cell\">Policy/Government/Public</td></tr>\n      <tr><td class=\"basic-table__cell\">C016</td><td class=\"basic-table__cell\">Publishing/Media/Communication</td></tr>\n      <tr><td class=\"basic-table__cell\">C017</td><td class=\"basic-table__cell\">Religion</td></tr>\n      <tr><td class=\"basic-table__cell\">C018</td><td class=\"basic-table__cell\">Food/Beverages</td></tr>\n      <tr><td class=\"basic-table__cell\">C019</td><td class=\"basic-table__cell\">Retail</td></tr>\n      <tr><td class=\"basic-table__cell\">C020</td><td class=\"basic-table__cell\">Fashion/Luxury/Textiles</td></tr>\n      <tr><td class=\"basic-table__cell\">C021</td><td class=\"basic-table__cell\">Travel/Tourism</td></tr>\n      <tr><td class=\"basic-table__cell\">C022</td><td class=\"basic-table__cell\">Natural Resources/Energy</td></tr>\n      <tr><td class=\"basic-table__cell\">C023</td><td class=\"basic-table__cell\">Banking/Financial Services/Insurance</td></tr>\n      <tr><td class=\"basic-table__cell\">C024</td><td class=\"basic-table__cell\">Legal Affairs/Tax/Law</td></tr>\n      <tr><td class=\"basic-table__cell\">C025</td><td class=\"basic-table__cell\">Raw Materials/Industrial Goods</td></tr>\n      <tr><td class=\"basic-table__cell\">C026</td><td class=\"basic-table__cell\">Lifestyle/Leisure/Hobbies</td></tr>\n      <tr><td class=\"basic-table__cell\">C027</td><td class=\"basic-table__cell\">Sports</td></tr>\n      <tr><td class=\"basic-table__cell\">C028</td><td class=\"basic-table__cell\">Home/Family/Friends/Children</td></tr>\n      <tr><td class=\"basic-table__cell\">C029</td><td class=\"basic-table__cell\">Economy/Financial Markets</td></tr>\n      <tr><td class=\"basic-table__cell\">C030</td><td class=\"basic-table__cell\">Science</td></tr>\n      <tr><td class=\"basic-table__cell\">C031</td><td class=\"basic-table__cell\">Human Resources/Employment</td></tr>\n      <tr><td class=\"basic-table__cell\">C032</td><td class=\"basic-table__cell\">Adult (Pornography, Violence, etc.)</td></tr>\n    </tbody>\n  </table>\n</div>\n"
+  description: '### List of categories [TextMaster]
+
+
+    When ordering translations from TextMaster, you need to specify a category ID along with your order.'
 paths:
   /projects/{project_id}/orders:
     get:
@@ -347,66 +350,48 @@ paths:
                   example: my-feature-branch
       x-cli-version: '2.5'
 components:
-  responses:
-    '429':
-      description: Rate Limiting
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '204':
-      description: The resource was deleted successfully.
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '404':
-      description: Not Found
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '400':
-      description: Bad request
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-  headers:
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+  parameters:
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
       schema:
         type: integer
-    X-Rate-Limit-Remaining:
-      description: The number of remaining requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
-      schema:
-        type: integer
-    Link:
-      description: 'Links to related resources, in the format defined by
-
-        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
-
-        This will include a link with relation type `next` to the
-
-        next page, if there is a next page.'
+      example: 25
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
       schema:
         type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
+  headers:
     Pagination:
       description: Pagination details for navigating through a collection of resources, provided in JSON format.
       schema:
@@ -435,18 +420,66 @@ components:
             description: Page number of the next page, if available.
             type: integer
             example: 2
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+  responses:
+    '204':
+      description: The resource was deleted successfully.
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
   schemas:
-    styleguide_preview:
-      type: object
-      title: styleguide_preview
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        title: My Style Guide
     locale_preview:
       type: object
       title: locale_preview
@@ -534,47 +567,17 @@ components:
         priority: true
         created_at: '2015-01-28T09:52:53Z'
         updated_at: '2015-01-28T09:52:53Z'
-  parameters:
-    X-PhraseApp-OTP:
-      in: header
-      name: X-PhraseApp-OTP
-      description: Two-Factor-Authentication token (optional)
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: string
-    id:
-      in: path
-      name: id
-      description: ID
-      required: true
-      schema:
-        type: string
-    page:
-      in: query
-      name: page
-      description: Page number
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 1
-    per_page:
-      in: query
-      name: per_page
-      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 25
-    project_id:
-      in: path
-      name: project_id
-      description: Project ID
-      required: true
-      schema:
-        type: string
+    styleguide_preview:
+      type: object
+      title: styleguide_preview
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        title: My Style Guide
   securitySchemes:
     Token:
       type: apiKey

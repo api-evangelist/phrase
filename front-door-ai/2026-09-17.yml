@@ -1,0 +1,33 @@
+# Front Door AI Index — phrase — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: phrase
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: phrase.com
+  final_host: phrase.com
+  ownership: own
+  owner: phrase
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 36
+  host_score: 36
+  density: 15.1
+  words: 2384
+  tiers:
+    agentic: 11
+    core: 25
+    model: 0
+  ambiguous: 18
+  top_terms:
+    AI: 24
+    intelligence: 9
+    automation: 7
+    MCP: 5
+    conversational AI: 3
+    AI assistant: 2
+    agent: 2
+    LLMs: 1
+    agentic: 1

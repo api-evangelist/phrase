@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Phrase Strings API Reference Accounts Branches API
+  title: Phrase Strings API Reference Branches API
   version: 2.0.0
   description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
   contact:
@@ -25,7 +25,38 @@ security:
 - Basic: []
 tags:
 - name: Branches
-  description: "### Branch creation\n\nBranches will be created asynchronously. State of branch creation is returned as state.\n\n#### Available States\n\n<div class=\"table-responsive\">\n  <table class=\"basic-table\">\n    <thead>\n      <tr class=\"basic-table__row basic-table__row--header\">\n        <th class=\"basic-table__cell basic-table__cell--header\">State</th>\n        <th class=\"basic-table__cell basic-table__cell--header\">Description</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td class=\"basic-table__cell\"><code>initialized</code></td>\n        <td class=\"basic-table__cell\">Data received.</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>processing</code></td>\n        <td class=\"basic-table__cell\">Branch is currently creating.</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>success</code></td>\n        <td class=\"basic-table__cell\">Branch was created successfully</td>\n      </tr>\n      <tr>\n        <td class=\"basic-table__cell\"><code>error</code></td>\n        <td class=\"basic-table__cell\">Branch creation failed.</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
+  description: '### Branch creation
+
+
+    Branches will be created asynchronously. State of branch creation is returned as state.
+
+
+    #### Available States
+
+
+    State
+
+    Description
+
+
+    initialized
+
+    Data received.
+
+
+    processing
+
+    Branch is currently creating.
+
+
+    success
+
+    Branch was created successfully
+
+
+    error
+
+    Branch creation failed.'
 paths:
   /projects/{project_id}/branches:
     get:
@@ -80,9 +111,7 @@ paths:
       description: 'Create a new branch.
 
 
-        *Note: Creating a new branch may take several minutes depending on the project size.*
-
-        '
+        *Note: Creating a new branch may take several minutes depending on the project size.*'
       operationId: branch/create
       tags:
       - Branches
@@ -271,9 +300,7 @@ paths:
       description: 'Merge an existing branch.
 
 
-        *Note: Merging a branch may take several minutes depending on diff size.*
-
-        '
+        *Note: Merging a branch may take several minutes depending on diff size.*'
       operationId: branch/merge
       tags:
       - Branches
@@ -328,9 +355,7 @@ paths:
       description: 'Sync an existing branch.
 
 
-        *Note: Only available for branches created with new branching.*
-
-        '
+        *Note: Only available for branches created with new branching.*'
       operationId: branch/sync
       tags:
       - Branches
@@ -385,9 +410,7 @@ paths:
       description: 'Compare branch with main branch.
 
 
-        *Note: Comparing a branch may take several minutes depending on the project size. Consider using the `POST /compare` endpoint for creating comparison asynchronously.*
-
-        '
+        *Note: Comparing a branch may take several minutes depending on the project size. Consider using the `POST /compare` endpoint for creating comparison asynchronously.*'
       operationId: branch/compare
       tags:
       - Branches
@@ -436,9 +459,7 @@ paths:
       x-cli-version: '2.5'
     post:
       summary: Create comparison (async.)
-      description: 'Create a branch comparison asynchronously.
-
-        '
+      description: Create a branch comparison asynchronously.
       operationId: branch/comparison/create
       tags:
       - Branches
@@ -484,24 +505,6 @@ paths:
                   default: merge
 components:
   responses:
-    '429':
-      description: Rate Limiting
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '409':
-      description: Conflict
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
     '202':
       description: Accepted
       headers:
@@ -513,6 +516,15 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
     '204':
       description: The resource was deleted successfully.
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '409':
+      description: Conflict
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'
@@ -538,29 +550,16 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Remaining'
         X-Rate-Limit-Reset:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
   headers:
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
-    X-Rate-Limit-Remaining:
-      description: The number of remaining requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
-      schema:
-        type: integer
-    Link:
-      description: 'Links to related resources, in the format defined by
-
-        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
-
-        This will include a link with relation type `next` to the
-
-        next page, if there is a next page.'
-      schema:
-        type: string
     Pagination:
       description: Pagination details for navigating through a collection of resources, provided in JSON format.
       schema:
@@ -589,7 +588,47 @@ components:
             description: Page number of the next page, if available.
             type: integer
             example: 2
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
   parameters:
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
     X-PhraseApp-OTP:
       in: header
       name: X-PhraseApp-OTP
@@ -605,24 +644,6 @@ components:
       required: true
       schema:
         type: string
-    page:
-      in: query
-      name: page
-      description: Page number
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 1
-    per_page:
-      in: query
-      name: per_page
-      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 25
     project_id:
       in: path
       name: project_id

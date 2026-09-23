@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Phrase Strings API Reference Accounts Members API
+  title: Phrase Strings API Reference Members API
   version: 2.0.0
   description: Phrase Strings is a translation management platform for software projects. You can collaborate on language file translation with your team or order translations through our platform. The API allows you to import locale files, download locale files, tag keys or interact in other ways with the localization data stored in Phrase Strings for your account.
   contact:
@@ -25,9 +25,7 @@ security:
 - Basic: []
 tags:
 - name: Members
-  description: 'With the members endpoints you can do basic [team and user management](https://support.phrase.com/hc/en-us/articles/5709742418716) via API. A user can have the role Manager, Developer or Translator each with its own access rights. Developers and translators need resources like projects and locales assigned in order to access them.
-
-    '
+  description: With the members endpoints you can do basic team and user management via API. A user can have the role Manager, Developer or Translator each with its own access rights. Developers and translators need resources like projects and locales assigned in order to access them.
 paths:
   /accounts/{account_id}/members:
     get:
@@ -329,92 +327,154 @@ paths:
                   - abcd1234abcd1234abcd1235
       x-cli-version: '2.5'
 components:
+  responses:
+    '401':
+      description: Unauthorized
+    '204':
+      description: The resource was deleted successfully.
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '403':
+      description: Forbidden
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  parameters:
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    account_id:
+      in: path
+      name: account_id
+      description: Account ID
+      required: true
+      schema:
+        type: string
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+  headers:
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
   schemas:
-    member_project_detail:
-      type: object
-      title: member_project_detail
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-        username:
-          type: string
-        role:
-          type: string
-        projects:
-          type: array
-          items:
-            $ref: '#/components/schemas/project_locales'
-        permissions:
-          type: object
-        locale_ids:
-          type: array
-          items:
-            type: string
-        default_locale_codes:
-          type: array
-          items:
-            type: string
-        spaces:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              name:
-                type: string
-              created_at:
-                type: string
-                format: date-time
-              updated_at:
-                type: string
-                format: date-time
-              projects_count:
-                type: integer
-        project_roles:
-          type: array
-          items:
-            type: object
-            properties:
-              project_id:
-                type: string
-              role:
-                type: string
-      example:
-        id: acbdacbdacbdacbdacbdacbd
-        email: foo@bar.com
-        username: myname
-        role: Manager
-        projects:
-        - id: abcd1234cdef1234abcd1234cdef1234
-          name: My Android Project
-          main_format: xml
-          created_at: '2015-01-28T09:52:53Z'
-          updated_at: '2015-01-28T09:52:53Z'
-          locales:
-          - id: abcd1234cdef1234abcd1234cdef1234
-            name: English
-            code: en-Gb
-        permissions:
-        - create_upload: true
-          review_translations: true
-        locale_ids:
-        - abcd1234abcd1234abcd1234
-        - abcd1234abcd1234abcd1235
-        default_locale_codes:
-        - en
-        - fi
-        spaces:
-        - id: 04d36d845576b9d494d05e0b70fe813b
-          name: Space2
-          created_at: '2020-12-07T12:56:21Z'
-          updated_at: '2020-12-07T12:56:21Z'
-          projects_count: 1
-        project_roles:
-        - project_id: abcd1234cdef1234abcd1234cdef1234
-          role: Developer
     project_member_specific:
       type: object
       title: project_member_specific
@@ -523,6 +583,91 @@ components:
           created_at: '2020-12-07T12:56:21Z'
           updated_at: '2020-12-07T12:56:21Z'
           projects_count: 1
+    member_project_detail:
+      type: object
+      title: member_project_detail
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        username:
+          type: string
+        role:
+          type: string
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/project_locales'
+        permissions:
+          type: object
+        locale_ids:
+          type: array
+          items:
+            type: string
+        default_locale_codes:
+          type: array
+          items:
+            type: string
+        spaces:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              created_at:
+                type: string
+                format: date-time
+              updated_at:
+                type: string
+                format: date-time
+              projects_count:
+                type: integer
+        project_roles:
+          type: array
+          items:
+            type: object
+            properties:
+              project_id:
+                type: string
+              role:
+                type: string
+      example:
+        id: acbdacbdacbdacbdacbdacbd
+        email: foo@bar.com
+        username: myname
+        role: Manager
+        projects:
+        - id: abcd1234cdef1234abcd1234cdef1234
+          name: My Android Project
+          main_format: xml
+          created_at: '2015-01-28T09:52:53Z'
+          updated_at: '2015-01-28T09:52:53Z'
+          locales:
+          - id: abcd1234cdef1234abcd1234cdef1234
+            name: English
+            code: en-Gb
+        permissions:
+        - create_upload: true
+          review_translations: true
+        locale_ids:
+        - abcd1234abcd1234abcd1234
+        - abcd1234abcd1234abcd1235
+        default_locale_codes:
+        - en
+        - fi
+        spaces:
+        - id: 04d36d845576b9d494d05e0b70fe813b
+          name: Space2
+          created_at: '2020-12-07T12:56:21Z'
+          updated_at: '2020-12-07T12:56:21Z'
+          projects_count: 1
+        project_roles:
+        - project_id: abcd1234cdef1234abcd1234cdef1234
+          role: Developer
     team_short:
       type: object
       title: team_short
@@ -542,20 +687,6 @@ components:
         name: My first Team
         created_at: '2020-02-25T12:17:25Z'
         updated_at: '2020-03-13T14:46:57Z'
-    locale_preview:
-      type: object
-      title: locale_preview
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        code:
-          type: string
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        name: English
-        code: en-GB
     project_locales:
       allOf:
       - $ref: '#/components/schemas/project_member_specific'
@@ -571,153 +702,20 @@ components:
           - id: abcd1234cdef1234abcd1234cdef1234
             name: English
             code: en-GB
-  headers:
-    Pagination:
-      description: Pagination details for navigating through a collection of resources, provided in JSON format.
-      schema:
-        type: object
-        properties:
-          total_count:
-            description: Total count of items in the collection.
-            type: integer
-            example: 10
-          total_pages_count:
-            description: Total number of pages available for the collection.
-            type: integer
-            example: 2
-          current_page:
-            description: The current page number.
-            type: integer
-            example: 1
-          current_per_page:
-            description: Number of items currently displayed per page.
-            type: integer
-            example: 5
-          previous_page:
-            description: Page number of the previous page, if available.
-            type: integer
-          next_page:
-            description: Page number of the next page, if available.
-            type: integer
-            example: 2
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Remaining:
-      description: The number of remaining requests in the current period
-      schema:
-        type: integer
-    Link:
-      description: 'Links to related resources, in the format defined by
-
-        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
-
-        This will include a link with relation type `next` to the
-
-        next page, if there is a next page.'
-      schema:
-        type: string
-  responses:
-    '429':
-      description: Rate Limiting
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '400':
-      description: Bad request
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '204':
-      description: The resource was deleted successfully.
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '403':
-      description: Forbidden
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '404':
-      description: Not Found
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '401':
-      description: Unauthorized
-  parameters:
-    X-PhraseApp-OTP:
-      in: header
-      name: X-PhraseApp-OTP
-      description: Two-Factor-Authentication token (optional)
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: string
-    per_page:
-      in: query
-      name: per_page
-      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 25
-    id:
-      in: path
-      name: id
-      description: ID
-      required: true
-      schema:
-        type: string
-    account_id:
-      in: path
-      name: account_id
-      description: Account ID
-      required: true
-      schema:
-        type: string
-    project_id:
-      in: path
-      name: project_id
-      description: Project ID
-      required: true
-      schema:
-        type: string
-    page:
-      in: query
-      name: page
-      description: Page number
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 1
+    locale_preview:
+      type: object
+      title: locale_preview
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: English
+        code: en-GB
   securitySchemes:
     Token:
       type: apiKey

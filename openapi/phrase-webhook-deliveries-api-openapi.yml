@@ -175,7 +175,33 @@ paths:
           --access_token <token>'
       x-cli-version: '2.5'
 components:
+  schemas:
+    webhook_delivery:
+      type: object
+      title: webhook delivery
+      properties:
+        id:
+          type: string
+        webhook_id:
+          type: string
+        response_status_code:
+          type: integer
+        delivered_at:
+          type: string
+          format: date-time
+        duration_ms:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
   headers:
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
     Pagination:
       description: Pagination details for navigating through a collection of resources, provided in JSON format.
       schema:
@@ -208,8 +234,8 @@ components:
       description: The number of remaining requests in the current period
       schema:
         type: integer
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
       schema:
         type: integer
     Link:
@@ -222,18 +248,7 @@ components:
         next page, if there is a next page.'
       schema:
         type: string
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
   parameters:
-    id:
-      in: path
-      name: id
-      description: ID
-      required: true
-      schema:
-        type: string
     response_status_codes:
       in: query
       name: response_status_codes
@@ -245,6 +260,13 @@ components:
       in: path
       name: webhook_id
       description: Webhook ID
+      required: true
+      schema:
+        type: string
+    id:
+      in: path
+      name: id
+      description: ID
       required: true
       schema:
         type: string
@@ -263,38 +285,7 @@ components:
       required: true
       schema:
         type: string
-  schemas:
-    webhook_delivery:
-      type: object
-      title: webhook delivery
-      properties:
-        id:
-          type: string
-        webhook_id:
-          type: string
-        response_status_code:
-          type: integer
-        delivered_at:
-          type: string
-          format: date-time
-        duration_ms:
-          type: integer
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
   responses:
-    '404':
-      description: Not Found
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
     '400':
       description: Bad request
       headers:
@@ -306,6 +297,15 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
     '429':
       description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'

@@ -108,6 +108,15 @@ paths:
       x-cli-version: '2.5'
 components:
   parameters:
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
     per_page:
       in: query
       name: per_page
@@ -124,15 +133,6 @@ components:
       required: true
       schema:
         type: string
-    page:
-      in: query
-      name: page
-      description: Page number
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 1
     X-PhraseApp-OTP:
       in: header
       name: X-PhraseApp-OTP
@@ -149,6 +149,10 @@ components:
       schema:
         type: string
   headers:
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
     Pagination:
       description: Pagination details for navigating through a collection of resources, provided in JSON format.
       schema:
@@ -181,8 +185,8 @@ components:
       description: The number of remaining requests in the current period
       schema:
         type: integer
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
       schema:
         type: integer
     Link:
@@ -195,13 +199,9 @@ components:
         next page, if there is a next page.'
       schema:
         type: string
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
   responses:
-    '404':
-      description: Not Found
+    '200':
+      description: OK
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'
@@ -218,8 +218,8 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Remaining'
         X-Rate-Limit-Reset:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '200':
-      description: OK
+    '429':
+      description: Rate Limiting
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'
@@ -227,8 +227,8 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Remaining'
         X-Rate-Limit-Reset:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '429':
-      description: Rate Limiting
+    '404':
+      description: Not Found
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'

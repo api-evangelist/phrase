@@ -98,140 +98,7 @@ paths:
                   example: 25
       x-cli-version: '2.5'
 components:
-  headers:
-    Pagination:
-      description: Pagination details for navigating through a collection of resources, provided in JSON format.
-      schema:
-        type: object
-        properties:
-          total_count:
-            description: Total count of items in the collection.
-            type: integer
-            example: 10
-          total_pages_count:
-            description: Total number of pages available for the collection.
-            type: integer
-            example: 2
-          current_page:
-            description: The current page number.
-            type: integer
-            example: 1
-          current_per_page:
-            description: Number of items currently displayed per page.
-            type: integer
-            example: 5
-          previous_page:
-            description: Page number of the previous page, if available.
-            type: integer
-          next_page:
-            description: Page number of the next page, if available.
-            type: integer
-            example: 2
-    X-Rate-Limit-Remaining:
-      description: The number of remaining requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
   schemas:
-    space_short:
-      type: object
-      title: space
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        projects_count:
-          type: integer
-      example:
-        id: 2e7574e8f2372906a03110c2a7cfe671
-        name: My first space
-        created_at: '2020-02-25T12:17:25Z'
-        updated_at: '2020-03-13T14:46:57Z'
-        projects_count: 2
-    user_preview:
-      type: object
-      title: user_preview
-      properties:
-        id:
-          type: string
-        username:
-          type: string
-        name:
-          type: string
-        gravatar_uid:
-          type: string
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        username: johndoe
-        name: John Doe
-        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
-    translation:
-      type: object
-      title: translation
-      properties:
-        id:
-          type: string
-        content:
-          type: string
-          x-json-tag: json:"content"
-        unverified:
-          type: boolean
-        excluded:
-          type: boolean
-        plural_suffix:
-          type: string
-        key:
-          $ref: '#/components/schemas/key_preview'
-        locale:
-          $ref: '#/components/schemas/locale_preview'
-        placeholders:
-          type: array
-          items:
-            type: string
-        state:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        linked_translation:
-          $ref: '#/components/schemas/translation_parent'
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        content: My translation
-        unverified: false
-        excluded: false
-        plural_suffix: ''
-        key:
-          id: abcd1234cdef1234abcd1234cdef1234
-          name: home.index.headline
-          plural: false
-          use_ordinal_rules: false
-        locale:
-          id: abcd1234cdef1234abcd1234cdef1234
-          name: de
-          code: de-DE
-        placeholders:
-        - '%{count}'
-        state: translated
-        created_at: '2015-01-28T09:52:53Z'
-        updated_at: '2015-01-28T09:52:53Z'
     project:
       type: object
       title: project
@@ -270,45 +137,6 @@ components:
         space: space
         created_at: '2015-01-28T09:52:53Z'
         updated_at: '2015-01-28T09:52:53Z'
-    account:
-      type: object
-      title: account
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        slug:
-          type: string
-        company:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        company_logo_url:
-          type: string
-      example:
-        id: abcd1234
-        name: Company Account
-        slug: company_account
-        company: My Awesome Company
-        created_at: '2015-01-28T09:52:53Z'
-        updated_at: '2015-01-28T09:52:53Z'
-        company_logo_url: http://assets.example.com/company_logo.png
-    translation_parent:
-      type: object
-      title: translation_parent
-      properties:
-        id:
-          type: string
-        content:
-          type: string
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        content: My parent translation
     account_search_result:
       type: object
       title: account_search_result
@@ -411,6 +239,28 @@ components:
             id: abcd1234cdef1234abcd1234cdef1234
             name: English
             code: en_EN
+    space_short:
+      type: object
+      title: space
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        projects_count:
+          type: integer
+      example:
+        id: 2e7574e8f2372906a03110c2a7cfe671
+        name: My first space
+        created_at: '2020-02-25T12:17:25Z'
+        updated_at: '2020-03-13T14:46:57Z'
+        projects_count: 2
     key_preview:
       type: object
       title: key_preview
@@ -424,6 +274,59 @@ components:
         use_ordinal_rules:
           type: boolean
       example: null
+    translation:
+      type: object
+      title: translation
+      properties:
+        id:
+          type: string
+        content:
+          type: string
+          x-json-tag: json:"content"
+        unverified:
+          type: boolean
+        excluded:
+          type: boolean
+        plural_suffix:
+          type: string
+        key:
+          $ref: '#/components/schemas/key_preview'
+        locale:
+          $ref: '#/components/schemas/locale_preview'
+        placeholders:
+          type: array
+          items:
+            type: string
+        state:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        linked_translation:
+          $ref: '#/components/schemas/translation_parent'
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        content: My translation
+        unverified: false
+        excluded: false
+        plural_suffix: ''
+        key:
+          id: abcd1234cdef1234abcd1234cdef1234
+          name: home.index.headline
+          plural: false
+          use_ordinal_rules: false
+        locale:
+          id: abcd1234cdef1234abcd1234cdef1234
+          name: de
+          code: de-DE
+        placeholders:
+        - '%{count}'
+        state: translated
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
     locale_preview:
       type: object
       title: locale_preview
@@ -438,9 +341,106 @@ components:
         id: abcd1234cdef1234abcd1234cdef1234
         name: English
         code: en-GB
+    account:
+      type: object
+      title: account
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        company:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        company_logo_url:
+          type: string
+      example:
+        id: abcd1234
+        name: Company Account
+        slug: company_account
+        company: My Awesome Company
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+        company_logo_url: http://assets.example.com/company_logo.png
+    translation_parent:
+      type: object
+      title: translation_parent
+      properties:
+        id:
+          type: string
+        content:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        content: My parent translation
+    user_preview:
+      type: object
+      title: user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        gravatar_uid:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: johndoe
+        name: John Doe
+        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+  headers:
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
   responses:
-    '404':
-      description: Not Found
+    '400':
+      description: Bad request
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'
@@ -457,8 +457,8 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Remaining'
         X-Rate-Limit-Reset:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '400':
-      description: Bad request
+    '404':
+      description: Not Found
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'

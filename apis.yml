@@ -947,9 +947,11 @@ apis:
   humanURL: https://developers.phrase.com/api/
   baseURL: https://api.phrase.com/v2
   tags:
+  - Spaces
   - Space
   tags_raw:
   - Spaces
+  - Space
   properties:
   - type: OpenAPI
     url: openapi/phrase-spaces-api-openapi.yml
@@ -1186,8 +1188,6 @@ apis:
   humanURL: https://developers.phrase.com/api/
   baseURL: https://api.phrase.com/v2
   tags:
-  - Style Guides
-  tags_raw:
   - Styleguides
   properties:
   - type: OpenAPI

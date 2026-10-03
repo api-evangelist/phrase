@@ -98,45 +98,81 @@ paths:
                   example: 25
       x-cli-version: '2.5'
 components:
+  headers:
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
   schemas:
-    project:
+    space_short:
       type: object
-      title: project
+      title: space
       properties:
         id:
           type: string
         name:
           type: string
-        slug:
-          type: string
-        main_format:
-          type: string
-        project_image_url:
-          type: string
-        media:
-          type: string
-        account:
-          $ref: '#/components/schemas/account'
-        space:
-          $ref: '#/components/schemas/space_short'
-        point_of_contact:
-          $ref: '#/components/schemas/user_preview'
         created_at:
           type: string
           format: date-time
         updated_at:
           type: string
           format: date-time
+        projects_count:
+          type: integer
+      example:
+        id: 2e7574e8f2372906a03110c2a7cfe671
+        name: My first space
+        created_at: '2020-02-25T12:17:25Z'
+        updated_at: '2020-03-13T14:46:57Z'
+        projects_count: 2
+    translation_parent:
+      type: object
+      title: translation_parent
+      properties:
+        id:
+          type: string
+        content:
+          type: string
       example:
         id: abcd1234cdef1234abcd1234cdef1234
-        name: My Android Project
-        slug: android_project
-        main_format: xml
-        project_image_url: http://assets.example.com/project.png
-        account: account
-        space: space
-        created_at: '2015-01-28T09:52:53Z'
-        updated_at: '2015-01-28T09:52:53Z'
+        content: My parent translation
     account_search_result:
       type: object
       title: account_search_result
@@ -239,41 +275,6 @@ components:
             id: abcd1234cdef1234abcd1234cdef1234
             name: English
             code: en_EN
-    space_short:
-      type: object
-      title: space
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        projects_count:
-          type: integer
-      example:
-        id: 2e7574e8f2372906a03110c2a7cfe671
-        name: My first space
-        created_at: '2020-02-25T12:17:25Z'
-        updated_at: '2020-03-13T14:46:57Z'
-        projects_count: 2
-    key_preview:
-      type: object
-      title: key_preview
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        plural:
-          type: boolean
-        use_ordinal_rules:
-          type: boolean
-      example: null
     translation:
       type: object
       title: translation
@@ -369,17 +370,44 @@ components:
         created_at: '2015-01-28T09:52:53Z'
         updated_at: '2015-01-28T09:52:53Z'
         company_logo_url: http://assets.example.com/company_logo.png
-    translation_parent:
+    project:
       type: object
-      title: translation_parent
+      title: project
       properties:
         id:
           type: string
-        content:
+        name:
           type: string
+        slug:
+          type: string
+        main_format:
+          type: string
+        project_image_url:
+          type: string
+        media:
+          type: string
+        account:
+          $ref: '#/components/schemas/account'
+        space:
+          $ref: '#/components/schemas/space_short'
+        point_of_contact:
+          $ref: '#/components/schemas/user_preview'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
       example:
         id: abcd1234cdef1234abcd1234cdef1234
-        content: My parent translation
+        name: My Android Project
+        slug: android_project
+        main_format: xml
+        project_image_url: http://assets.example.com/project.png
+        account: account
+        space: space
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
     user_preview:
       type: object
       title: user_preview
@@ -397,47 +425,35 @@ components:
         username: johndoe
         name: John Doe
         gravatar_uid: 205e460b479e2e5b48aec07710c08d50
-  headers:
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
+    key_preview:
+      type: object
+      title: key_preview
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        plural:
+          type: boolean
+        use_ordinal_rules:
+          type: boolean
+      example: null
+  parameters:
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
       schema:
-        type: integer
-    Pagination:
-      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+        type: string
+    account_id:
+      in: path
+      name: account_id
+      description: Account ID
+      required: true
       schema:
-        type: object
-        properties:
-          total_count:
-            description: Total count of items in the collection.
-            type: integer
-            example: 10
-          total_pages_count:
-            description: Total number of pages available for the collection.
-            type: integer
-            example: 2
-          current_page:
-            description: The current page number.
-            type: integer
-            example: 1
-          current_per_page:
-            description: Number of items currently displayed per page.
-            type: integer
-            example: 5
-          previous_page:
-            description: Page number of the previous page, if available.
-            type: integer
-          next_page:
-            description: Page number of the next page, if available.
-            type: integer
-            example: 2
-    X-Rate-Limit-Remaining:
-      description: The number of remaining requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
+        type: string
   responses:
     '400':
       description: Bad request
@@ -466,22 +482,6 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Remaining'
         X-Rate-Limit-Reset:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
-  parameters:
-    X-PhraseApp-OTP:
-      in: header
-      name: X-PhraseApp-OTP
-      description: Two-Factor-Authentication token (optional)
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: string
-    account_id:
-      in: path
-      name: account_id
-      description: Account ID
-      required: true
-      schema:
-        type: string
   securitySchemes:
     Token:
       type: apiKey

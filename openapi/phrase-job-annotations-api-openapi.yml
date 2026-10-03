@@ -349,20 +349,33 @@ paths:
           --access_token <token>'
       x-cli-version: '2.43'
 components:
-  parameters:
-    branch:
-      name: branch
-      in: query
-      description: Branch to use
+  headers:
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
       schema:
-        type: string
-      example: my-feature-branch
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+  parameters:
     X-PhraseApp-OTP:
       in: header
       name: X-PhraseApp-OTP
       description: Two-Factor-Authentication token (optional)
       required: false
       allowEmptyValue: false
+      schema:
+        type: string
+    job_locale_id:
+      in: path
+      name: job_locale_id
+      description: Job Locale ID
+      required: true
       schema:
         type: string
     project_id:
@@ -379,26 +392,13 @@ components:
       required: true
       schema:
         type: string
-    job_locale_id:
-      in: path
-      name: job_locale_id
-      description: Job Locale ID
-      required: true
+    branch:
+      name: branch
+      in: query
+      description: Branch to use
       schema:
         type: string
-  headers:
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Remaining:
-      description: The number of remaining requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
+      example: my-feature-branch
   responses:
     '400':
       description: Bad request

@@ -351,6 +351,29 @@ paths:
       x-cli-version: '2.9'
 components:
   parameters:
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    custom_metadata_data_type:
+      in: query
+      name: data_type
+      description: Data Type of Custom Metadata Property
+      required: false
+      schema:
+        $ref: '#/components/schemas/data_type'
+      example: boolean
+    account_id:
+      in: path
+      name: account_id
+      description: Account ID
+      required: true
+      schema:
+        type: string
     per_page:
       in: query
       name: per_page
@@ -360,22 +383,6 @@ components:
       schema:
         type: integer
       example: 25
-    custom_metadata_data_type:
-      in: query
-      name: data_type
-      description: Data Type of Custom Metadata Property
-      required: false
-      schema:
-        $ref: '#/components/schemas/data_type'
-      example: boolean
-    X-PhraseApp-OTP:
-      in: header
-      name: X-PhraseApp-OTP
-      description: Two-Factor-Authentication token (optional)
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: string
     page:
       in: query
       name: page
@@ -392,82 +399,7 @@ components:
       required: true
       schema:
         type: string
-    account_id:
-      in: path
-      name: account_id
-      description: Account ID
-      required: true
-      schema:
-        type: string
-  responses:
-    '422':
-      description: Unprocessable entity
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errors'
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '204':
-      description: The resource was deleted successfully.
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '400':
-      description: Bad request
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '429':
-      description: Rate Limiting
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '404':
-      description: Not Found
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
   headers:
-    Link:
-      description: 'Links to related resources, in the format defined by
-
-        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
-
-        This will include a link with relation type `next` to the
-
-        next page, if there is a next page.'
-      schema:
-        type: string
-    X-Rate-Limit-Remaining:
-      description: The number of remaining requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
-      schema:
-        type: integer
     Pagination:
       description: Pagination details for navigating through a collection of resources, provided in JSON format.
       schema:
@@ -496,11 +428,51 @@ components:
             description: Page number of the next page, if available.
             type: integer
             example: 2
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
     X-Rate-Limit-Reset:
       description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
       schema:
         type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
   schemas:
+    project_short:
+      type: object
+      title: project_short
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        main_format:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: My Android Project
+        main_format: xml
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
     custom_metadata_property:
       type: object
       title: custom_metadata_property
@@ -550,6 +522,19 @@ components:
         - apple
         - banana
         - coconut
+    data_type:
+      type: string
+      description: data type of the property
+      enum:
+      - boolean
+      - date
+      - link
+      - multi_select
+      - number
+      - single_select
+      - string
+      - text
+      example: string
     errors:
       type: object
       properties:
@@ -572,28 +557,6 @@ components:
         - resource: Resource
           field: name
           message: can't be blank
-    project_short:
-      type: object
-      title: project_short
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        main_format:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        name: My Android Project
-        main_format: xml
-        created_at: '2015-01-28T09:52:53Z'
-        updated_at: '2015-01-28T09:52:53Z'
     user_preview:
       type: object
       title: user_preview
@@ -611,19 +574,56 @@ components:
         username: johndoe
         name: John Doe
         gravatar_uid: 205e460b479e2e5b48aec07710c08d50
-    data_type:
-      type: string
-      description: data type of the property
-      enum:
-      - boolean
-      - date
-      - link
-      - multi_select
-      - number
-      - single_select
-      - string
-      - text
-      example: string
+  responses:
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '422':
+      description: Unprocessable entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errors'
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '204':
+      description: The resource was deleted successfully.
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
   securitySchemes:
     Token:
       type: apiKey

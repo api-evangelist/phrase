@@ -135,27 +135,78 @@ paths:
           --access_token <token>'
       x-cli-version: '2.13'
 components:
+  parameters:
+    tag:
+      in: query
+      name: tag
+      description: tag
+      required: false
+      schema:
+        type: string
+    locale_codes:
+      in: query
+      name: locale_codes
+      description: Locale Code
+      required: false
+      schema:
+        type: string
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+  headers:
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
   schemas:
-    project_report:
-      type: object
-      title: project report
-      properties:
-        locales_count:
-          type: integer
-        keys_count:
-          type: integer
-        translations_count:
-          type: integer
-        untranslated_keys_count:
-          type: integer
-        unverified_translations_count:
-          type: integer
-        reviewed_translations_count:
-          type: integer
-        managed_words_count:
-          type: integer
-        project:
-          $ref: '#/components/schemas/project_short'
     project_short:
       type: object
       title: project_short
@@ -192,6 +243,26 @@ components:
         id: abcd1234cdef1234abcd1234cdef1234
         name: English
         code: en-GB
+    project_report:
+      type: object
+      title: project report
+      properties:
+        locales_count:
+          type: integer
+        keys_count:
+          type: integer
+        translations_count:
+          type: integer
+        untranslated_keys_count:
+          type: integer
+        unverified_translations_count:
+          type: integer
+        reviewed_translations_count:
+          type: integer
+        managed_words_count:
+          type: integer
+        project:
+          $ref: '#/components/schemas/project_short'
     locale_report:
       type: object
       title: locale report
@@ -224,77 +295,6 @@ components:
           type: integer
         locale:
           $ref: '#/components/schemas/locale_preview'
-  parameters:
-    page:
-      in: query
-      name: page
-      description: Page number
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 1
-    locale_codes:
-      in: query
-      name: locale_codes
-      description: Locale Code
-      required: false
-      schema:
-        type: string
-    per_page:
-      in: query
-      name: per_page
-      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 25
-    X-PhraseApp-OTP:
-      in: header
-      name: X-PhraseApp-OTP
-      description: Two-Factor-Authentication token (optional)
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: string
-    tag:
-      in: query
-      name: tag
-      description: tag
-      required: false
-      schema:
-        type: string
-    project_id:
-      in: path
-      name: project_id
-      description: Project ID
-      required: true
-      schema:
-        type: string
-  headers:
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Remaining:
-      description: The number of remaining requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
-    Link:
-      description: 'Links to related resources, in the format defined by
-
-        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
-
-        This will include a link with relation type `next` to the
-
-        next page, if there is a next page.'
-      schema:
-        type: string
   responses:
     '400':
       description: Bad request

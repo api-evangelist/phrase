@@ -797,28 +797,12 @@ paths:
                   - abcd1234cdef1234abcd1234cdef1234
 components:
   parameters:
-    omit_translation_keys:
-      in: query
-      name: omit_translation_keys
-      description: Omit translation keys in the response to reduce payload size for bigger jobs
-      required: false
-      schema:
-        type: boolean
-        default: false
-    per_page:
-      in: query
-      name: per_page
-      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
       required: false
       allowEmptyValue: false
-      schema:
-        type: integer
-      example: 25
-    job_assignee:
-      description: filter by user assigned to job
-      example: abcd1234cdef1234abcd1234cdef1234
-      name: assigned_to
-      in: query
       schema:
         type: string
     job_state:
@@ -828,6 +812,21 @@ components:
       in: query
       schema:
         type: string
+    job_assignee:
+      description: filter by user assigned to job
+      example: abcd1234cdef1234abcd1234cdef1234
+      name: assigned_to
+      in: query
+      schema:
+        type: string
+    omit_translation_keys:
+      in: query
+      name: omit_translation_keys
+      description: Omit translation keys in the response to reduce payload size for bigger jobs
+      required: false
+      schema:
+        type: boolean
+        default: false
     include_annotations:
       in: query
       name: include_annotations
@@ -836,26 +835,34 @@ components:
       schema:
         type: boolean
         default: false
-    X-PhraseApp-OTP:
-      in: header
-      name: X-PhraseApp-OTP
-      description: Two-Factor-Authentication token (optional)
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: string
-    job_updated_since:
-      description: filter by jobs updated since given date
-      example: '2013-02-21T00:00:00Z'
-      name: updated_since
-      in: query
-      schema:
-        type: string
     job_owner:
       description: filter by user owning job
       example: abcd1234cdef1234abcd1234cdef1234
       name: owned_by
       in: query
+      schema:
+        type: string
+    account_id:
+      in: path
+      name: account_id
+      description: Account ID
+      required: true
+      schema:
+        type: string
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
       schema:
         type: string
     page:
@@ -867,13 +874,13 @@ components:
       schema:
         type: integer
       example: 1
-    branch:
-      name: branch
+    job_updated_since:
+      description: filter by jobs updated since given date
+      example: '2013-02-21T00:00:00Z'
+      name: updated_since
       in: query
-      description: Branch to use
       schema:
         type: string
-      example: my-feature-branch
     id:
       in: path
       name: id
@@ -881,125 +888,65 @@ components:
       required: true
       schema:
         type: string
-    project_id:
-      in: path
-      name: project_id
-      description: Project ID
-      required: true
+    branch:
+      name: branch
+      in: query
+      description: Branch to use
       schema:
         type: string
-    account_id:
-      in: path
-      name: account_id
-      description: Account ID
-      required: true
+      example: my-feature-branch
+  headers:
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
       schema:
         type: string
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
   schemas:
-    key_preview:
-      type: object
-      title: key_preview
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        plural:
-          type: boolean
-        use_ordinal_rules:
-          type: boolean
-      example: null
-    project_short:
-      type: object
-      title: project_short
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        main_format:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        name: My Android Project
-        main_format: xml
-        created_at: '2015-01-28T09:52:53Z'
-        updated_at: '2015-01-28T09:52:53Z'
-    branch_name:
-      type: object
-      title: branch_name
-      properties:
-        name:
-          type: string
-      example:
-        name: new-branch
-    user_preview:
-      type: object
-      title: user_preview
-      properties:
-        id:
-          type: string
-        username:
-          type: string
-        name:
-          type: string
-        gravatar_uid:
-          type: string
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        username: johndoe
-        name: John Doe
-        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
-    job:
-      type: object
-      title: job
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        briefing:
-          type: string
-        due_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        state:
-          type: string
-        ticket_url:
-          type: string
-        project:
-          $ref: '#/components/schemas/project_short'
-        branch:
-          $ref: '#/components/schemas/branch_name'
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      example:
-        id: 626ea67628690c73ac86ac81eec2d185
-        name: Translations for new Feature
-        briefing: Some instructions for the translators
-        due_date: '2017-02-28T09:52:53Z'
-        state: completed
-        ticket_url: https://example.atlassian.net/browse/FOO
-        created_at: '2017-01-28T09:52:53Z'
-        updated_at: '2017-01-28T09:52:53Z'
-        project:
-          id: abcd1234cdef1234abcd1234cdef1234
-          name: My Android Project
-          main_format: xml
-          created_at: '2015-01-28T09:52:53Z'
-          updated_at: '2015-01-28T09:52:53Z'
     job_details:
       allOf:
       - $ref: '#/components/schemas/job'
@@ -1059,6 +1006,93 @@ components:
         id: abcd1234cdef1234abcd1234cdef1234
         name: English
         code: en-GB
+    key_preview:
+      type: object
+      title: key_preview
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        plural:
+          type: boolean
+        use_ordinal_rules:
+          type: boolean
+      example: null
+    project_short:
+      type: object
+      title: project_short
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        main_format:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: My Android Project
+        main_format: xml
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+    branch_name:
+      type: object
+      title: branch_name
+      properties:
+        name:
+          type: string
+      example:
+        name: new-branch
+    job:
+      type: object
+      title: job
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        briefing:
+          type: string
+        due_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        state:
+          type: string
+        ticket_url:
+          type: string
+        project:
+          $ref: '#/components/schemas/project_short'
+        branch:
+          $ref: '#/components/schemas/branch_name'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: 626ea67628690c73ac86ac81eec2d185
+        name: Translations for new Feature
+        briefing: Some instructions for the translators
+        due_date: '2017-02-28T09:52:53Z'
+        state: completed
+        ticket_url: https://example.atlassian.net/browse/FOO
+        created_at: '2017-01-28T09:52:53Z'
+        updated_at: '2017-01-28T09:52:53Z'
+        project:
+          id: abcd1234cdef1234abcd1234cdef1234
+          name: My Android Project
+          main_format: xml
+          created_at: '2015-01-28T09:52:53Z'
+          updated_at: '2015-01-28T09:52:53Z'
     job_annotation_short:
       type: object
       title: job_annotation
@@ -1073,60 +1107,26 @@ components:
       example:
         name: priority
         value: high
-  headers:
-    Link:
-      description: 'Links to related resources, in the format defined by
-
-        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
-
-        This will include a link with relation type `next` to the
-
-        next page, if there is a next page.'
-      schema:
-        type: string
-    X-Rate-Limit-Remaining:
-      description: The number of remaining requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
-      schema:
-        type: integer
-    Pagination:
-      description: Pagination details for navigating through a collection of resources, provided in JSON format.
-      schema:
-        type: object
-        properties:
-          total_count:
-            description: Total count of items in the collection.
-            type: integer
-            example: 10
-          total_pages_count:
-            description: Total number of pages available for the collection.
-            type: integer
-            example: 2
-          current_page:
-            description: The current page number.
-            type: integer
-            example: 1
-          current_per_page:
-            description: Number of items currently displayed per page.
-            type: integer
-            example: 5
-          previous_page:
-            description: Page number of the previous page, if available.
-            type: integer
-          next_page:
-            description: Page number of the next page, if available.
-            type: integer
-            example: 2
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
+    user_preview:
+      type: object
+      title: user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        gravatar_uid:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: johndoe
+        name: John Doe
+        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
   responses:
-    '204':
-      description: The resource was deleted successfully.
+    '429':
+      description: Rate Limiting
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'
@@ -1143,8 +1143,8 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Remaining'
         X-Rate-Limit-Reset:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '429':
-      description: Rate Limiting
+    '204':
+      description: The resource was deleted successfully.
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'

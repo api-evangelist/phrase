@@ -553,161 +553,6 @@ components:
         created_at: '2020-02-25T12:17:25Z'
         updated_at: '2020-03-13T14:46:57Z'
         projects_count: 2
-    account:
-      type: object
-      title: account
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        slug:
-          type: string
-        company:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        company_logo_url:
-          type: string
-      example:
-        id: abcd1234
-        name: Company Account
-        slug: company_account
-        company: My Awesome Company
-        created_at: '2015-01-28T09:52:53Z'
-        updated_at: '2015-01-28T09:52:53Z'
-        company_logo_url: http://assets.example.com/company_logo.png
-    team:
-      type: object
-      title: team
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        projects:
-          type: array
-          items:
-            $ref: '#/components/schemas/project'
-        spaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/space_short'
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/user_preview'
-      example:
-        id: 2e7574e8f2372906a03110c2a7cfe671
-        name: My first Team
-        created_at: '2020-02-25T12:17:25Z'
-        updated_at: '2020-03-13T14:46:57Z'
-        projects:
-        - id: abcd11231fadef1234adacd1234cdef1234
-          name: My IOS Project
-          main_format: yml
-          created_at: '2015-01-28T09:52:53Z'
-          updated_at: '2015-01-28T09:52:53Z'
-        spaces:
-        - id: 626ea67628690c73ac86ac81eec2d185
-          name: IOS
-          created_at: '2015-01-28T09:52:53Z'
-          updated_at: '2015-01-28T09:52:53Z'
-          projects_count: 3
-        users:
-        - id: 3465jhkjhk3465hjjkhl346hklk3456kl
-          username: Max
-          name: Max Mustermann
-    user-2:
-      type: object
-      title: user
-      properties:
-        id:
-          type: string
-        username:
-          type: string
-        name:
-          type: string
-        position:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        username: joe.doe
-        name: Joe Doe
-        position: Lead Developer
-        created_at: '2015-01-28T09:52:53Z'
-        updated_at: '2015-01-28T09:52:53Z'
-    project:
-      type: object
-      title: project
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        slug:
-          type: string
-        main_format:
-          type: string
-        project_image_url:
-          type: string
-        media:
-          type: string
-        account:
-          $ref: '#/components/schemas/account'
-        space:
-          $ref: '#/components/schemas/space_short'
-        point_of_contact:
-          $ref: '#/components/schemas/user_preview'
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        name: My Android Project
-        slug: android_project
-        main_format: xml
-        project_image_url: http://assets.example.com/project.png
-        account: account
-        space: space
-        created_at: '2015-01-28T09:52:53Z'
-        updated_at: '2015-01-28T09:52:53Z'
-    user_preview:
-      type: object
-      title: user_preview
-      properties:
-        id:
-          type: string
-        username:
-          type: string
-        name:
-          type: string
-        gravatar_uid:
-          type: string
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        username: johndoe
-        name: John Doe
-        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
     team_detail:
       type: object
       title: team
@@ -758,7 +603,184 @@ components:
           position: Developer
           created_at: '2015-01-28T09:52:53Z'
           updated_at: '2015-01-28T09:52:53Z'
+    team:
+      type: object
+      title: team
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/project'
+        spaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/space_short'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/user_preview'
+      example:
+        id: 2e7574e8f2372906a03110c2a7cfe671
+        name: My first Team
+        created_at: '2020-02-25T12:17:25Z'
+        updated_at: '2020-03-13T14:46:57Z'
+        projects:
+        - id: abcd11231fadef1234adacd1234cdef1234
+          name: My IOS Project
+          main_format: yml
+          created_at: '2015-01-28T09:52:53Z'
+          updated_at: '2015-01-28T09:52:53Z'
+        spaces:
+        - id: 626ea67628690c73ac86ac81eec2d185
+          name: IOS
+          created_at: '2015-01-28T09:52:53Z'
+          updated_at: '2015-01-28T09:52:53Z'
+          projects_count: 3
+        users:
+        - id: 3465jhkjhk3465hjjkhl346hklk3456kl
+          username: Max
+          name: Max Mustermann
+    project:
+      type: object
+      title: project
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        main_format:
+          type: string
+        project_image_url:
+          type: string
+        media:
+          type: string
+        account:
+          $ref: '#/components/schemas/account'
+        space:
+          $ref: '#/components/schemas/space_short'
+        point_of_contact:
+          $ref: '#/components/schemas/user_preview'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: My Android Project
+        slug: android_project
+        main_format: xml
+        project_image_url: http://assets.example.com/project.png
+        account: account
+        space: space
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+    account:
+      type: object
+      title: account
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        company:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        company_logo_url:
+          type: string
+      example:
+        id: abcd1234
+        name: Company Account
+        slug: company_account
+        company: My Awesome Company
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
+        company_logo_url: http://assets.example.com/company_logo.png
+    user_preview:
+      type: object
+      title: user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        gravatar_uid:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: johndoe
+        name: John Doe
+        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+    user-2:
+      type: object
+      title: user
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        position:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: joe.doe
+        name: Joe Doe
+        position: Lead Developer
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
   parameters:
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    team_id:
+      in: path
+      name: team_id
+      description: Team ID
+      required: true
+      schema:
+        type: string
+    account_id:
+      in: path
+      name: account_id
+      description: Account ID
+      required: true
+      schema:
+        type: string
     per_page:
       in: query
       name: per_page
@@ -768,21 +790,6 @@ components:
       schema:
         type: integer
       example: 25
-    team_id:
-      in: path
-      name: team_id
-      description: Team ID
-      required: true
-      schema:
-        type: string
-    X-PhraseApp-OTP:
-      in: header
-      name: X-PhraseApp-OTP
-      description: Two-Factor-Authentication token (optional)
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: string
     page:
       in: query
       name: page
@@ -799,32 +806,7 @@ components:
       required: true
       schema:
         type: string
-    account_id:
-      in: path
-      name: account_id
-      description: Account ID
-      required: true
-      schema:
-        type: string
   headers:
-    Link:
-      description: 'Links to related resources, in the format defined by
-
-        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
-
-        This will include a link with relation type `next` to the
-
-        next page, if there is a next page.'
-      schema:
-        type: string
-    X-Rate-Limit-Remaining:
-      description: The number of remaining requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
-      schema:
-        type: integer
     Pagination:
       description: Pagination details for navigating through a collection of resources, provided in JSON format.
       schema:
@@ -853,13 +835,31 @@ components:
             description: Page number of the next page, if available.
             type: integer
             example: 2
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
     X-Rate-Limit-Reset:
       description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
       schema:
         type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
   responses:
-    '204':
-      description: The resource was deleted successfully.
+    '429':
+      description: Rate Limiting
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'
@@ -876,8 +876,8 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Remaining'
         X-Rate-Limit-Reset:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '429':
-      description: Rate Limiting
+    '204':
+      description: The resource was deleted successfully.
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'

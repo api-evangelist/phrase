@@ -350,56 +350,17 @@ paths:
           --access_token <token>'
       x-cli-version: '2.9'
 components:
-  parameters:
-    X-PhraseApp-OTP:
-      in: header
-      name: X-PhraseApp-OTP
-      description: Two-Factor-Authentication token (optional)
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: string
-    custom_metadata_data_type:
-      in: query
-      name: data_type
-      description: Data Type of Custom Metadata Property
-      required: false
-      schema:
-        $ref: '#/components/schemas/data_type'
-      example: boolean
-    account_id:
-      in: path
-      name: account_id
-      description: Account ID
-      required: true
-      schema:
-        type: string
-    per_page:
-      in: query
-      name: per_page
-      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 25
-    page:
-      in: query
-      name: page
-      description: Page number
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 1
-    id:
-      in: path
-      name: id
-      description: ID
-      required: true
-      schema:
-        type: string
   headers:
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
     Pagination:
       description: Pagination details for navigating through a collection of resources, provided in JSON format.
       schema:
@@ -428,28 +389,67 @@ components:
             description: Page number of the next page, if available.
             type: integer
             example: 2
-    Link:
-      description: 'Links to related resources, in the format defined by
-
-        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
-
-        This will include a link with relation type `next` to the
-
-        next page, if there is a next page.'
-      schema:
-        type: string
     X-Rate-Limit-Reset:
       description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
       schema:
         type: integer
     X-Rate-Limit-Remaining:
       description: The number of remaining requests in the current period
       schema:
         type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+  parameters:
+    account_id:
+      in: path
+      name: account_id
+      description: Account ID
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    custom_metadata_data_type:
+      in: query
+      name: data_type
+      description: Data Type of Custom Metadata Property
+      required: false
+      schema:
+        $ref: '#/components/schemas/data_type'
+      example: boolean
   schemas:
     project_short:
       type: object
@@ -473,6 +473,19 @@ components:
         main_format: xml
         created_at: '2015-01-28T09:52:53Z'
         updated_at: '2015-01-28T09:52:53Z'
+    data_type:
+      type: string
+      description: data type of the property
+      enum:
+      - boolean
+      - date
+      - link
+      - multi_select
+      - number
+      - single_select
+      - string
+      - text
+      example: string
     custom_metadata_property:
       type: object
       title: custom_metadata_property
@@ -522,19 +535,23 @@ components:
         - apple
         - banana
         - coconut
-    data_type:
-      type: string
-      description: data type of the property
-      enum:
-      - boolean
-      - date
-      - link
-      - multi_select
-      - number
-      - single_select
-      - string
-      - text
-      example: string
+    user_preview:
+      type: object
+      title: user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        gravatar_uid:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: johndoe
+        name: John Doe
+        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
     errors:
       type: object
       properties:
@@ -557,23 +574,6 @@ components:
         - resource: Resource
           field: name
           message: can't be blank
-    user_preview:
-      type: object
-      title: user_preview
-      properties:
-        id:
-          type: string
-        username:
-          type: string
-        name:
-          type: string
-        gravatar_uid:
-          type: string
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        username: johndoe
-        name: John Doe
-        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
   responses:
     '429':
       description: Rate Limiting
@@ -584,8 +584,17 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Remaining'
         X-Rate-Limit-Reset:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '400':
-      description: Bad request
+    '204':
+      description: The resource was deleted successfully.
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'
@@ -606,17 +615,8 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Remaining'
         X-Rate-Limit-Reset:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '204':
-      description: The resource was deleted successfully.
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '404':
-      description: Not Found
+    '400':
+      description: Bad request
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'

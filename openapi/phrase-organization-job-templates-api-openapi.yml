@@ -276,11 +276,129 @@ paths:
           --access_token <token>'
       x-cli-version: 2.7.0
 components:
-  headers:
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+  parameters:
+    account_id:
+      in: path
+      name: account_id
+      description: Account ID
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
       schema:
         type: integer
+      example: 1
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+  schemas:
+    locale_preview:
+      type: object
+      title: locale_preview
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: English
+        code: en-GB
+    organization_job_template:
+      type: object
+      title: organization_job_template
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        briefing:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: 626ea67628690c73ac86ac81eec2d185
+        name: template
+        briefing: text
+        created_at: '2017-01-28T09:52:53Z'
+        updated_at: '2017-01-28T09:52:53Z'
+    organization_job_template_details:
+      allOf:
+      - $ref: '#/components/schemas/organization_job_template'
+      - type: object
+        title: organization_job_template_details
+        properties:
+          owner:
+            $ref: '#/components/schemas/user_preview'
+          creator:
+            $ref: '#/components/schemas/user_preview'
+          locales:
+            type: array
+            items:
+              $ref: '#/components/schemas/locale_preview'
+        example:
+          owner:
+            id: abcd1234cdef1234abcd1234cdef1234
+            username: joe.doe
+            name: Joe Doe
+          creator:
+            id: abcd1234cdef1234abcd1234cdef1234
+            username: joe.doe
+            name: Joe Doe
+          locales:
+          - id: abcd1234cdef1234abcd1234cdef1234
+            name: English
+            code: en-GB
+    user_preview:
+      type: object
+      title: user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        gravatar_uid:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: johndoe
+        name: John Doe
+        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+  headers:
     Pagination:
       description: Pagination details for navigating through a collection of resources, provided in JSON format.
       schema:
@@ -309,8 +427,12 @@ components:
             description: Page number of the next page, if available.
             type: integer
             example: 2
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
       schema:
         type: integer
     Link:
@@ -323,135 +445,13 @@ components:
         next page, if there is a next page.'
       schema:
         type: string
-    X-Rate-Limit-Remaining:
-      description: The number of remaining requests in the current period
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
       schema:
         type: integer
-  schemas:
-    organization_job_template_details:
-      allOf:
-      - $ref: '#/components/schemas/organization_job_template'
-      - type: object
-        title: organization_job_template_details
-        properties:
-          owner:
-            $ref: '#/components/schemas/user_preview'
-          creator:
-            $ref: '#/components/schemas/user_preview'
-          locales:
-            type: array
-            items:
-              $ref: '#/components/schemas/locale_preview'
-        example:
-          owner:
-            id: abcd1234cdef1234abcd1234cdef1234
-            username: joe.doe
-            name: Joe Doe
-          creator:
-            id: abcd1234cdef1234abcd1234cdef1234
-            username: joe.doe
-            name: Joe Doe
-          locales:
-          - id: abcd1234cdef1234abcd1234cdef1234
-            name: English
-            code: en-GB
-    organization_job_template:
-      type: object
-      title: organization_job_template
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        briefing:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      example:
-        id: 626ea67628690c73ac86ac81eec2d185
-        name: template
-        briefing: text
-        created_at: '2017-01-28T09:52:53Z'
-        updated_at: '2017-01-28T09:52:53Z'
-    locale_preview:
-      type: object
-      title: locale_preview
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        code:
-          type: string
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        name: English
-        code: en-GB
-    user_preview:
-      type: object
-      title: user_preview
-      properties:
-        id:
-          type: string
-        username:
-          type: string
-        name:
-          type: string
-        gravatar_uid:
-          type: string
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        username: johndoe
-        name: John Doe
-        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
-  parameters:
-    X-PhraseApp-OTP:
-      in: header
-      name: X-PhraseApp-OTP
-      description: Two-Factor-Authentication token (optional)
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: string
-    account_id:
-      in: path
-      name: account_id
-      description: Account ID
-      required: true
-      schema:
-        type: string
-    per_page:
-      in: query
-      name: per_page
-      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 25
-    id:
-      in: path
-      name: id
-      description: ID
-      required: true
-      schema:
-        type: string
-    page:
-      in: query
-      name: page
-      description: Page number
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 1
   responses:
-    '400':
-      description: Bad request
+    '429':
+      description: Rate Limiting
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'
@@ -468,8 +468,8 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Remaining'
         X-Rate-Limit-Reset:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '429':
-      description: Rate Limiting
+    '404':
+      description: Not Found
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'
@@ -477,8 +477,8 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Remaining'
         X-Rate-Limit-Reset:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '404':
-      description: Not Found
+    '400':
+      description: Bad request
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'

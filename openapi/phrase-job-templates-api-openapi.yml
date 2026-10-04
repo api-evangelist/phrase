@@ -318,99 +318,61 @@ paths:
           --access_token <token>'
       x-cli-version: '2.5'
 components:
-  parameters:
-    X-PhraseApp-OTP:
-      in: header
-      name: X-PhraseApp-OTP
-      description: Two-Factor-Authentication token (optional)
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: string
-    per_page:
-      in: query
-      name: per_page
-      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 25
-    project_id:
-      in: path
-      name: project_id
-      description: Project ID
-      required: true
-      schema:
-        type: string
-    page:
-      in: query
-      name: page
-      description: Page number
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 1
-    id:
-      in: path
-      name: id
-      description: ID
-      required: true
-      schema:
-        type: string
-  headers:
-    Pagination:
-      description: Pagination details for navigating through a collection of resources, provided in JSON format.
-      schema:
-        type: object
-        properties:
-          total_count:
-            description: Total count of items in the collection.
-            type: integer
-            example: 10
-          total_pages_count:
-            description: Total number of pages available for the collection.
-            type: integer
-            example: 2
-          current_page:
-            description: The current page number.
-            type: integer
-            example: 1
-          current_per_page:
-            description: Number of items currently displayed per page.
-            type: integer
-            example: 5
-          previous_page:
-            description: Page number of the previous page, if available.
-            type: integer
-          next_page:
-            description: Page number of the next page, if available.
-            type: integer
-            example: 2
-    Link:
-      description: 'Links to related resources, in the format defined by
-
-        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
-
-        This will include a link with relation type `next` to the
-
-        next page, if there is a next page.'
-      schema:
-        type: string
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Remaining:
-      description: The number of remaining requests in the current period
-      schema:
-        type: integer
   schemas:
+    job_template:
+      type: object
+      title: job_template
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        briefing:
+          type: string
+        project:
+          $ref: '#/components/schemas/project_short'
+        branch:
+          $ref: '#/components/schemas/branch_name'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: 626ea67628690c73ac86ac81eec2d185
+        name: template
+        briefing: text
+        created_at: '2017-01-28T09:52:53Z'
+        updated_at: '2017-01-28T09:52:53Z'
+        project:
+          id: abcd1234cdef1234abcd1234cdef1234
+          name: My Android Project
+          main_format: xml
+          created_at: '2015-01-28T09:52:53Z'
+          updated_at: '2015-01-28T09:52:53Z'
+    project_short:
+      type: object
+      title: project_short
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        main_format:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: My Android Project
+        main_format: xml
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
     locale_preview:
       type: object
       title: locale_preview
@@ -452,28 +414,6 @@ components:
           - id: abcd1234cdef1234abcd1234cdef1234
             name: English
             code: en-GB
-    project_short:
-      type: object
-      title: project_short
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        main_format:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        name: My Android Project
-        main_format: xml
-        created_at: '2015-01-28T09:52:53Z'
-        updated_at: '2015-01-28T09:52:53Z'
     branch_name:
       type: object
       title: branch_name
@@ -482,38 +422,6 @@ components:
           type: string
       example:
         name: new-branch
-    job_template:
-      type: object
-      title: job_template
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        briefing:
-          type: string
-        project:
-          $ref: '#/components/schemas/project_short'
-        branch:
-          $ref: '#/components/schemas/branch_name'
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      example:
-        id: 626ea67628690c73ac86ac81eec2d185
-        name: template
-        briefing: text
-        created_at: '2017-01-28T09:52:53Z'
-        updated_at: '2017-01-28T09:52:53Z'
-        project:
-          id: abcd1234cdef1234abcd1234cdef1234
-          name: My Android Project
-          main_format: xml
-          created_at: '2015-01-28T09:52:53Z'
-          updated_at: '2015-01-28T09:52:53Z'
     user_preview:
       type: object
       title: user_preview
@@ -531,18 +439,101 @@ components:
         username: johndoe
         name: John Doe
         gravatar_uid: 205e460b479e2e5b48aec07710c08d50
+  headers:
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+  parameters:
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
   responses:
     '429':
       description: Rate Limiting
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '400':
-      description: Bad request
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'
@@ -561,6 +552,15 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
     '404':
       description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'

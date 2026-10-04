@@ -152,71 +152,7 @@ paths:
         '422':
           $ref: '#/components/responses/422'
 components:
-  headers:
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Remaining:
-      description: The number of remaining requests in the current period
-      schema:
-        type: integer
-  parameters:
-    X-PhraseApp-OTP:
-      in: header
-      name: X-PhraseApp-OTP
-      description: Two-Factor-Authentication token (optional)
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: string
-    project_id:
-      in: path
-      name: project_id
-      description: Project ID
-      required: true
-      schema:
-        type: string
-    key_id_as_id:
-      in: path
-      name: id
-      description: Parent Translation Key ID
-      required: true
-      schema:
-        type: string
   schemas:
-    key_link:
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date-time
-          description: The timestamp when the link was created.
-        updated_at:
-          type: string
-          format: date-time
-          description: The timestamp when the link was last updated.
-        created_by:
-          $ref: '#/components/schemas/user_preview'
-          description: The user who created the link.
-        updated_by:
-          $ref: '#/components/schemas/user_preview'
-          description: The user who last updated the link.
-        account:
-          $ref: '#/components/schemas/account'
-          description: The account associated with the link.
-        parent:
-          $ref: '#/components/schemas/key_preview'
-          description: The parent translation key in the link.
-        children:
-          type: array
-          items:
-            $ref: '#/components/schemas/key_preview'
-          description: The child translation keys linked to the parent.
     account:
       type: object
       title: account
@@ -245,6 +181,47 @@ components:
         created_at: '2015-01-28T09:52:53Z'
         updated_at: '2015-01-28T09:52:53Z'
         company_logo_url: http://assets.example.com/company_logo.png
+    key_preview:
+      type: object
+      title: key_preview
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        plural:
+          type: boolean
+        use_ordinal_rules:
+          type: boolean
+      example: null
+    key_link:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          description: The timestamp when the link was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: The timestamp when the link was last updated.
+        created_by:
+          $ref: '#/components/schemas/user_preview'
+          description: The user who created the link.
+        updated_by:
+          $ref: '#/components/schemas/user_preview'
+          description: The user who last updated the link.
+        account:
+          $ref: '#/components/schemas/account'
+          description: The account associated with the link.
+        parent:
+          $ref: '#/components/schemas/key_preview'
+          description: The parent translation key in the link.
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/key_preview'
+          description: The child translation keys linked to the parent.
     user_preview:
       type: object
       title: user_preview
@@ -262,19 +239,6 @@ components:
         username: johndoe
         name: John Doe
         gravatar_uid: 205e460b479e2e5b48aec07710c08d50
-    key_preview:
-      type: object
-      title: key_preview
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        plural:
-          type: boolean
-        use_ordinal_rules:
-          type: boolean
-      example: null
     errors:
       type: object
       properties:
@@ -297,6 +261,42 @@ components:
         - resource: Resource
           field: name
           message: can't be blank
+  parameters:
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
+    key_id_as_id:
+      in: path
+      name: id
+      description: Parent Translation Key ID
+      required: true
+      schema:
+        type: string
+  headers:
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
   responses:
     '422':
       description: Unprocessable entity

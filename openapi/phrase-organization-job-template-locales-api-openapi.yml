@@ -340,129 +340,14 @@ paths:
           --access_token <token>'
       x-cli-version: 2.7.0
 components:
-  parameters:
-    X-PhraseApp-OTP:
-      in: header
-      name: X-PhraseApp-OTP
-      description: Two-Factor-Authentication token (optional)
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: string
-    job_template_locale_id:
-      in: path
-      name: job_template_locale_id
-      description: Job Template Locale ID
-      required: true
-      schema:
-        type: string
-    job_template_id:
-      in: path
-      name: job_template_id
-      description: Job Template ID
-      required: true
-      schema:
-        type: string
-    account_id:
-      in: path
-      name: account_id
-      description: Account ID
-      required: true
-      schema:
-        type: string
-    per_page:
-      in: query
-      name: per_page
-      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 25
-    page:
-      in: query
-      name: page
-      description: Page number
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 1
-  headers:
-    Pagination:
-      description: Pagination details for navigating through a collection of resources, provided in JSON format.
-      schema:
-        type: object
-        properties:
-          total_count:
-            description: Total count of items in the collection.
-            type: integer
-            example: 10
-          total_pages_count:
-            description: Total number of pages available for the collection.
-            type: integer
-            example: 2
-          current_page:
-            description: The current page number.
-            type: integer
-            example: 1
-          current_per_page:
-            description: Number of items currently displayed per page.
-            type: integer
-            example: 5
-          previous_page:
-            description: Page number of the previous page, if available.
-            type: integer
-          next_page:
-            description: Page number of the next page, if available.
-            type: integer
-            example: 2
-    Link:
-      description: 'Links to related resources, in the format defined by
-
-        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
-
-        This will include a link with relation type `next` to the
-
-        next page, if there is a next page.'
-      schema:
-        type: string
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Remaining:
-      description: The number of remaining requests in the current period
-      schema:
-        type: integer
   schemas:
-    locale_preview:
+    job_template_preview:
       type: object
-      title: locale_preview
+      title: job_template_preview
       properties:
         id:
           type: string
         name:
-          type: string
-        code:
-          type: string
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        name: English
-        code: en-GB
-    locale_team_preview:
-      type: object
-      title: locale_team_preview
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        role:
           type: string
       example: null
     job_template_locale:
@@ -514,27 +399,133 @@ components:
         role:
           type: string
       example: null
-    job_template_preview:
+    locale_preview:
       type: object
-      title: job_template_preview
+      title: locale_preview
       properties:
         id:
           type: string
         name:
           type: string
+        code:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: English
+        code: en-GB
+    locale_team_preview:
+      type: object
+      title: locale_team_preview
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
       example: null
+  headers:
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
+    Pagination:
+      description: Pagination details for navigating through a collection of resources, provided in JSON format.
+      schema:
+        type: object
+        properties:
+          total_count:
+            description: Total count of items in the collection.
+            type: integer
+            example: 10
+          total_pages_count:
+            description: Total number of pages available for the collection.
+            type: integer
+            example: 2
+          current_page:
+            description: The current page number.
+            type: integer
+            example: 1
+          current_per_page:
+            description: Number of items currently displayed per page.
+            type: integer
+            example: 5
+          previous_page:
+            description: Page number of the previous page, if available.
+            type: integer
+          next_page:
+            description: Page number of the next page, if available.
+            type: integer
+            example: 2
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+  parameters:
+    account_id:
+      in: path
+      name: account_id
+      description: Account ID
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      description: Page number
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 1
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    job_template_locale_id:
+      in: path
+      name: job_template_locale_id
+      description: Job Template Locale ID
+      required: true
+      schema:
+        type: string
+    job_template_id:
+      in: path
+      name: job_template_id
+      description: Job Template ID
+      required: true
+      schema:
+        type: string
   responses:
     '429':
       description: Rate Limiting
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '400':
-      description: Bad request
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'
@@ -553,6 +544,15 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
     '404':
       description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
       headers:
         X-Rate-Limit-Limit:
           $ref: '#/components/headers/X-Rate-Limit-Limit'

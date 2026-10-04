@@ -90,66 +90,29 @@ paths:
       - lang: CLI v2
         source: "phrase upload_batches create --project-id :project_id \\\n--data '{\n  \"branch\": \"my-feature-branch\",\n  \"delete_unmentioned_keys\": true,\n  \"upload_ids\": [\n    \"abcd1234cdef1234abcd1234cdef1234\",\n    \"bcde2345defg2345bcde2345defg2345\"\n  ]\n}' \\\n--access_token <token>"
 components:
-  headers:
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
-      schema:
-        type: integer
-    X-Rate-Limit-Remaining:
-      description: The number of remaining requests in the current period
-      schema:
-        type: integer
-  parameters:
-    X-PhraseApp-OTP:
-      in: header
-      name: X-PhraseApp-OTP
-      description: Two-Factor-Authentication token (optional)
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: string
-    project_id:
-      in: path
-      name: project_id
-      description: Project ID
-      required: true
-      schema:
-        type: string
   schemas:
-    upload_batch:
+    project_short:
       type: object
-      title: upload_batch
+      title: project_short
       properties:
-        state:
+        id:
           type: string
-          description: Processing state of the upload batch
-          enum:
-          - started
-          - done
-        delete_unmentioned_keys:
-          type: boolean
-          description: Indicates whether unmentioned keys will be deleted after processing all uploads in the batch
+        name:
+          type: string
+        main_format:
+          type: string
         created_at:
           type: string
           format: date-time
         updated_at:
           type: string
           format: date-time
-        project:
-          type: object
-          $ref: '#/components/schemas/project_short'
-        user:
-          type: object
-          $ref: '#/components/schemas/user_preview'
-        uploads:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/upload'
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        name: My Android Project
+        main_format: xml
+        created_at: '2015-01-28T09:52:53Z'
+        updated_at: '2015-01-28T09:52:53Z'
     upload:
       type: object
       title: upload
@@ -239,6 +202,36 @@ components:
           gravatar_uid: 205e460b479e2e5b48aec07710c08d50
         created_at: '2015-01-28T09:52:53Z'
         updated_at: '2015-01-28T09:52:53Z'
+    upload_batch:
+      type: object
+      title: upload_batch
+      properties:
+        state:
+          type: string
+          description: Processing state of the upload batch
+          enum:
+          - started
+          - done
+        delete_unmentioned_keys:
+          type: boolean
+          description: Indicates whether unmentioned keys will be deleted after processing all uploads in the batch
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        project:
+          type: object
+          $ref: '#/components/schemas/project_short'
+        user:
+          type: object
+          $ref: '#/components/schemas/user_preview'
+        uploads:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/upload'
     user_preview:
       type: object
       title: user_preview
@@ -256,38 +249,23 @@ components:
         username: johndoe
         name: John Doe
         gravatar_uid: 205e460b479e2e5b48aec07710c08d50
-    project_short:
-      type: object
-      title: project_short
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        main_format:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        name: My Android Project
-        main_format: xml
-        created_at: '2015-01-28T09:52:53Z'
-        updated_at: '2015-01-28T09:52:53Z'
+  parameters:
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
   responses:
-    '400':
-      description: Bad request
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
     '429':
       description: Rate Limiting
       headers:
@@ -306,6 +284,28 @@ components:
           $ref: '#/components/headers/X-Rate-Limit-Remaining'
         X-Rate-Limit-Reset:
           $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  headers:
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
+      schema:
+        type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
   securitySchemes:
     Token:
       type: apiKey

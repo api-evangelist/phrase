@@ -1,0 +1,12 @@
+{
+ "url": "https://developers.phrase.com/openapi/phrase-strings.json",
+ "requested_url": "https://developers.phrase.com/openapi/phrase-strings.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 1208508,
+ "sha256": "24be092fc05c47b98a01c715fa85bbd0df21ea8b8ff187d17f1fd4a76fcc665c",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.953), but the bytes differ, so the archive is an earlier or reformatted copy."
+}

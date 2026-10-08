@@ -69,3 +69,66 @@ rate_limit_statements:
 - OTA (Over-the-air) MAU for mobile Phrase Strings 50,000 500,000 Custom
 - MT characters Phrase Strings 1,000,000 1,000,000 Custom
 - Executed Workflow Actions Phrase Orchestrator 30,000 100,000 Custom
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units: []
+  plans:
+  - name: Team
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Business
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Software UI/UX (Developer & Designer)
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Freelancer
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Professional
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Business (Freelancer & LSP)
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Enterprise (Freelancer & LSP)
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none

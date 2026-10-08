@@ -1199,6 +1199,10 @@ apis:
   - type: GettingStarted
     url: https://help.phrase.com/help/phrase-in-your-coding-workflow
 common:
+- type: RateLimits
+  url: rate-limits/phrase-rate-limits.yml
+- type: FinOps
+  url: finops/phrase-finops.yml
 - url: https://phrase.com/blog/
   type: Blog
 - url: https://phrase.com/feed/podcasts/in-other-words/

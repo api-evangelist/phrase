@@ -1,9 +1,12 @@
 generated: '2026-10-14'
 method: searched
 checked:
+- contentful/integrations/contentful-integration-edges.yml
 - https://github.com/marketplace?type=actions
 - https://registry.modelcontextprotocol.io/v0/servers
+- sanity/integrations/sanity-integration-edges.yml
 - unity/integrations/unity-integration-edges.yml
+- wordpress/integrations/wordpress-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: GitHub Marketplace (actions)
@@ -73,5 +76,55 @@ edges:
   category: Unity Verified Solutions
   publisher_verified:
   - Unity Verified Solution
+- partner_name: Contentful (own)
+  partner: contentful
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.contentful.com/marketplace/phrase-tms/
+  mirror_of: contentful/integrations/contentful-integration-edges.yml
+  apps:
+  - Phrase TMS
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+- partner_name: Sanity (own)
+  partner: sanity
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.sanity.io/technology-partners/phrase
+  mirror_of: sanity/integrations/sanity-integration-edges.yml
+  apps:
+  - Phrase
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: Sanity technology partner
+- partner_name: WordPress (own)
+  partner: wordpress
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://wordpress.org/plugins/memsource-connector/
+  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
+  apps:
+  - Phrase TMS Integration for WordPress
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: WordPress plugin
 source:
 - https://github.com/marketplace?type=actions

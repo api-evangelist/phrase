@@ -70,7 +70,7 @@
     app_slug: phrase
     beta: false
     builder: unknown (not in the directory record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: phrase-pipedream
   label: Pipedream
@@ -96,7 +96,7 @@
     actions: true
     sources: true
     builder: Pipedream repo (component)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: phrase-contentful-own
   label: Contentful (own)

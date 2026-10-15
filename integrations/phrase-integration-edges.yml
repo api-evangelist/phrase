@@ -3,6 +3,7 @@ method: searched
 checked:
 - https://github.com/marketplace?type=actions
 - https://registry.modelcontextprotocol.io/v0/servers
+- unity/integrations/unity-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: GitHub Marketplace (actions)
@@ -53,5 +54,24 @@ edges:
   - remote-domain
   detected_by: sweep-agent-tools.py
   first_seen: '2026-10-14'
+- partner_name: Unity (own)
+  partner: unity
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://assetstore.unity.com/packages/tools/localization/phrase-a-better-way-to-localize-games-294442
+  mirror_of: unity/integrations/unity-integration-edges.yml
+  apps:
+  - Phrase
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: Unity Verified Solutions
+  publisher_verified:
+  - Unity Verified Solution
 source:
 - https://github.com/marketplace?type=actions

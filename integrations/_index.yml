@@ -31,6 +31,19 @@
     registered_name: io.github.phrase/mcp
     register_id: io.github.phrase/mcp
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-14'
+    detected: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-unity-own
+  label: Unity (own)
+  partner: unity
+  partner_name: Unity (own)
+  category: Unity Verified Solutions
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://assetstore.unity.com/packages/tools/localization/phrase-a-better-way-to-localize-games-294442
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null

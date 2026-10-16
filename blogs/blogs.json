@@ -1,0 +1,21 @@
+{
+  "repo": "phrase",
+  "feeds": [
+    {
+      "source": "https://phrase.com/blog/",
+      "feed_url": "https://phrase.com/blog/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
+      "source": "https://phrase.com/feed/podcasts/in-other-words/",
+      "feed_url": "https://phrase.com/feed/podcasts/in-other-words/",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-10-10T13:15:00Z"
+}

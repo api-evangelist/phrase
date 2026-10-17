@@ -341,6 +341,19 @@ paths:
       x-cli-version: 2.7.0
 components:
   schemas:
+    locale_user_preview:
+      type: object
+      title: locale_user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+      example: null
     job_template_preview:
       type: object
       title: job_template_preview
@@ -386,19 +399,6 @@ components:
           id: abcd1234cdef1234abcd1234cdef1234
           name: English
           code: en-GB
-    locale_user_preview:
-      type: object
-      title: locale_user_preview
-      properties:
-        id:
-          type: string
-        username:
-          type: string
-        name:
-          type: string
-        role:
-          type: string
-      example: null
     locale_preview:
       type: object
       title: locale_preview
@@ -424,17 +424,44 @@ components:
         role:
           type: string
       example: null
+  responses:
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '204':
+      description: The resource was deleted successfully.
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
   headers:
-    Link:
-      description: 'Links to related resources, in the format defined by
-
-        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
-
-        This will include a link with relation type `next` to the
-
-        next page, if there is a next page.'
-      schema:
-        type: string
     Pagination:
       description: Pagination details for navigating through a collection of resources, provided in JSON format.
       schema:
@@ -467,19 +494,45 @@ components:
       description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
       schema:
         type: integer
-    X-Rate-Limit-Remaining:
-      description: The number of remaining requests in the current period
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
       schema:
-        type: integer
+        type: string
     X-Rate-Limit-Limit:
       description: The number of allowed requests in the current period
       schema:
         type: integer
+    X-Rate-Limit-Remaining:
+      description: The number of remaining requests in the current period
+      schema:
+        type: integer
   parameters:
-    account_id:
+    per_page:
+      in: query
+      name: per_page
+      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: integer
+      example: 25
+    job_template_id:
       in: path
-      name: account_id
-      description: Account ID
+      name: job_template_id
+      description: Job Template ID
+      required: true
+      schema:
+        type: string
+    job_template_locale_id:
+      in: path
+      name: job_template_locale_id
+      description: Job Template Locale ID
       required: true
       schema:
         type: string
@@ -492,6 +545,13 @@ components:
       schema:
         type: integer
       example: 1
+    account_id:
+      in: path
+      name: account_id
+      description: Account ID
+      required: true
+      schema:
+        type: string
     X-PhraseApp-OTP:
       in: header
       name: X-PhraseApp-OTP
@@ -500,66 +560,6 @@ components:
       allowEmptyValue: false
       schema:
         type: string
-    per_page:
-      in: query
-      name: per_page
-      description: Limit on the number of objects to be returned, between 1 and 100. 25 by default
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: integer
-      example: 25
-    job_template_locale_id:
-      in: path
-      name: job_template_locale_id
-      description: Job Template Locale ID
-      required: true
-      schema:
-        type: string
-    job_template_id:
-      in: path
-      name: job_template_id
-      description: Job Template ID
-      required: true
-      schema:
-        type: string
-  responses:
-    '429':
-      description: Rate Limiting
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '204':
-      description: The resource was deleted successfully.
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '404':
-      description: Not Found
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '400':
-      description: Bad request
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
   securitySchemes:
     Token:
       type: apiKey

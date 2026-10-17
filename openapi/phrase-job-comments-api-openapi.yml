@@ -296,88 +296,21 @@ paths:
                   example: my-feature-branch
       x-cli-version: '2.5'
 components:
-  parameters:
-    branch:
-      name: branch
-      in: query
-      description: Branch to use
-      schema:
-        type: string
-      example: my-feature-branch
-    project_id:
-      in: path
-      name: project_id
-      description: Project ID
-      required: true
-      schema:
-        type: string
-    key_id:
-      in: path
-      name: key_id
-      description: Translation Key ID
-      required: true
-      schema:
-        type: string
-    id:
-      in: path
-      name: id
-      description: ID
-      required: true
-      schema:
-        type: string
-    job_id:
-      in: path
-      name: job_id
-      description: Job ID
-      required: true
-      schema:
-        type: string
-    X-PhraseApp-OTP:
-      in: header
-      name: X-PhraseApp-OTP
-      description: Two-Factor-Authentication token (optional)
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: string
-  responses:
-    '429':
-      description: Rate Limiting
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '204':
-      description: The resource was deleted successfully.
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '404':
-      description: Not Found
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
-    '400':
-      description: Bad request
-      headers:
-        X-Rate-Limit-Limit:
-          $ref: '#/components/headers/X-Rate-Limit-Limit'
-        X-Rate-Limit-Remaining:
-          $ref: '#/components/headers/X-Rate-Limit-Remaining'
-        X-Rate-Limit-Reset:
-          $ref: '#/components/headers/X-Rate-Limit-Reset'
   headers:
+    X-Rate-Limit-Limit:
+      description: The number of allowed requests in the current period
+      schema:
+        type: integer
+    Link:
+      description: 'Links to related resources, in the format defined by
+
+        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
+
+        This will include a link with relation type `next` to the
+
+        next page, if there is a next page.'
+      schema:
+        type: string
     Pagination:
       description: Pagination details for navigating through a collection of resources, provided in JSON format.
       schema:
@@ -406,29 +339,113 @@ components:
             description: Page number of the next page, if available.
             type: integer
             example: 2
-    X-Rate-Limit-Reset:
-      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
-      schema:
-        type: integer
-    Link:
-      description: 'Links to related resources, in the format defined by
-
-        [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5).
-
-        This will include a link with relation type `next` to the
-
-        next page, if there is a next page.'
-      schema:
-        type: string
     X-Rate-Limit-Remaining:
       description: The number of remaining requests in the current period
       schema:
         type: integer
-    X-Rate-Limit-Limit:
-      description: The number of allowed requests in the current period
+    X-Rate-Limit-Reset:
+      description: Timestamp of end of current time period as UNIX timestamp, see [Rate Limiting](/en/api/strings/pagination#rate-limiting)
       schema:
         type: integer
+  responses:
+    '400':
+      description: Bad request
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '204':
+      description: The resource was deleted successfully.
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '429':
+      description: Rate Limiting
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+    '404':
+      description: Not Found
+      headers:
+        X-Rate-Limit-Limit:
+          $ref: '#/components/headers/X-Rate-Limit-Limit'
+        X-Rate-Limit-Remaining:
+          $ref: '#/components/headers/X-Rate-Limit-Remaining'
+        X-Rate-Limit-Reset:
+          $ref: '#/components/headers/X-Rate-Limit-Reset'
+  parameters:
+    project_id:
+      in: path
+      name: project_id
+      description: Project ID
+      required: true
+      schema:
+        type: string
+    job_id:
+      in: path
+      name: job_id
+      description: Job ID
+      required: true
+      schema:
+        type: string
+    key_id:
+      in: path
+      name: key_id
+      description: Translation Key ID
+      required: true
+      schema:
+        type: string
+    id:
+      in: path
+      name: id
+      description: ID
+      required: true
+      schema:
+        type: string
+    X-PhraseApp-OTP:
+      in: header
+      name: X-PhraseApp-OTP
+      description: Two-Factor-Authentication token (optional)
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+    branch:
+      name: branch
+      in: query
+      description: Branch to use
+      schema:
+        type: string
+      example: my-feature-branch
   schemas:
+    user_preview:
+      type: object
+      title: user_preview
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        gravatar_uid:
+          type: string
+      example:
+        id: abcd1234cdef1234abcd1234cdef1234
+        username: johndoe
+        name: John Doe
+        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
     job_comment:
       type: object
       title: job_comment
@@ -461,23 +478,6 @@ components:
           name: Joe Doe
         created_at: '2015-01-28T09:52:53Z'
         updated_at: '2015-01-28T09:52:53Z'
-    user_preview:
-      type: object
-      title: user_preview
-      properties:
-        id:
-          type: string
-        username:
-          type: string
-        name:
-          type: string
-        gravatar_uid:
-          type: string
-      example:
-        id: abcd1234cdef1234abcd1234cdef1234
-        username: johndoe
-        name: John Doe
-        gravatar_uid: 205e460b479e2e5b48aec07710c08d50
   securitySchemes:
     Token:
       type: apiKey

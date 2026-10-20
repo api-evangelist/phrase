@@ -162,3 +162,1259 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: phrase-gala-globalization-and-localization-association
+  label: GALA (Globalization and Localization Association)
+  partner_name: GALA (Globalization and Localization Association)
+  category: language-industry association
+  type: register
+  channel: standard-directory
+  evidence: https://www.gala-global.org/member-directory/phrase
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: GALA member directory (gala-global.org/member-directory)
+    standard: null
+    spec_file: null
+    role: gala-member
+    registered_name: Phrase
+    register_id: https://www.gala-global.org/member-directory/phrase
+    member_type: Find a Member
+    matched_domain: phrase.com
+    matched_by: domain
+    signal_note: 'participation only: a language-industry association lists its members; it certifies nothing'
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-akeneo
+  label: Akeneo
+  partner: akeneo
+  partner_name: Akeneo
+  category: Content management (CMS)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/akeneo/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Akeneo
+    matched_domain: akeneo.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Akeneo
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q21125716 'Akeneo' P856 http://www.akeneo.com (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-amazon-bedrock
+  label: Amazon Bedrock
+  partner: amazon-bedrock
+  partner_name: Amazon Bedrock
+  category: Developer tools
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/amazon-bedrock/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Amazon Bedrock
+    matched_domain: amazon.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Amazon Bedrock
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q124052638 'Amazon Bedrock' P856 https://aws.amazon.com/bedrock/ (wikidata P856, labelled
+      provenance step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-amazon-comprehend
+  label: Amazon Comprehend
+  partner: amazon-comprehend
+  partner_name: Amazon Comprehend
+  category: Developer tools
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/amazon-comprehend/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Amazon Comprehend
+    matched_domain: amazon.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Amazon Comprehend
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q110644161 'Amazon Comprehend' P856 https://aws.amazon.com/comprehend/ (wikidata P856,
+      labelled provenance step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-amazon-polly
+  label: Amazon Polly
+  partner: amazon-polly
+  partner_name: Amazon Polly
+  category: Developer tools
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/amazon-polly/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Amazon Polly
+    matched_domain: amazon.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Amazon Polly
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q60744926 'Amazon Polly' P856 https://aws.amazon.com/polly/ (wikidata P856, labelled
+      provenance step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-brandfolder
+  label: Brandfolder
+  partner: brandfolder
+  partner_name: Brandfolder
+  category: Multimedia
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/brandfolder/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Brandfolder
+    matched_domain: brandfolder.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Brandfolder
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q30640493 'Brandfolder' P856 http://brandfolder.com/ (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-bynder
+  label: Bynder
+  partner: bynder
+  partner_name: Bynder
+  category: Multimedia
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/bynder/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Bynder
+    matched_domain: bynder.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Bynder
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q118287355 'Bynder' P856 https://www.bynder.com (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-clickup
+  label: ClickUp
+  partner: clickup
+  partner_name: ClickUp
+  category: Project management
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/clickup/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: ClickUp
+    matched_domain: clickup.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - ClickUp
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q123524232 'ClickUp' P856 https://clickup.com/ (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-cloudinary
+  label: Cloudinary
+  partner: cloudinary
+  partner_name: Cloudinary
+  category: Multimedia
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/cloudinary/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Cloudinary
+    matched_domain: cloudinary.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Cloudinary
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q27150151 'Cloudinary' P856 https://cloudinary.com/ (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-cohere
+  label: Cohere
+  partner: cohere
+  partner_name: Cohere
+  category: Developer tools
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/cohere/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Cohere
+    matched_domain: cohere.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Cohere
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q110363143 'Cohere' P856 https://cohere.com/ (wikidata P856, labelled provenance step;
+      Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-dropbox
+  label: Dropbox
+  partner: dropbox
+  partner_name: Dropbox
+  category: Storage
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/dropbox/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Dropbox
+    matched_domain: dropbox.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Dropbox
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q142539 'Dropbox' P856 https://www.dropbox.com (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-elevenlabs
+  label: ElevenLabs
+  partner: elevenlabs
+  partner_name: ElevenLabs
+  category: Developer tools
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/elevenlabs/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: ElevenLabs
+    matched_domain: elevenlabs.io
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - ElevenLabs
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q116798355 'ElevenLabs' P856 https://elevenlabs.io/ (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-highspot
+  label: Highspot
+  partner: highspot
+  partner_name: Highspot
+  category: Customer support
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/highspot/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Highspot
+    matched_domain: highspot.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Highspot
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q77230492 'Highspot' P856 https://www.highspot.com (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-hootsuite
+  label: Hootsuite
+  partner: hootsuite
+  partner_name: Hootsuite
+  category: Marketing automation
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/hootsuite/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Hootsuite
+    matched_domain: hootsuite.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Hootsuite
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q2749075 'Hootsuite' P856 http://hootsuite.com (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-kentico
+  label: Kentico
+  partner: kentico
+  partner_name: Kentico
+  category: Content management (CMS)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/kentico/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Kentico
+    matched_domain: kentico.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Kentico
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q1739065 'Kentico' P856 http://www.kentico.com/ (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-mailchimp
+  label: Mailchimp
+  partner: mailchimp
+  partner_name: Mailchimp
+  category: Marketing automation
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/mailchimp/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Mailchimp
+    matched_domain: mailchimp.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Mailchimp
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q6735673 'Mailchimp' P856 https://mailchimp.com/ (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-mistral-ai
+  label: Mistral AI
+  partner: mistral
+  partner_name: Mistral AI
+  category: Developer tools
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/mistral-ai/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Mistral AI
+    matched_domain: mistral.ai
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Mistral AI
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q119718658 'Mistral AI' P856 https://mistral.ai/ (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-notion
+  label: Notion
+  partner: notion
+  partner_name: Notion
+  category: Content management (CMS)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/notion/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Notion
+    matched_domain: notion.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Notion
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q60747998 'Notion' P856 https://www.notion.com (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-openai
+  label: OpenAI
+  partner: openai
+  partner_name: OpenAI
+  category: Developer tools
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/openai/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: OpenAI
+    matched_domain: openai.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - OpenAI
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q21708200 'OpenAI' P856 https://openai.com/ (wikidata P856, labelled provenance step;
+      Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-opentext
+  label: OpenText
+  partner: opentext-cybersecurity
+  partner_name: OpenText
+  category: Content management (CMS)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/opentext/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: OpenText
+    matched_domain: opentext.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - OpenText
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q2025791 'Open Text Corporation' P856 https://www.opentext.com/ (wikidata P856, labelled
+      provenance step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-pinecone
+  label: Pinecone
+  partner: pinecone
+  partner_name: Pinecone
+  category: Developer tools
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/pinecone/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Pinecone
+    matched_domain: pinecone.io
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Pinecone
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q136309791 'Pinecone' P856 https://www.pinecone.io/product/ (wikidata P856, labelled
+      provenance step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-pipedrive
+  label: Pipedrive
+  partner: pipedrive
+  partner_name: Pipedrive
+  category: Customer support
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/pipedrive/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Pipedrive
+    matched_domain: pipedrive.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Pipedrive
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q24054211 'Pipedrive' P856 https://www.pipedrive.com/ (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-reddit
+  label: Reddit
+  partner: reddit
+  partner_name: Reddit
+  category: Marketing automation
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/reddit/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Reddit
+    matched_domain: reddit.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Reddit
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q1136 'Reddit' P856 https://www.reddit.com/ (wikidata P856, labelled provenance step;
+      Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-servicenow
+  label: ServiceNow
+  partner: servicenow
+  partner_name: ServiceNow
+  category: Customer support
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/servicenow/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: ServiceNow
+    matched_domain: servicenow.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - ServiceNow
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q7455653 'ServiceNow' P856 https://www.servicenow.com (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-shopify
+  label: Shopify
+  partner: shopify
+  partner_name: Shopify
+  category: Content management (CMS)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/shopify/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Shopify
+    matched_domain: shopify.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Shopify
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q7501150 'Shopify' P856 https://www.shopify.com (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-smartsheet
+  label: Smartsheet
+  partner: smartsheet
+  partner_name: Smartsheet
+  category: Project management
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/smartsheet/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Smartsheet
+    matched_domain: smartsheet.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Smartsheet
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q7544153 'Smartsheet' P856 https://www.smartsheet.com (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-spotify
+  label: Spotify
+  partner: spotify
+  partner_name: Spotify
+  category: Multimedia
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/spotify/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Spotify
+    matched_domain: spotify.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Spotify
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q689141 'Spotify' P856 https://www.spotify.com (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-sprinklr
+  label: Sprinklr
+  partner: sprinklr
+  partner_name: Sprinklr
+  category: Marketing automation
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/sprinklr/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Sprinklr
+    matched_domain: sprinklr.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Sprinklr
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q18636409 'Sprinklr' P856 http://www.sprinklr.com (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-telegram
+  label: Telegram
+  partner: telegram
+  partner_name: Telegram
+  category: Notifications
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/telegram/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Telegram
+    matched_domain: telegram.org
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Telegram
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q15616276 'Telegram' P856 https://telegram.org (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-trello
+  label: Trello
+  partner: trello
+  partner_name: Trello
+  category: Project management
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/trello/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Trello
+    matched_domain: trello.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Trello
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q7838011 'Trello' P856 https://trello.com/ (wikidata P856, labelled provenance step;
+      Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-whatsapp
+  label: WhatsApp
+  partner: whatsapp
+  partner_name: WhatsApp
+  category: Notifications
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/whatsapp/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: WhatsApp
+    matched_domain: whatsapp.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - WhatsApp
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q1049511 'WhatsApp' P856 https://whatsapp.com (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-wise
+  label: Wise
+  partner: wise
+  partner_name: Wise
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/wise/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Wise
+    matched_domain: wise.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Wise
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q7833987 'Wise' P856 https://wise.com/ (wikidata P856, labelled provenance step; Kin
+      2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-wrike
+  label: Wrike
+  partner: wrike
+  partner_name: Wrike
+  category: Project management
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://phrase.com/blog/posts/integration/wrike/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-app
+    registered_name: Wrike
+    matched_domain: wrike.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Wrike
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q7337792 'Wrike Inc.' P856 http://www.wrike.com/ru (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-adobe-experience-manager-aem
+  label: Adobe Experience Manager (AEM)
+  partner: adobe-experience-manager
+  partner_name: Adobe Experience Manager (AEM)
+  category: Content management (CMS)
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  evidence: https://phrase.com/blog/posts/integration/adobe-experience-manager-aem/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-provider-built-app
+    registered_name: Phrase
+    matched_domain: adobe.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Adobe Experience Manager (AEM)
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q98841196 'Adobe Experience Manager' P856 https://www.adobe.com/marketing/experience-manager.html
+      (wikidata P856, labelled provenance step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-amazon-s3
+  label: Amazon S3
+  partner: amazon-s3
+  partner_name: Amazon S3
+  category: Storage
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  evidence: https://phrase.com/blog/posts/integration/amazon-s3/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-provider-built-app
+    registered_name: Phrase
+    matched_domain: amazon.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Amazon S3
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q2593067 'Amazon S3' P856 https://aws.amazon.com/s3/ (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-android-studio
+  label: Android Studio
+  partner: android
+  partner_name: Android Studio
+  category: Developer tools
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  evidence: https://phrase.com/blog/posts/integration/android-studio/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-provider-built-app
+    registered_name: Phrase
+    matched_domain: android.com
+    matched_by: domain
+    listings: 2
+    sample_apps:
+    - Android SDK
+    - Android Studio
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q13233410 'Android Studio' P856 https://developer.android.com/studio (wikidata P856,
+      labelled provenance step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-contentful
+  label: Contentful
+  partner: contentful
+  partner_name: Contentful
+  category: Content management (CMS)
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  evidence: https://phrase.com/blog/posts/integration/contentful/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-provider-built-app
+    registered_name: Phrase
+    matched_domain: contentful.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Contentful
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q18348837 'Contentful' P856 https://www.contentful.com (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-drupal
+  label: Drupal
+  partner: drupal
+  partner_name: Drupal
+  category: Content management (CMS)
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  evidence: https://phrase.com/blog/posts/integration/drupal/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-provider-built-app
+    registered_name: Phrase
+    matched_domain: drupal.org
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Drupal
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q170855 'Drupal' P856 https://www.drupal.org/ (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-figma
+  label: Figma
+  partner: figma
+  partner_name: Figma
+  category: Design tools
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  evidence: https://phrase.com/blog/posts/integration/figma/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-provider-built-app
+    registered_name: Phrase
+    matched_domain: figma.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Figma
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q96186334 'Figma' P856 https://www.figma.com (wikidata P856, labelled provenance step;
+      Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-joomla
+  label: Joomla!
+  partner: joomla
+  partner_name: Joomla!
+  category: Content management (CMS)
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  evidence: https://phrase.com/blog/posts/integration/joomla/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-provider-built-app
+    registered_name: Phrase
+    matched_domain: joomla.org
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Joomla!
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q13167 'Joomla' P856 https://www.joomla.org (wikidata P856, labelled provenance step;
+      Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-optimizely
+  label: Optimizely
+  partner: optimizely
+  partner_name: Optimizely
+  category: Content management (CMS)
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  evidence: https://phrase.com/blog/posts/integration/optimizely/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-provider-built-app
+    registered_name: Phrase
+    matched_domain: optimizely.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Optimizely
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q17073302 'Optimizely' P856 https://www.optimizely.com/ (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-storyblok
+  label: Storyblok
+  partner: storyblok
+  partner_name: Storyblok
+  category: Content management (CMS)
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  evidence: https://phrase.com/blog/posts/integration/storyblok/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-provider-built-app
+    registered_name: Phrase
+    matched_domain: storyblok.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Storyblok
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q132654610 'Storyblok' P856 https://www.storyblok.com/ (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-unity
+  label: Unity
+  partner: unity
+  partner_name: Unity
+  category: Game engine
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  evidence: https://phrase.com/blog/posts/integration/unity/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-provider-built-app
+    registered_name: Phrase
+    matched_domain: unity.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Unity
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q63966 'Unity' P856 https://unity.com (wikidata P856, labelled provenance step; Kin
+      2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-webflow
+  label: Webflow
+  partner: webflow
+  partner_name: Webflow
+  category: Content management (CMS)
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  evidence: https://phrase.com/blog/posts/integration/webflow/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-provider-built-app
+    registered_name: Phrase
+    matched_domain: webflow.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Webflow
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q20160951 'Webflow' P856 https://webflow.com (wikidata P856, labelled provenance step;
+      Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-wordpress
+  label: WordPress
+  partner: wordpress
+  partner_name: WordPress
+  category: Content management (CMS)
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  evidence: https://phrase.com/blog/posts/integration/wordpress/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Phrase integrations (phrase.com wp-json/wp/v2/integration + integration-tag / -badge taxonomies)
+    spec_file: null
+    role: phrase-provider-built-app
+    registered_name: Phrase
+    matched_domain: wordpress.org
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - WordPress
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q13166 'WordPress' P856 https://wordpress.org (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null

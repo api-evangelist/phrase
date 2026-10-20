@@ -2,13 +2,20 @@ generated: '2026-10-14'
 method: searched
 checked:
 - contentful/integrations/contentful-integration-edges.yml
+- https://cdn.winget.microsoft.com/cache
 - https://elia-association.org/membership/our-members/
+- https://formulae.brew.sh/api/cask.json
+- https://formulae.brew.sh/api/formula.json
 - https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/
 - https://github.com/PipedreamHQ/pipedream/tree/d5872355ef27b4efa769f05352f2820c299a456e/components/
+- https://github.com/ScoopInstaller/Extras
+- https://github.com/ScoopInstaller/Main
 - https://github.com/marketplace?type=actions
 - https://phrase.com/integrations/
 - https://phrase.com/wp-json/wp/v2/integration
+- https://pypi.org/pypi
 - https://registry.modelcontextprotocol.io/v0/servers
+- https://registry.npmjs.org
 - https://www.gala-global.org/sitemap.xml
 - https://zapier.com/api/v4/apps/
 - sanity/integrations/sanity-integration-edges.yml
@@ -1535,5 +1542,65 @@ edges:
       Kin 2026-10-15 decision 1)
   detected_by: sweep-localization.py
   detected: '2026-10-20'
+- partner_name: Homebrew
+  partner: homebrew
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official CLI (Homebrew)
+  evidence: https://formulae.brew.sh/formula/phrase-cli
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Homebrew (public package index)
+    spec_file: null
+    packages:
+    - name: phrase-cli
+      kind: formula
+      version: 2.69.1
+      released: null
+      lapsed: false
+      page: https://formulae.brew.sh/formula/phrase-cli
+      cli: 'formula desc: Tool to interact with the Phrase API'
+      repo_leg: domain:phrase.com
+      publisher_leg: artifact-github-org:phrase
+      matched_by: domain
+    current: true
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  detected_by: sweep-official-clis.py
+  first_seen: '2026-10-20'
+- partner_name: winget (Windows Package Manager)
+  partner: null
+  partner_match: null
+  type: register
+  direction: provider-built
+  category: official CLI (winget (Windows Package Manager))
+  evidence: https://github.com/microsoft/winget-pkgs/tree/master/manifests/p/Phrase/PhraseCLI
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: winget (Windows Package Manager) (public package index)
+    spec_file: null
+    packages:
+    - name: Phrase.PhraseCLI
+      kind: manifest
+      version: 2.69.1
+      released: '2026-09-23'
+      lapsed: false
+      page: https://github.com/microsoft/winget-pkgs/tree/master/manifests/p/Phrase/PhraseCLI
+      cli: 'winget: CLI for the Phrase API'
+      repo_leg: github-org:phrase
+      publisher_leg: artifact-github-org:phrase
+      matched_by: github-org
+    current: true
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  detected_by: sweep-official-clis.py
+  first_seen: '2026-10-20'
 source:
 - https://github.com/marketplace?type=actions

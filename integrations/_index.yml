@@ -31,20 +31,7 @@
     registered_name: io.github.phrase/mcp
     register_id: io.github.phrase/mcp
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-15'
-  status: not-a-workflow
-  arazzo: null
-- slug: phrase-unity-own
-  label: Unity (own)
-  partner: unity
-  partner_name: Unity (own)
-  category: Unity Verified Solutions
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://assetstore.unity.com/packages/tools/localization/phrase-a-better-way-to-localize-games-294442
-  source: edge
-  relationship: platform-app
+    detected: '2026-10-19'
   status: not-a-workflow
   arazzo: null
 - slug: phrase-zapier
@@ -79,7 +66,7 @@
   type: marketplace
   marketplace: pipedream-components
   channel: open-source-node
-  evidence: https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/phrase
+  evidence: https://github.com/PipedreamHQ/pipedream/tree/d5872355ef27b4efa769f05352f2820c299a456e/components/phrase
   source: edge
   relationship: ipaas-bridge
   contract_reference:
@@ -123,6 +110,32 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: phrase-slack-own
+  label: Slack (own)
+  partner: slack
+  partner_name: Slack (own)
+  category: Slack app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://slack.com/marketplace/A0160DVCWQL-phrase
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-unity-own
+  label: Unity (own)
+  partner: unity
+  partner_name: Unity (own)
+  category: Unity Verified Solutions
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://assetstore.unity.com/packages/tools/localization/phrase-a-better-way-to-localize-games-294442
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
 - slug: phrase-wordpress-own
   label: WordPress (own)
   partner: wordpress
@@ -136,15 +149,15 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
-- slug: phrase-slack-own
-  label: Slack (own)
-  partner: slack
-  partner_name: Slack (own)
-  category: Slack app
+- slug: phrase-zendesk-own
+  label: Zendesk (own)
+  partner: zendesk
+  partner_name: Zendesk (own)
+  category: Translations
   type: marketplace
   marketplace: own
   channel: partner-built
-  evidence: https://slack.com/marketplace/A0160DVCWQL-phrase
+  evidence: https://www.zendesk.com/marketplace/apps/support/156896/phrase-for-guide/
   source: edge
   relationship: platform-app
   status: not-a-workflow

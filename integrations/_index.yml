@@ -1418,3 +1418,64 @@
       step; Kin 2026-10-15 decision 1)
   status: not-a-workflow
   arazzo: null
+- slug: phrase-homebrew
+  label: Homebrew
+  partner: homebrew
+  partner_name: Homebrew
+  category: official CLI (Homebrew)
+  type: register
+  channel: package-registry
+  evidence: https://formulae.brew.sh/formula/phrase-cli
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Homebrew (public package index)
+    spec_file: null
+    packages:
+    - name: phrase-cli
+      kind: formula
+      version: 2.69.1
+      released: null
+      lapsed: false
+      page: https://formulae.brew.sh/formula/phrase-cli
+      cli: 'formula desc: Tool to interact with the Phrase API'
+      repo_leg: domain:phrase.com
+      publisher_leg: artifact-github-org:phrase
+      matched_by: domain
+    current: true
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: phrase-winget-windows-package-manager
+  label: winget (Windows Package Manager)
+  partner_name: winget (Windows Package Manager)
+  category: official CLI (winget (Windows Package Manager))
+  type: register
+  channel: package-registry
+  evidence: https://github.com/microsoft/winget-pkgs/tree/master/manifests/p/Phrase/PhraseCLI
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: winget (Windows Package Manager) (public package index)
+    spec_file: null
+    packages:
+    - name: Phrase.PhraseCLI
+      kind: manifest
+      version: 2.69.1
+      released: '2026-09-23'
+      lapsed: false
+      page: https://github.com/microsoft/winget-pkgs/tree/master/manifests/p/Phrase/PhraseCLI
+      cli: 'winget: CLI for the Phrase API'
+      repo_leg: github-org:phrase
+      publisher_leg: artifact-github-org:phrase
+      matched_by: github-org
+    current: true
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null

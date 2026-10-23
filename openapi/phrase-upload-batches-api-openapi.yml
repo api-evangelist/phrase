@@ -374,3 +374,9 @@ x-tagGroups:
   tags:
   - Figma attachments
   - Key's Figma attachments
+x-provenance:
+  method: harvested
+  publisher: Phrase
+  source: https://developers.phrase.com/openapi/phrase-strings.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
